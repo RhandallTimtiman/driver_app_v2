@@ -23,7 +23,9 @@ class _LoginScreenState extends State<LoginScreen>
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     );
+
     super.initState();
+
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     _controller.forward();
   }

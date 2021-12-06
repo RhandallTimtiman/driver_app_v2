@@ -19,7 +19,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      locale: const Locale('en', 'US'),
+      locale: Get.deviceLocale,
+      fallbackLocale: const Locale('en', 'US'),
       translations: Messages(),
       initialBinding: MainBinding(),
       initialRoute: "/login",
