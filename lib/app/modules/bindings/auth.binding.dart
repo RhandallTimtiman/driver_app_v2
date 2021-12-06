@@ -1,9 +1,9 @@
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:get/get.dart';
 
-class MainBinding extends Bindings {
+class AuthBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ThemeController());
+    Get.lazyPut(() => AuthController());
   }
 }

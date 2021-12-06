@@ -22,8 +22,9 @@ class _MyAppState extends State<MyApp> {
       locale: const Locale('en', 'US'),
       translations: Messages(),
       initialBinding: MainBinding(),
-      initialRoute: "/",
+      initialRoute: "/login",
       getPages: AppRoutes.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
