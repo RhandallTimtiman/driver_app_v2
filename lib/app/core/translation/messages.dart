@@ -10,7 +10,7 @@ class Messages extends Translations {
           'pin_label': 'Pin',
           'forgot_pin_label': 'Forgot Pin?',
           'name_label': 'Name',
-          'welcome_label': 'Your name is @name'
+          'welcome_label': 'Your name is @name',
         },
         'de_DE': {
           'hello': 'Hallo Welt',
