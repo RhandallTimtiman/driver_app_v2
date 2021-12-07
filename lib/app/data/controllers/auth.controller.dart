@@ -10,11 +10,12 @@ class AuthController extends GetxController {
   GlobalKey<FormState> authFormKey = GlobalKey<FormState>();
 
   /// Toggles Visibility Of Field
-  toggle() async {
-    obscureText.value = !obscureText.value;
+  void toggle() async {
+    obscureText.toggle();
   }
 
-  signIn() {
+  /// Sign In Functionality
+  void signIn() {
     if (authFormKey.currentState!.validate()) {
       debugPrint('Auth Action ===> Success!');
       Get.snackbar(
