@@ -7,7 +7,7 @@ class AuthController extends GetxController {
 
   TextEditingController userNameController = TextEditingController();
   TextEditingController pinController = TextEditingController();
-  final authFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> authFormKey = GlobalKey<FormState>();
 
   /// Toggles Visibility Of Field
   toggle() async {
@@ -22,9 +22,11 @@ class AuthController extends GetxController {
         'Login Successful!',
         colorText: Colors.white,
         backgroundColor: Colors.green[500],
+        duration: const Duration(
+          seconds: 1,
+        ),
       );
-      // Get.off(() => const HomeScreen());
-      Get.to(() => const HomeScreen());
+      Get.off(() => const HomeScreen());
     }
   }
 }

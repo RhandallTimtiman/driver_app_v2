@@ -1,4 +1,6 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/controllers/theme.controller.dart';
+import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,41 +12,70 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ThemeController themeController = Get.find();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Text('hello'.tr),
-          MaterialButton(
-            child: const Text('US'),
-            onPressed: () {
-              Get.updateLocale(
-                const Locale('us', 'US'),
-              );
-            },
+      key: _scaffoldKey,
+      appBar: MainAppBar(
+        title: const Text(
+          'Fleet Selection',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
           ),
-          MaterialButton(
-            child: const Text('DE'),
-            onPressed: () {
-              Get.updateLocale(
-                const Locale('de', 'DE'),
-              );
-            },
-          ),
-          MaterialButton(
-            child: Obx(
-              () => Text(
-                  themeController.isDarkMode.value ? 'Is Dark' : 'Is Light'),
+        ),
+        onMenuPress: () => openDrawer(),
+        showOnlineButton: true,
+      ),
+      drawer: const MainDrawer(),
+      body: Container(
+        height: size.height,
+        width: size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/white-map.png",
             ),
-            onPressed: () {
-              themeController.changeTheme();
-            },
-          )
-        ],
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(
+              20,
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: size.height - 180,
+              ),
+              child: Column(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 20.0,
+                    ),
+                    child: Text(
+                      'Welcome Rhandall',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
