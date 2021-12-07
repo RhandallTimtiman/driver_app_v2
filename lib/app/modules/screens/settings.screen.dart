@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/models/map_type.model.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -173,16 +174,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-}
-
-class MapType {
-  int id;
-  String mapName;
-  String imageAsset;
-
-  MapType({
-    this.id = 0,
-    this.mapName = '',
-    this.imageAsset = '',
-  });
 }
