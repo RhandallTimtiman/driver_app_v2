@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
+import 'package:driver_app/app/modules/screens/dashboard.screen.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:driver_app/app/modules/screens/settings.screen.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,10 @@ class AppRoutes {
       name: '/settings',
       page: () => SettingsScreen(),
     ),
+    GetPage(
+      name: '/dashboard',
+      page: () => DashboardScreen(),
+    ),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [
@@ -33,7 +38,7 @@ class AppRoutes {
       routeName: 'Dashboard',
       icon: 'assets/icons/dashboard.png',
       onTap: () {
-        Get.toNamed('/login');
+        Get.toNamed('/dashboard');
       },
       width: 23,
     ),
