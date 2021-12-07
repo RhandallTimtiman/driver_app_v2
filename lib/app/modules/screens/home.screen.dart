@@ -35,6 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
+          Text(
+            'welcome_label'.trParams({'name': 'Rhandall'}),
+          ),
           MaterialButton(
             child: Obx(
               () => Text(
