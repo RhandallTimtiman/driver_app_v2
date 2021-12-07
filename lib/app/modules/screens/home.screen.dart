@@ -1,5 +1,3 @@
-import 'package:driver_app/app/data/controllers/controllers.dart';
-import 'package:driver_app/app/data/controllers/theme.controller.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
@@ -25,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(
-        title: const Text(
-          'Fleet Selection',
-          style: TextStyle(
+        title: Text(
+          'home_label'.tr,
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
             color: Colors.black87,

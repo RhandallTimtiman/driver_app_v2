@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
@@ -22,7 +21,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 3,
-      backgroundColor: Color.fromRGBO(
+      backgroundColor: const Color.fromRGBO(
         247,
         247,
         250,

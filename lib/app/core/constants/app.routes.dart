@@ -36,6 +36,22 @@ class AppRoutes {
         Get.toNamed('/login');
       },
       width: 23,
-    )
+    ),
+    DrawerItemModel(
+      routeName: 'Settings',
+      icon: 'assets/icons/settings.png',
+      onTap: () {
+        Get.toNamed('/settings');
+      },
+      width: 23,
+    ),
+    DrawerItemModel(
+      routeName: 'About',
+      icon: 'assets/icons/about.png',
+      onTap: () {
+        Get.toNamed('/about');
+      },
+      width: 23,
+    ),
   ];
 }

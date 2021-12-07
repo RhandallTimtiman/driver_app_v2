@@ -20,6 +20,7 @@ class Messages extends Translations {
           'about_paragraph_3':
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
+          'home_label': "Fleet Selection",
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -38,6 +39,7 @@ class Messages extends Translations {
           'about_paragraph_3':
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
+          'home_label': "Fleet Selection",
         },
       };
 }

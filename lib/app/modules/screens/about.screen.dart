@@ -1,25 +1,38 @@
+import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      key: _scaffoldKey,
+      appBar: MainAppBar(
         title: Text(
           'about_label'.tr,
           style: const TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black87),
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
+          ),
         ),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.toNamed('/settings'),
-        ),
+        onMenuPress: () => openDrawer(),
+        showOnlineButton: true,
       ),
+      drawer: const MainDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 35.0),
