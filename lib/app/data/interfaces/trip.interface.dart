@@ -1,4 +1,4 @@
-abstract class ITripInterface {
+abstract class ITrip {
   Future<dynamic> getTrip();
   Future getGoogleMapTrip();
 }

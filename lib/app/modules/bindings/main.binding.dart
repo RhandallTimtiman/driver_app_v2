@@ -8,5 +8,15 @@ class MainBinding extends Bindings {
       ThemeController(),
       permanent: true,
     );
+    Get.put(
+      ConnectivityController(),
+      permanent: true,
+    );
+    Get.put(
+      AuthController(),
+    );
+    Get.put(
+      DriverController(),
+    );
   }
 }

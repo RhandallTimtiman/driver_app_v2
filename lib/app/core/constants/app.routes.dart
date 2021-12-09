@@ -16,7 +16,6 @@ class AppRoutes {
     GetPage(
       name: '/login',
       page: () => LoginScreen(),
-      binding: AuthBinding(),
     ),
     GetPage(
       name: '/about',
