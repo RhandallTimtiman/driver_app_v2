@@ -11,9 +11,21 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  openDrawer() {
+  double _width = 0.0;
+  void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  void _closeAnimatedCircle() {
+    setState(() {
+      _width = 10;
+    });
+  }
+
+  void _openAnimatedCircle() {
+    setState(() {
+      _width = 420.0;
+    });
   }
 
   @override
@@ -38,7 +50,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
         height: size.height,
         width: size.width,
         child: Stack(
-          children: const [],
+          children: [
+            const DashboardTripButton(),
+            Positioned(
+              right: 10,
+              bottom: 110,
+              child: RawMaterialButton(
+                onPressed: () => {},
+                elevation: 3,
+                fillColor: Colors.white,
+                shape: const CircleBorder(),
+                child: const Image(
+                  image: AssetImage('assets/icons/locator.png'),
+                  width: 22,
+                ),
+                padding: const EdgeInsets.all(
+                  20,
+                ),
+              ),
+            ),
+            Positioned(
+              right: -135,
+              bottom: -155,
+              child: AnimatedSize(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.ease,
+                child: Container(
+                  width: _width,
+                  height: _width,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromRGBO(
+                      0,
+                      129,
+                      174,
+                      1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            FancyButton(
+              openAnimatedCircle: _openAnimatedCircle,
+              closeAnimatedCircle: _closeAnimatedCircle,
+              bottom: 35.0,
+            ),
+          ],
         ),
       ),
     );
