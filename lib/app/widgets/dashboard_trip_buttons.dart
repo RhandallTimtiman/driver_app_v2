@@ -15,8 +15,8 @@ class DashboardTripButton extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Get.bottomSheet(
-                  const TripListModal(
-                    title: 'Trips to Accept',
+                  TripListModal(
+                    title: 'trip_to_accept_label'.tr,
                     showAcceptAll: true,
                   ),
                   isScrollControlled: true,
@@ -24,8 +24,8 @@ class DashboardTripButton extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                child: const Text(
-                  'Trips to Accept',
+                child: Text(
+                  'trip_to_accept_label'.tr,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -43,8 +43,8 @@ class DashboardTripButton extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Get.bottomSheet(
-                  const TripListModal(
-                    title: 'Pending Trips',
+                  TripListModal(
+                    title: 'pending_trips_label'.tr,
                     showAcceptAll: true,
                   ),
                   isScrollControlled: true,
@@ -52,8 +52,8 @@ class DashboardTripButton extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
-                child: const Text(
-                  'Pending Trips',
+                child: Text(
+                  'pending_trips_label'.tr,
                   textAlign: TextAlign.center,
                 ),
               ),

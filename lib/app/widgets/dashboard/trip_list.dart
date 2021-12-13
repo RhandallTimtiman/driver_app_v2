@@ -1,6 +1,7 @@
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TripList extends StatefulWidget {
   final String status;
@@ -30,7 +31,7 @@ class _TripListState extends State<TripList> {
         children: [
           SearchField(
             controller: TripController.to.searchController,
-            hint: 'Search Transactions',
+            hint: 'search_trip_input_label'.tr,
             clearEvent: () {
               TripController.to.searchController.text = '';
             },
