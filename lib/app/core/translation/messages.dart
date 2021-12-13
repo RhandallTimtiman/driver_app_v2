@@ -21,7 +21,15 @@ class Messages extends Translations {
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
           'home_label': "Fleet Selection",
-          'dashboard_label': 'Dashboard'
+          'dashboard_label': 'Dashboard',
+          'search_trip_input_label': 'Search Transaction',
+          'trip_to_accept_label': 'Trips to Accept',
+          'pending_trips_label': 'Pending Trips',
+          'emergency_label': 'Emergency',
+          'notification_label': 'Notifications',
+          'blackbox_messages_label': 'Blackbox Messages',
+          'trip_history_label': 'Trip History',
+          'accept_all_label': 'Accept All'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -41,7 +49,15 @@ class Messages extends Translations {
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
           'home_label': "Fleet Selection",
-          'dashboard_label': 'Dashboard'
+          'dashboard_label': 'Dashboard',
+          'search_trip_input_label': 'Search Transaction',
+          'trip_to_accept_label': 'Trips to Accept',
+          'pending_trips_label': 'Pending Trips',
+          'emergency_label': 'Emergency',
+          'notification_label': 'Notifications',
+          'blackbox_messages_label': 'Blackbox Messages',
+          'trip_history_label': 'Trip History',
+          'accept_all_label': 'Accept All'
         },
       };
 }

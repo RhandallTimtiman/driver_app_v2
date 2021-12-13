@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
+import 'package:get/get.dart';
 
 class TripListModal extends StatelessWidget {
   final String title;
@@ -75,8 +76,8 @@ class TripListModal extends StatelessWidget {
                                   vertical: 2,
                                   horizontal: 10,
                                 ),
-                                child: const Text(
-                                  'Accept All',
+                                child: Text(
+                                  'accept_all_label'.tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

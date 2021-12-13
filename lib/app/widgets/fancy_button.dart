@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'circular_button.dart';
 
 class FancyButton extends StatefulWidget {
@@ -137,7 +137,7 @@ class _FancyButtonState extends State<FancyButton>
                   width: 60,
                   height: 60,
                   image: 'assets/icons/sos.png',
-                  title: 'Emergency',
+                  title: 'emergency_label'.tr,
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
@@ -166,7 +166,7 @@ class _FancyButtonState extends State<FancyButton>
                   width: 60,
                   height: 60,
                   image: 'assets/icons/notification.png',
-                  title: 'Notifications',
+                  title: 'notification_label'.tr,
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
@@ -187,7 +187,7 @@ class _FancyButtonState extends State<FancyButton>
                   width: 60,
                   height: 60,
                   image: 'assets/icons/blackbox.png',
-                  title: 'Blackbox Messages',
+                  title: 'blackbox_messages_label'.tr,
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
@@ -215,7 +215,7 @@ class _FancyButtonState extends State<FancyButton>
                   height: 60,
                   image: 'assets/icons/trip-history.png',
                   // title: widget.trip != null ? 'Trip Summary' : 'Trip History',
-                  title: 'Trip History',
+                  title: 'trip_history_label'.tr,
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
