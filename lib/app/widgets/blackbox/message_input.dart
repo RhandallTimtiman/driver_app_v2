@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MessageInput extends StatelessWidget {
   const MessageInput({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class MessageInput extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
                 color: Colors.grey[400]),
-            hintText: 'Enter your message',
+            hintText: 'hint_enter_message'.tr,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
@@ -35,6 +36,7 @@ class MessageInput extends StatelessWidget {
               ),
             ),
             suffixIcon: IconButton(
+              // ignore: avoid_print
               onPressed: () => print('Sent'),
               icon: const Icon(
                 Icons.send,
