@@ -21,6 +21,18 @@ class Messages extends Translations {
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
           'home_label': "Fleet Selection",
+          'success_snackbar_title': 'Success!',
+          'error_snackbar_title': 'Error!',
+          'internet_connection_warning':
+              'Please check your internet connection!',
+          'login_success_title': 'Login Success!',
+          'profile_name_label': 'Name',
+          'profile_age_label': 'Age',
+          'profile_status_label': 'Status',
+          'profile_license_number_label': 'License Number',
+          'profile_license_type_label': 'License Type',
+          'profile_mobile_number_label': 'Mobile Number',
+          'profile_email_label': 'Email',
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -40,6 +52,18 @@ class Messages extends Translations {
               'XLOG is designed to make logistics simple and fast by connecting your business to the right service providers, tracking your business in real time, and managing all your bookings through one seemless and fully-integrated digital platform.\n',
           'settings_label': "Settings",
           'home_label': "Fleet Selection",
+          'success_snackbar_title': 'Success!',
+          'error_snackbar_title': 'Error!',
+          'internet_connection_warning':
+              'Please check your internet connection!',
+          'login_success_title': 'Login Success!',
+          'profile_name_label': 'Name',
+          'profile_age_label': 'Age',
+          'profile_status_label': 'Status',
+          'profile_license_number_label': 'License Number',
+          'profile_license_type_label': 'License Type',
+          'profile_mobile_number_label': 'Mobile Number',
+          'profile_email_label': 'Email',
         },
       };
 }

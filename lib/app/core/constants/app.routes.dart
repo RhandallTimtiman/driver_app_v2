@@ -16,6 +16,7 @@ class AppRoutes {
     GetPage(
       name: '/login',
       page: () => LoginScreen(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: '/about',
@@ -24,6 +25,10 @@ class AppRoutes {
     GetPage(
       name: '/settings',
       page: () => SettingsScreen(),
+    ),
+    GetPage(
+      name: '/profile',
+      page: () => ProfileScreen(),
     ),
   ];
 

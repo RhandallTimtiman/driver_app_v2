@@ -59,12 +59,11 @@ class AuthController extends GetxController {
       _authService
           .signIn(username: userNameController.text, pin: pinController.text)
           .then((result) {
-        inspect(result);
-        Get.find<DriverController>().setDriver();
+        Get.find<DriverController>().setDriver(result);
         Get.back();
         Get.snackbar(
-          'Success!',
-          'Login Successful!',
+          'success_snackbar_title'.tr,
+          'login_success_title'.tr,
           colorText: Colors.white,
           backgroundColor: Colors.green[500],
           duration: const Duration(
@@ -75,7 +74,7 @@ class AuthController extends GetxController {
       }).catchError((error) {
         Get.back();
         Get.snackbar(
-          "Error!",
+          'error_snackbar_title'.tr,
           error.message,
           backgroundColor: Colors.red[400],
           colorText: Colors.white,

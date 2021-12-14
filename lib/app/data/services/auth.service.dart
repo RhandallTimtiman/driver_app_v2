@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
@@ -35,10 +33,7 @@ class AuthService extends IAuth {
         );
 
         if (parsedResponse.data != null) {
-          // debugPrint('Error Here');
-
-          inspect(response);
-          return parsedResponse;
+          return Driver.fromJson(parsedResponse.data);
         } else {
           throw parsedResponse;
         }

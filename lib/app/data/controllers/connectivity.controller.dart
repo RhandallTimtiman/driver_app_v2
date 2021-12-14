@@ -28,17 +28,24 @@ class ConnectivityController extends GetxController {
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      CircularProgressIndicator(
+                    children: [
+                      const CircularProgressIndicator(
                         strokeWidth: 7.0,
-                        backgroundColor: Color.fromRGBO(244, 162, 64, 1),
+                        backgroundColor: Color.fromRGBO(
+                          244,
+                          162,
+                          64,
+                          1,
+                        ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "Please check your Internet Connection",
-                        style: TextStyle(color: Colors.white),
+                        "internet_connection_warning".tr,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),

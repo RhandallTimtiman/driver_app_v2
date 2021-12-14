@@ -13,9 +13,6 @@ class MainBinding extends Bindings {
       permanent: true,
     );
     Get.put(
-      AuthController(),
-    );
-    Get.put(
       DriverController(),
     );
   }

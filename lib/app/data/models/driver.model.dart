@@ -2,11 +2,11 @@ class Driver {
   final int? driverId;
   final String? driverGuid;
   final String? truckingCompanyId;
-  final String? driverImage;
+  late String driverImage;
   final String? userName;
   final String? firstName;
   final String? lastName;
-  final int? age;
+  final int age;
   final int? status;
   final String? licenseNumber;
   final String? licenseTypeId;
@@ -19,7 +19,7 @@ class Driver {
     this.driverId,
     this.driverGuid,
     this.truckingCompanyId,
-    this.driverImage,
+    this.driverImage = '',
     this.userName,
     this.firstName,
     this.lastName,
