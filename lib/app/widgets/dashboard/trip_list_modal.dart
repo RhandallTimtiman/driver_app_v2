@@ -78,7 +78,7 @@ class TripListModal extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'accept_all_label'.tr,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),

@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       fallbackLocale: const Locale('en', 'US'),
       translations: Messages(),
       initialBinding: MainBinding(),
-      initialRoute: "/login",
+      initialRoute: "/dashboard",
       getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

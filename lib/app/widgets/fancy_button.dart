@@ -191,6 +191,7 @@ class _FancyButtonState extends State<FancyButton>
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
+                    Get.toNamed('/blackbox');
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(

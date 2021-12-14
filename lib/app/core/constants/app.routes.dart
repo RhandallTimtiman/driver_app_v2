@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
-import 'package:driver_app/app/modules/screens/dashboard.screen.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
-import 'package:driver_app/app/modules/screens/settings.screen.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -31,6 +29,10 @@ class AppRoutes {
       name: '/dashboard',
       binding: TripBinding(),
       page: () => DashboardScreen(),
+    ),
+    GetPage(
+      name: '/blackbox',
+      page: () => BlackboxScreen(),
     ),
   ];
 
