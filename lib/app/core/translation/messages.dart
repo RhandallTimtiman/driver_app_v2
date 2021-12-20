@@ -31,7 +31,12 @@ class Messages extends Translations {
           'blackbox_messages_label': 'Blackbox Messages',
           'trip_history_label': 'Trip History',
           'accept_all_label': 'Accept All',
-          'hint_enter_message': 'Enter your message'
+          'hint_enter_message': 'Enter your message',
+          'all_trip': 'All Trips',
+          'new_trip': 'New Trips',
+          'pending_trip': 'Pending Trips',
+          'completed_trip': 'Completed Trips',
+          'today_trip': "Today's Trips"
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -61,7 +66,12 @@ class Messages extends Translations {
           'blackbox_messages_label': 'Blackbox Messages',
           'trip_history_label': 'Trip History',
           'accept_all_label': 'Accept All',
-          'hint_enter_message': 'Enter your message'
+          'hint_enter_message': 'Enter your message',
+          'all_trip': 'All Trips',
+          'new_trip': 'New Trips',
+          'pending_trip': 'Pending Trips',
+          'completed_trip': 'Completed Trips',
+          'today_trip': "Today's Trips"
         },
       };
 }
