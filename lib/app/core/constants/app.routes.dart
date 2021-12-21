@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
-import 'package:driver_app/app/modules/screens/all_trips.screen.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:get/get.dart';
 
