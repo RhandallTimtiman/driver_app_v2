@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 
-class AllTrips extends StatefulWidget {
+class AllTripsScreen extends StatefulWidget {
   final String type;
-  const AllTrips(this.type, {Key? key}) : super(key: key);
+  const AllTripsScreen(this.type, {Key? key}) : super(key: key);
 
   @override
-  _AllTripsState createState() => _AllTripsState();
+  _AllTripsScreenState createState() => _AllTripsScreenState();
 }
 
-class _AllTripsState extends State<AllTrips> {
+class _AllTripsScreenState extends State<AllTripsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   openDrawer() {

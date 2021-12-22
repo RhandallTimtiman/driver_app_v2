@@ -36,7 +36,8 @@ class Messages extends Translations {
           'new_trip': 'New Trips',
           'pending_trip': 'Pending Trips',
           'completed_trip': 'Completed Trips',
-          'today_trip': "Today's Trips"
+          'today_trip': "Today's Trips",
+          'fleet_selection_label': 'Fleet Selection'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -71,7 +72,8 @@ class Messages extends Translations {
           'new_trip': 'New Trips',
           'pending_trip': 'Pending Trips',
           'completed_trip': 'Completed Trips',
-          'today_trip': "Today's Trips"
+          'today_trip': "Today's Trips",
+          'fleet_selection_label': 'Fleet Selection'
         },
       };
 }
