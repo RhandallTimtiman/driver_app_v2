@@ -10,10 +10,12 @@ class MainBinding extends Bindings {
     );
     Get.put(
       ConnectivityController(),
-      permanent: true,
     );
     Get.put(
       DriverController(),
+    );
+    Get.put(
+      StatusController(),
     );
   }
 }

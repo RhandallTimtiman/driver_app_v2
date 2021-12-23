@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,6 +53,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Stack(
           children: [
             const DashboardTripButton(),
+            GetBuilder<StatusController>(
+              builder: (_) => Positioned(
+                top: 55,
+                left: 0,
+                child: AnimatedOpacity(
+                  opacity: _.onlineStatus.value.isDisplayed ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 200),
+                  child: Container(
+                    width: size.width,
+                    height: 45,
+                    color: _.onlineStatus.value.isOnline
+                        ? Colors.green[400]
+                        : Colors.red[400],
+                    child: _.onlineStatus.value.child,
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               right: 10,
               bottom: 110,
