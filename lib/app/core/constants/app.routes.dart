@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
+import 'package:driver_app/app/modules/screens/completed_trips.screen.dart';
+import 'package:driver_app/app/modules/screens/pending_trips.screen.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:get/get.dart';
 
@@ -35,28 +37,32 @@ class AppRoutes {
       page: () => BlackboxScreen(),
     ),
     GetPage(
-      name: '/alltrips',
-      page: () => AllTripsScreen('all_trip'),
+      name: '/all-trips',
+      page: () => AllTripsScreen(),
     ),
     GetPage(
-      name: '/todaystrips',
-      page: () => AllTripsScreen('today_trip'),
+      name: '/today-trips',
+      page: () => TodayTrips(),
     ),
     GetPage(
-      name: '/newtrips',
-      page: () => AllTripsScreen('new_trip'),
+      name: '/new-trips',
+      page: () => NewTrips(),
     ),
     GetPage(
-      name: '/pendingtrips',
-      page: () => AllTripsScreen('pending_trip'),
+      name: '/pending-trips',
+      page: () => PendingTrips(),
     ),
     GetPage(
-      name: '/completedtrips',
-      page: () => AllTripsScreen('completed_trip'),
+      name: '/completed-trips',
+      page: () => CompletedTrips(),
     ),
     GetPage(
       name: '/fleet-selection',
       page: () => FleetSelectionScreen(),
+    ),
+    GetPage(
+      name: '/profile',
+      page: () => ProfileScreen(),
     ),
   ];
 
@@ -97,7 +103,7 @@ class AppRoutes {
       routeName: "Today's Trips",
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.toNamed('/todaystrips');
+        Get.toNamed('/today-trips');
       },
       width: 23,
     ),
@@ -105,7 +111,7 @@ class AppRoutes {
       routeName: 'New Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.toNamed('/newtrips');
+        Get.toNamed('/new-trips');
       },
       width: 23,
     ),
@@ -113,7 +119,7 @@ class AppRoutes {
       routeName: 'Completed Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.toNamed('/completedtrips');
+        Get.toNamed('/completed-trips');
       },
       width: 23,
     ),
@@ -121,7 +127,7 @@ class AppRoutes {
       routeName: 'Pending Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.toNamed('/pendingtrips');
+        Get.toNamed('/pending-trips');
       },
       width: 23,
     ),
@@ -129,7 +135,7 @@ class AppRoutes {
       routeName: 'All Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.toNamed('/alltrips');
+        Get.toNamed('/all-trips');
       },
       width: 23,
     ),

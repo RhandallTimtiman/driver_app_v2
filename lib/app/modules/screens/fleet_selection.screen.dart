@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,13 +11,17 @@ class FleetSelectionScreen extends StatefulWidget {
 }
 
 class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  DriverController driverController = Get.find();
+
+  void openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     var size = MediaQuery.of(context).size;
-    openDrawer() {
-      _scaffoldKey.currentState?.openDrawer();
-    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -52,16 +57,14 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                 minHeight: size.height - 180,
               ),
               child: Column(
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 20.0,
                     ),
-                    child: Text(
-                      'Welcome Test',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
+                    child: Obx(
+                      () => Text(
+                        driverController.getFullName(),
                       ),
                     ),
                   )

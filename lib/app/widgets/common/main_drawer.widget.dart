@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:driver_app/app/core/constants/app.routes.dart';
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:get/get.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -55,7 +58,7 @@ class MainDrawer extends StatelessWidget {
                                       fit: BoxFit.contain,
                                     ),
                                     InkWell(
-                                      onTap: () => Navigator.pop(context),
+                                      onTap: () => Get.back(),
                                       child: const Image(
                                         image: AssetImage(
                                           'assets/icons/sidemenu.png',
@@ -105,43 +108,52 @@ class MainDrawer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 112,
-                      child: SizedBox(
-                        width: size.width / 2,
-                        child: Center(
-                          child: InkWell(
-                            onTap: () => {},
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Colors.black54,
-                                    spreadRadius: 1,
-                                    offset: Offset(0, 3),
-                                  )
-                                ],
-                              ),
-                              child: const CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 55,
-                                child: Hero(
-                                  tag: 'profile-driver-image',
+                    GetBuilder<DriverController>(
+                      init: DriverController(),
+                      builder: (controller) {
+                        return Positioned(
+                          top: 112,
+                          child: SizedBox(
+                            width: size.width / 2,
+                            child: Center(
+                              child: InkWell(
+                                onTap: () => {
+                                  Get.toNamed('/profile'),
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        color: Colors.black54,
+                                        spreadRadius: 1,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ],
+                                  ),
                                   child: CircleAvatar(
-                                    backgroundImage:
-                                        CachedNetworkImageProvider(''),
-                                    radius: 53,
+                                    backgroundColor: Colors.white,
+                                    radius: 55,
+                                    child: Hero(
+                                      tag: 'profile-driver-image',
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            CachedNetworkImageProvider(
+                                          controller.driver.value.driverImage,
+                                        ),
+                                        radius: 53,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

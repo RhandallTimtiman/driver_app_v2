@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:driver_app/app/data/controllers/controllers.dart';
+import 'package:driver_app/app/data/interfaces/interfaces.dart';
+import 'package:driver_app/app/data/services/services.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,25 +14,75 @@ class AuthController extends GetxController {
   TextEditingController pinController = TextEditingController();
   GlobalKey<FormState> authFormKey = GlobalKey<FormState>();
 
+  final IAuth _authService = AuthService();
+
   /// Toggles Visibility Of Field
   void toggle() async {
     obscureText.toggle();
   }
 
   /// Sign In Functionality
-  void signIn() {
+  Future<void> signIn() async {
     if (authFormKey.currentState!.validate()) {
-      debugPrint('Auth Action ===> Success!');
-      Get.snackbar(
-        'Success!',
-        'Login Successful!',
-        colorText: Colors.white,
-        backgroundColor: Colors.green[500],
-        duration: const Duration(
-          seconds: 1,
+      Get.dialog(
+        Dialog(
+          backgroundColor: Colors.white12,
+          child: SizedBox(
+            height: 100,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(
+                      strokeWidth: 7.0,
+                      backgroundColor: Color.fromRGBO(244, 162, 64, 1),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Please wait...",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
+        barrierDismissible: false,
       );
-      Get.off(() => const HomeScreen());
+
+      _authService
+          .signIn(username: userNameController.text, pin: pinController.text)
+          .then((result) {
+        Get.find<DriverController>().setDriver(result);
+        Get.back();
+        inspect(result);
+        Get.snackbar(
+          'success_snackbar_title'.tr,
+          'login_success_title'.tr,
+          colorText: Colors.white,
+          backgroundColor: Colors.green[500],
+          duration: const Duration(
+            seconds: 2,
+          ),
+        );
+        Get.off(() => const FleetSelectionScreen());
+      }).catchError((error) {
+        Get.back();
+        Get.snackbar(
+          'error_snackbar_title'.tr,
+          error.message,
+          backgroundColor: Colors.red[400],
+          colorText: Colors.white,
+          duration: const Duration(
+            seconds: 2,
+          ),
+        );
+      });
     }
   }
 }

@@ -2,14 +2,14 @@ import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AllTripsScreen extends StatefulWidget {
-  const AllTripsScreen({Key? key}) : super(key: key);
+class TodayTrips extends StatefulWidget {
+  const TodayTrips({Key? key}) : super(key: key);
 
   @override
-  _AllTripsScreenState createState() => _AllTripsScreenState();
+  _TodayTripsState createState() => _TodayTripsState();
 }
 
-class _AllTripsScreenState extends State<AllTripsScreen> {
+class _TodayTripsState extends State<TodayTrips> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   openDrawer() {
@@ -22,7 +22,7 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
       key: _scaffoldKey,
       appBar: MainAppBar(
         title: Text(
-          'all_trip_label'.tr,
+          'today_trip_label'.tr,
           style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
