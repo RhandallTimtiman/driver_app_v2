@@ -11,3 +11,5 @@ export 'dashboard_trip_buttons.dart';
 export 'dashboard/trip_list_modal.dart';
 export 'dashboard/trip_list.dart';
 export 'forms/search_field.dart';
+export 'profile_image.widget.dart';
+export 'field_label.widget.dart';
