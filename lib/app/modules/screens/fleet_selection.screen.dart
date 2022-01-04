@@ -30,18 +30,7 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
 
   @override
   initState() {
-    _initData();
     super.initState();
-  }
-
-  Future<void> _initData() async {
-    // Vehicle vehicle = await vehicleController
-    //     .getVehicleDetails(driverController.driver.value.driverId);
-    // inspect(vehicle);
-
-    // Vehicle chassis = await vehicleController
-    //     .getChassisDetails(driverController.driver.value.driverId);
-    // inspect(chassis);
   }
 
   @override
