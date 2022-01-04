@@ -15,8 +15,15 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
 
   DriverController driverController = Get.find();
 
+  VehicleController vehicleController = Get.find();
+
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  @override
+  initState() {
+    super.initState();
   }
 
   @override
@@ -64,10 +71,20 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                     ),
                     child: Obx(
                       () => Text(
-                        driverController.getFullName(),
+                        'Welcome ${driverController.getFullName()}!',
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
+                  ),
+                  DriverCard(driver: driverController.driver.value),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    'Vehicle Assignment',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
                 ],
               ),
             ),

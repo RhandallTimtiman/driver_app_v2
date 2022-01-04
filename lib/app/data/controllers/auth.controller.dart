@@ -60,7 +60,6 @@ class AuthController extends GetxController {
           .then((result) {
         Get.find<DriverController>().setDriver(result);
         Get.back();
-        inspect(result);
         Get.snackbar(
           'success_snackbar_title'.tr,
           'login_success_title'.tr,
