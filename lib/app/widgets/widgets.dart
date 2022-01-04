@@ -13,3 +13,4 @@ export 'dashboard/trip_list.dart';
 export 'forms/search_field.dart';
 export 'profile_image.widget.dart';
 export 'field_label.widget.dart';
+export 'driver_card.widget.dart';

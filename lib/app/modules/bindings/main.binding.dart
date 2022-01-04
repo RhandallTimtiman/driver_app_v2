@@ -15,5 +15,8 @@ class MainBinding extends Bindings {
     Get.put(
       DriverController(),
     );
+    Get.put(
+      VehicleController(),
+    );
   }
 }

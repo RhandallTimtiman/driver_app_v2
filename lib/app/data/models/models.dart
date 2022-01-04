@@ -5,3 +5,4 @@ export 'trip.model.dart';
 export 'container_list.model.dart';
 export 'api_response.model.dart';
 export 'driver.model.dart';
+export 'vehicle.model.dart';
