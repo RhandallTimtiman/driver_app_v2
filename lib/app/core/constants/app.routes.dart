@@ -74,22 +74,6 @@ class AppRoutes {
       width: 23,
     ),
     DrawerItemModel(
-      routeName: 'Settings',
-      icon: 'assets/icons/settings.png',
-      onTap: () {
-        Get.toNamed('/settings');
-      },
-      width: 23,
-    ),
-    DrawerItemModel(
-      routeName: 'About',
-      icon: 'assets/icons/about.png',
-      onTap: () {
-        Get.toNamed('/about');
-      },
-      width: 23,
-    ),
-    DrawerItemModel(
       routeName: 'Fleet Selection',
       icon: 'assets/icons/fleet.png',
       onTap: () {
@@ -114,14 +98,6 @@ class AppRoutes {
       width: 23,
     ),
     DrawerItemModel(
-      routeName: 'Completed Trips',
-      icon: 'assets/icons/alltrips.png',
-      onTap: () {
-        Get.toNamed('/completed-trips');
-      },
-      width: 23,
-    ),
-    DrawerItemModel(
       routeName: 'Pending Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
@@ -130,10 +106,42 @@ class AppRoutes {
       width: 23,
     ),
     DrawerItemModel(
+      routeName: 'Completed Trips',
+      icon: 'assets/icons/alltrips.png',
+      onTap: () {
+        Get.toNamed('/completed-trips');
+      },
+      width: 23,
+    ),
+    DrawerItemModel(
       routeName: 'All Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
         Get.toNamed('/all-trips');
+      },
+      width: 23,
+    ),
+    DrawerItemModel(
+      routeName: 'Settings',
+      icon: 'assets/icons/settings.png',
+      onTap: () {
+        Get.toNamed('/settings');
+      },
+      width: 23,
+    ),
+    DrawerItemModel(
+      routeName: 'About',
+      icon: 'assets/icons/about.png',
+      onTap: () {
+        Get.toNamed('/about');
+      },
+      width: 23,
+    ),
+    DrawerItemModel(
+      routeName: 'Logout',
+      icon: 'assets/icons/logout.png',
+      onTap: () {
+        Get.offAllNamed('/login');
       },
       width: 23,
     ),

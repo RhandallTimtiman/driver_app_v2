@@ -5,7 +5,7 @@ class DriverController extends GetxController {
   final driver = Driver().obs;
 
   /// Assign new value of Driver
-  setDriver(Driver value) {
+  void setDriver(Driver value) {
     driver.value = value;
     update();
   }

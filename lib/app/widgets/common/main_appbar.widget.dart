@@ -1,4 +1,6 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
@@ -46,61 +48,63 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
       ),
       actions: [
-        // showOnlineButton
-        //     ? Container(
-        //         padding: EdgeInsets.symmetric(
-        //           horizontal: 10,
-        //         ),
-        //         child: Obx(
-        //           () => Center(
-        //             child: GestureDetector(
-        //               onTap: () {
-        //                 appBarController.toggleOnlineStatus();
-        //               },
-        //               child: AnimatedContainer(
-        //                 duration: Duration(milliseconds: 1000),
-        //                 height: 25,
-        //                 width: 45,
-        //                 decoration: BoxDecoration(
-        //                   borderRadius: BorderRadius.circular(20.0),
-        //                   color: statusController.status.value
-        //                       ? Colors.grey[300]
-        //                       : Colors.grey[500],
-        //                 ),
-        //                 child: Stack(
-        //                   children: [
-        //                     AnimatedPositioned(
-        //                       child: statusController.status.value
-        //                           ? CircleAvatar(
-        //                               backgroundColor: Colors.green[600],
-        //                               radius: 13,
-        //                               child: CircleAvatar(
-        //                                 backgroundColor: Colors.green,
-        //                                 radius: 10,
-        //                               ),
-        //                             )
-        //                           : CircleAvatar(
-        //                               backgroundColor: Colors.grey[600],
-        //                               radius: 13,
-        //                               child: CircleAvatar(
-        //                                 backgroundColor: Colors.grey[700],
-        //                                 radius: 10,
-        //                               ),
-        //                             ),
-        //                       duration: Duration(milliseconds: 300),
-        //                       curve: Curves.easeIn,
-        //                       top: 0,
-        //                       left: statusController.status.value ? 20 : 0,
-        //                       right: statusController.status.value ? 0 : 20,
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       )
-        //     : SizedBox.shrink(),
+        showOnlineButton
+            ? Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: GetBuilder<StatusController>(
+                  builder: (_) {
+                    return Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          _.toggleCurrentStatus();
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 1000),
+                          height: 25,
+                          width: 45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: _.currentStatus.value
+                                ? Colors.grey[300]
+                                : Colors.grey[500],
+                          ),
+                          child: Stack(
+                            children: [
+                              AnimatedPositioned(
+                                child: _.currentStatus.value
+                                    ? CircleAvatar(
+                                        backgroundColor: Colors.green[600],
+                                        radius: 13,
+                                        child: const CircleAvatar(
+                                          backgroundColor: Colors.green,
+                                          radius: 10,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        backgroundColor: Colors.grey[600],
+                                        radius: 13,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.grey[700],
+                                          radius: 10,
+                                        ),
+                                      ),
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn,
+                                top: 0,
+                                left: _.currentStatus.value ? 20 : 0,
+                                right: _.currentStatus.value ? 0 : 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }

@@ -12,9 +12,12 @@ class ProfileScreen extends StatelessWidget {
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
-          child: ConstrainedBox(
+          child: Container(
             constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -35,9 +38,6 @@ class ProfileScreen extends StatelessWidget {
                             top: 30.0,
                             left: 40.0,
                             right: 40.0,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
                           ),
                           child: Column(
                             children: [

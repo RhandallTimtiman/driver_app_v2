@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
@@ -28,7 +26,7 @@ class VehicleService extends IVehicle {
           response.data,
         );
         if (parsedResponse.data != null) {
-          inspect(parsedResponse.data);
+          ///do something
         } else {
           throw parsedResponse;
         }
@@ -57,7 +55,7 @@ class VehicleService extends IVehicle {
           response.data,
         );
         if (parsedResponse.data != null) {
-          inspect(parsedResponse.data);
+          /// do  something
         } else {
           throw parsedResponse;
         }

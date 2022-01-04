@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
-import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,10 +19,6 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
 
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
-  }
-
-  void showDriver() {
-    inspect(driverController.driver.value);
   }
 
   @override
@@ -77,13 +70,10 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                       vertical: 20.0,
                     ),
                     child: Obx(
-                      () => GestureDetector(
-                        onTap: showDriver,
-                        child: Text(
-                          'Welcome ${driverController.getFullName()}!',
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
+                      () => Text(
+                        'Welcome ${driverController.getFullName()}!',
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
