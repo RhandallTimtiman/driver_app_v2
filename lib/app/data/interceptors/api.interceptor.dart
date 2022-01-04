@@ -1,10 +1,32 @@
 import 'package:dio/dio.dart';
+import 'package:driver_app/app/core/utils/database.helper.dart';
 import 'package:flutter/material.dart';
 
 class ApiInterceptor extends Interceptor {
+  final dbHelper = DatabaseHelper.instance;
+
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    debugPrint('REQUEST[${options.method}] => PATH: ${options.path}');
+  Future<void> onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    if (options.headers["requiresToken"] == false) {
+      debugPrint(
+        'REQUEST[${options.method}] => PATH: ${options.path} => Without Token',
+      );
+
+      options.headers.remove("requiresToken");
+      return handler.next(options);
+    }
+
+    final token = await dbHelper.queryTokenTable();
+
+    options.headers["Accept"] = "application/json";
+    options.headers["Content-Type"] = "application/json";
+    options.headers["Authorization"] = "Bearer ${token.first['accessToken']}";
+
+    debugPrint(
+      'REQUEST[${options.method}] => PATH: ${options.path} => With Token',
+    );
+
     return super.onRequest(
       options,
       handler,
