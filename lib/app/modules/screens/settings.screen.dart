@@ -29,6 +29,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  void _showChangePin(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        content: const ChangePinModal(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -77,7 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Account Settings',
+                  'accounts_settings_label'.tr,
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontSize: 15,
@@ -93,7 +106,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _showChangePin(context);
+                      },
                       child: Container(
                         height: 50,
                         padding: const EdgeInsets.symmetric(

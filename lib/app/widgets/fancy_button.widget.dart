@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'circular_button.dart';
+import 'circular_button.widget.dart';
 
 class FancyButton extends StatefulWidget {
   final double bottom;
@@ -141,6 +141,7 @@ class _FancyButtonState extends State<FancyButton>
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
+                    Get.toNamed('/emergency');
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(

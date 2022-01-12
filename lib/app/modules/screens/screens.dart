@@ -11,3 +11,4 @@ export 'today_trips.screen.dart';
 export 'new_trips.screen.dart';
 export 'completed_trips.screen.dart';
 export 'pending_trips.screen.dart';
+export 'emergency.screen.dart';

@@ -23,6 +23,7 @@ class AppRoutes {
     ),
     GetPage(
       name: '/settings',
+      binding: SettingsBinding(),
       page: () => SettingsScreen(),
     ),
     GetPage(
@@ -61,6 +62,10 @@ class AppRoutes {
     GetPage(
       name: '/profile',
       page: () => ProfileScreen(),
+    ),
+    GetPage(
+      name: '/emergency',
+      page: () => EmergencyScreen(),
     ),
   ];
 

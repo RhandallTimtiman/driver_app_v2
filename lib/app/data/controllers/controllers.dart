@@ -5,3 +5,4 @@ export 'connectivity.controller.dart';
 export 'driver.controller.dart';
 export 'vehicle.controller.dart';
 export 'status.controller.dart';
+export 'change_pin.controller.dart';

@@ -50,6 +50,13 @@ class Messages extends Translations {
           'profile_license_type_label': 'License Type',
           'profile_mobile_number_label': 'Mobile Number',
           'profile_email_label': 'Email',
+          'accounts_settings_label': 'Account Settings',
+          'change_pin_label': 'Change Pin',
+          'old_pin_label': 'Old Pin',
+          'new_pin_label': 'New Pin',
+          'confirm_pin_label': 'Confirm New Pin',
+          'submit_label': 'Submit',
+          'report_issue_label': 'Report Issue'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -98,6 +105,13 @@ class Messages extends Translations {
           'profile_license_type_label': 'License Type',
           'profile_mobile_number_label': 'Mobile Number',
           'profile_email_label': 'Email',
+          'accounts_settings_label': 'Account Settings',
+          'change_pin_label': 'Change Pin',
+          'old_pin_label': 'Old Pin',
+          'new_pin_label': 'New Pin',
+          'confirm_pin_label': 'Confirm New Pin',
+          'submit_label': 'Submit',
+          'report_issue_label': 'Report Issue'
         },
       };
 }
