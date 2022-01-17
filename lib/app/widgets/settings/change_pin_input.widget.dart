@@ -5,12 +5,18 @@ class ChangePinInput extends StatelessWidget {
   final TextEditingController controller;
   final bool obscure;
   final String hint;
+  final int maxLength;
+  final Function validator;
+  final String responseValidator;
 
   const ChangePinInput({
     Key? key,
     required this.controller,
     required this.obscure,
     required this.hint,
+    required this.maxLength,
+    required this.validator,
+    required this.responseValidator,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class ChangePinInput extends StatelessWidget {
       child: TextFormField(
         textInputAction: TextInputAction.next,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        maxLength: 15,
+        maxLength: maxLength,
         keyboardType: const TextInputType.numberWithOptions(
           signed: true,
           decimal: true,
@@ -57,6 +63,15 @@ class ChangePinInput extends StatelessWidget {
             ),
           ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '$hint is required.';
+          }
+          if (validator(value)) {
+            return responseValidator;
+          }
+          return null;
+        },
       ),
     );
   }

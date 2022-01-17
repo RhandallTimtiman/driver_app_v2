@@ -7,3 +7,4 @@ export 'api_response.model.dart';
 export 'driver.model.dart';
 export 'vehicle.model.dart';
 export 'status.model.dart';
+export 'report_issue.model.dart';

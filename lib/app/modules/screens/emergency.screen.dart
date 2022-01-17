@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
+
+  final ReasonController _reasonController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -59,34 +62,55 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                left: 10,
-                              ),
-                              child: Text(
-                                'Reason:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                ),
-                              ),
+                            GetX<ReasonController>(
+                              builder: (_) {
+                                if (_.reasonList.isEmpty) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                        ),
+                                        child: Text(
+                                          'reason_label'.tr + ':',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          color: Colors.white,
+                                          border:
+                                              Border.all(color: Colors.black26),
+                                        ),
+                                        padding: const EdgeInsets.all(4),
+                                        child: const Center(
+                                          child: CircularProgressIndicator(
+                                            value: null,
+                                            strokeWidth: 7.0,
+                                            backgroundColor:
+                                                Color.fromRGBO(4, 164, 223, 1),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  return ReasonWidget(
+                                    reasonList: _.reasonList,
+                                    reason: _reasonController.reason.value,
+                                    setReason: _reasonController.setReason,
+                                  );
+                                }
+                              },
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.black26),
-                              ),
-                              padding: const EdgeInsets.all(4),
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  value: null,
-                                  strokeWidth: 7.0,
-                                  backgroundColor:
-                                      Color.fromRGBO(4, 164, 223, 1),
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -104,10 +128,10 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                             child: MaterialButton(
                               minWidth: MediaQuery.of(context).size.width - 100,
                               onPressed: () {},
-                              child: const Text(
-                                'Report Issue',
+                              child: Text(
+                                'report_issue_label'.tr,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -161,17 +185,17 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
-                                  'Note: ',
-                                  style: TextStyle(
+                                  'note_label'.tr,
+                                  style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,
                                   ),
                                 ),
                                 Text(
-                                  'Click this in case of emergency',
-                                  style: TextStyle(
+                                  'click_this_emergency_label'.tr,
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),

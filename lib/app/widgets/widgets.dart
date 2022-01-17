@@ -17,3 +17,4 @@ export 'driver_card.widget.dart';
 export 'settings/change_pin_modal.widget.dart';
 export 'settings/change_pin_input.widget.dart';
 export 'emergency/remarks.widget.dart';
+export 'emergency/reason.widget.dart';

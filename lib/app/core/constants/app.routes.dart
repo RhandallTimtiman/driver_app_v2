@@ -64,9 +64,9 @@ class AppRoutes {
       page: () => ProfileScreen(),
     ),
     GetPage(
-      name: '/emergency',
-      page: () => EmergencyScreen(),
-    ),
+        name: '/emergency',
+        page: () => EmergencyScreen(),
+        binding: EmergencyBinding()),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [

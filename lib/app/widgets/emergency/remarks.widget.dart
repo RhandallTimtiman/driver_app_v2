@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RemarksWidget extends StatelessWidget {
   const RemarksWidget({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class RemarksWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Remarks'),
+          Text('remarks_label'.tr),
           const SizedBox(
             height: 5,
           ),
@@ -51,17 +52,17 @@ class RemarksWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
-                  'Note: ',
-                  style: TextStyle(
+                  'note_label'.tr,
+                  style: const TextStyle(
                     color: Colors.red,
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  'Your Admin will be alerted upon submission',
-                  style: TextStyle(
+                  'alert_admin_label'.tr,
+                  style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),

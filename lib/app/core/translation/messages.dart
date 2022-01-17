@@ -56,7 +56,16 @@ class Messages extends Translations {
           'new_pin_label': 'New Pin',
           'confirm_pin_label': 'Confirm New Pin',
           'submit_label': 'Submit',
-          'report_issue_label': 'Report Issue'
+          'report_issue_label': 'Report Issue',
+          'pin_change_success': 'Pin successfully changed',
+          'default_navigation_label': 'Default Navigation',
+          'reason_label': 'Reason',
+          'select_reason_label': 'Select Reason',
+          'cancel_label': 'Cancel',
+          'click_this_emergency_label': 'Click this in case of emergency',
+          'note_label': 'Note: ',
+          'remarks_label': 'Remarks',
+          'alert_admin_label': 'Your Admin will be alerted upon submission'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -111,7 +120,15 @@ class Messages extends Translations {
           'new_pin_label': 'New Pin',
           'confirm_pin_label': 'Confirm New Pin',
           'submit_label': 'Submit',
-          'report_issue_label': 'Report Issue'
+          'report_issue_label': 'Report Issue',
+          'pin_change_success': 'Pin successfully changed',
+          'default_navigation_label': 'Default Navigation',
+          'reason_label': 'Reason',
+          'select_reason_label': 'Select Reason',
+          'cancel_label': 'Cancel',
+          'click_this_emergency_label': 'Click this in case of emergency',
+          'remarks_label': 'Remarks',
+          'alert_admin_label': 'Your Admin will be alerted upon submission'
         },
       };
 }

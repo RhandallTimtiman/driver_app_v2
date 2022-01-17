@@ -6,3 +6,4 @@ export 'driver.controller.dart';
 export 'vehicle.controller.dart';
 export 'status.controller.dart';
 export 'change_pin.controller.dart';
+export 'reason.controller.dart';

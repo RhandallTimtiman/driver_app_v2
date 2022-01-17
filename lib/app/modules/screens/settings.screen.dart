@@ -119,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Change Pin',
+                              'change_pin_label'.tr,
                               style: TextStyle(
                                 color: Colors.grey[700],
                               ),
@@ -131,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 Text(
-                  'Default Navigation',
+                  'default_navigation_label'.tr,
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontSize: 15,

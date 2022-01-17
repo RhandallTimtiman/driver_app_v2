@@ -8,7 +8,11 @@ class SettingsService extends ISettings {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
 
   @override
-  Future changePin(int driverId, String oldPin, String newPin) async {
+  Future changePin({
+    int? driverId,
+    required String oldPin,
+    required String newPin,
+  }) async {
     _dio.options.headers = <String, dynamic>{
       "requiresToken": true,
     };
@@ -26,8 +30,8 @@ class SettingsService extends ISettings {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
-        if (parsedResponse.data != null) {
-          return parsedResponse.data;
+        if (parsedResponse.isSuccessful) {
+          return parsedResponse;
         } else {
           throw parsedResponse;
         }
