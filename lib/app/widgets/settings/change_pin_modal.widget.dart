@@ -1,3 +1,4 @@
+import 'package:driver_app/app/core/utils/validators.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -74,36 +75,47 @@ class _ChangePinModalState extends State<ChangePinModal> {
                         )
                       ],
                     ),
-                    ChangePinInput(
-                      controller: changePinController.oldPinController,
-                      obscure: changePinController.obscureText.value,
-                      hint: 'old_pin_label'.tr,
-                      maxLength: 6,
-                      validator: changePinController.pinLengthValidator,
-                      responseValidator: 'Please input 6 digit pin!',
+                    Obx(
+                      () => ChangePinInput(
+                        controller: changePinController.oldPinController,
+                        obscure: changePinController.obscureOldPin.value,
+                        hint: 'old_pin_label'.tr,
+                        maxLength: 6,
+                        validator: Validators.pinLengthValidator,
+                        responseValidator: 'Please input 6 digit pin!',
+                        toggle: changePinController.toggleOldPin,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    ChangePinInput(
-                      controller: changePinController.newPinController,
-                      obscure: changePinController.obscureText.value,
-                      hint: 'new_pin_label'.tr,
-                      maxLength: 6,
-                      validator: changePinController.pinLengthValidator,
-                      responseValidator: 'Please input 6 digit pin!',
+                    Obx(
+                      () => ChangePinInput(
+                        controller: changePinController.newPinController,
+                        obscure: changePinController.obsecureNewPin.value,
+                        hint: 'new_pin_label'.tr,
+                        maxLength: 6,
+                        validator: Validators.pinLengthValidator,
+                        responseValidator: 'Please input 6 digit pin!',
+                        toggle: changePinController.toggleNewPin,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ChangePinInput(
+                    Obx(
+                      () => ChangePinInput(
                         controller: changePinController.confirmPinController,
-                        obscure: changePinController.obscureText.value,
+                        obscure: changePinController.obsecureConfirmPin.value,
                         hint: 'confirm_pin_label'.tr,
                         maxLength: 6,
-                        validator: changePinController.newPinOldPinValidator,
+                        validator:
+                            changePinController.newPinConfirmPinValidator,
                         responseValidator:
-                            'New Pin and Confirm Pin does not match!'),
+                            'New Pin and Confirm Pin does not match!',
+                        toggle: changePinController.toggleConfirmPin,
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),

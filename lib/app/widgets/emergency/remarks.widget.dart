@@ -6,8 +6,9 @@ class RemarksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,
@@ -47,7 +48,7 @@ class RemarksWidget extends StatelessWidget {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: size.width,
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,

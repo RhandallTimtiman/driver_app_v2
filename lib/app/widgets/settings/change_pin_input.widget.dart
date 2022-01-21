@@ -5,6 +5,7 @@ class ChangePinInput extends StatelessWidget {
   final TextEditingController controller;
   final bool obscure;
   final String hint;
+  final VoidCallback toggle;
   final int maxLength;
   final Function validator;
   final String responseValidator;
@@ -17,6 +18,7 @@ class ChangePinInput extends StatelessWidget {
     required this.maxLength,
     required this.validator,
     required this.responseValidator,
+    required this.toggle,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,20 @@ class ChangePinInput extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               width: 3,
             ),
+          ),
+          suffixIcon: Padding(
+            child: IconTheme(
+              data: IconThemeData(color: Theme.of(context).primaryColor),
+              child: IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                  size: 24.0,
+                ),
+                onPressed: toggle,
+              ),
+            ),
+            padding: const EdgeInsets.only(left: 10, right: 10),
           ),
         ),
         validator: (value) {

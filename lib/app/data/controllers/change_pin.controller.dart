@@ -1,11 +1,15 @@
+import 'package:driver_app/app/core/utils/validators.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/services/services.dart';
+import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChangePinController extends GetxController {
-  RxBool obscureText = true.obs;
+  RxBool obscureOldPin = true.obs;
+  RxBool obsecureNewPin = true.obs;
+  RxBool obsecureConfirmPin = true.obs;
 
   TextEditingController oldPinController = TextEditingController();
   TextEditingController newPinController = TextEditingController();
@@ -15,12 +19,25 @@ class ChangePinController extends GetxController {
 
   final ISettings _settingsService = SettingsService();
 
-  void toggle() async {
-    obscureText.toggle();
+  /// Toggles Visibility Of Field
+  void toggleOldPin() async {
+    obscureOldPin.toggle();
+  }
+
+  void toggleNewPin() async {
+    obsecureNewPin.toggle();
+  }
+
+  void toggleConfirmPin() async {
+    obsecureConfirmPin.toggle();
   }
 
   void changeNewPin() {
     if (changePinFormKey.currentState!.validate()) {
+      Get.dialog(
+        const LoaderWidget(),
+        barrierDismissible: false,
+      );
       _settingsService
           .changePin(
         driverId: Get.find<DriverController>().driver.value.driverId,
@@ -30,6 +47,8 @@ class ChangePinController extends GetxController {
           .then(
         (result) {
           if (result.isSuccessful) {
+            Get.back();
+            closeChangePinModal();
             Get.snackbar(
               'success_snackbar_title'.tr,
               'pin_change_success'.tr,
@@ -40,16 +59,12 @@ class ChangePinController extends GetxController {
               ),
               margin: const EdgeInsets.all(15),
               snackPosition: SnackPosition.BOTTOM,
-              snackbarStatus: (status) {
-                if (status == SnackbarStatus.CLOSED) {
-                  closeChangePinModal();
-                }
-              },
             );
           }
         },
       ).catchError(
         (error) {
+          Get.back();
           Get.snackbar(
             'error_snackbar_title'.tr,
             error.message,
@@ -66,18 +81,14 @@ class ChangePinController extends GetxController {
     }
   }
 
-  bool pinLengthValidator(String pin) {
-    return (pin.length > 6 || pin.length < 6);
-  }
-
-  bool newPinOldPinValidator(String pin) {
-    return (newPinController.text != confirmPinController.text);
-  }
-
   void closeChangePinModal() {
     oldPinController.clear();
     newPinController.clear();
     confirmPinController.clear();
     Get.back();
+  }
+
+  bool newPinConfirmPinValidator(String pin) {
+    return Validators.newPinConfirmPinValidator(newPinController.text, pin);
   }
 }
