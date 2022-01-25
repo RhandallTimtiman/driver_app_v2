@@ -57,10 +57,15 @@ class AppRoutes {
     GetPage(
       name: '/fleet-selection',
       page: () => FleetSelectionScreen(),
+      binding: VehicleBinding(),
     ),
     GetPage(
       name: '/profile',
       page: () => ProfileScreen(),
+    ),
+    GetPage(
+      name: '/select-chassis',
+      page: () => ChassisSelectionScreen(),
     ),
   ];
 

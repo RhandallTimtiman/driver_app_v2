@@ -35,14 +35,14 @@ class AuthService extends IAuth {
           response.data,
         );
 
-        Map<String, dynamic> row = {
-          'accessToken': parsedResponse.accessToken,
-          'refreshToken': parsedResponse.refreshToken
-        };
-
-        await dbHelper.upsertToken(row);
-
         if (parsedResponse.data != null) {
+          Map<String, dynamic> row = {
+            'accessToken': parsedResponse.accessToken,
+            'refreshToken': parsedResponse.refreshToken
+          };
+
+          await dbHelper.upsertToken(row);
+
           return Driver.fromJson(parsedResponse.data);
         } else {
           throw parsedResponse;
