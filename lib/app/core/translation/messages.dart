@@ -10,7 +10,7 @@ class Messages extends Translations {
           'pin_label': 'Pin',
           'forgot_pin_label': 'Forgot Pin?',
           'name_label': 'Name',
-          'welcome_label': 'Your name is @name',
+          'welcome_label': 'Welcome @name!',
           'about_label': 'About',
           'about_mission_label': 'MISSION',
           'about_paragraph_1':
@@ -65,7 +65,18 @@ class Messages extends Translations {
           'click_this_emergency_label': 'Click this in case of emergency',
           'note_label': 'Note: ',
           'remarks_label': 'Remarks',
-          'alert_admin_label': 'Your Admin will be alerted upon submission'
+          'alert_admin_label': 'Your Admin will be alerted upon submission',
+          'driver_card_name': 'Name: ',
+          'driver_card_contact': 'Contact No. : ',
+          'vehicle_card_brand': 'Brand: ',
+          'vehicle_card_model': 'Model: ',
+          'vehicle_card_plate': 'Plate No.: ',
+          'no_vehicle_label': 'No Vehicle',
+          'contact_admin_label': 'Please contact your admin.',
+          'vehicle_assignment_label': 'Vehicle Assignment',
+          'chassis_assignment_label': 'Chassis Assignment',
+          'no_chassis_label': 'No Chassis',
+          'select_chassis_label': 'Select Chassis',
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -74,7 +85,7 @@ class Messages extends Translations {
           'pin_label': 'Pin',
           'forgot_pin_label': 'Forgeto Pino?',
           'name_label': 'Nameu',
-          'welcome_label': 'Your namelo is @name',
+          'welcome_label': 'Welcome @name!',
           'about_label': 'About',
           'about_mission_label': 'MISSION',
           'about_paragraph_1':
@@ -128,7 +139,18 @@ class Messages extends Translations {
           'cancel_label': 'Cancel',
           'click_this_emergency_label': 'Click this in case of emergency',
           'remarks_label': 'Remarks',
-          'alert_admin_label': 'Your Admin will be alerted upon submission'
+          'alert_admin_label': 'Your Admin will be alerted upon submission',
+          'driver_card_name': 'Name: ',
+          'driver_card_contact': 'Contact No. : ',
+          'vehicle_card_brand': 'Brand: ',
+          'vehicle_card_model': 'Model: ',
+          'vehicle_card_plate': 'Plate No. : ',
+          'no_vehicle_label': 'No Vehicle',
+          'contact_admin_label': 'Please contact your admin.',
+          'vehicle_assignment_label': 'Vehicle Assignment',
+          'chassis_assignment_label': 'Chassis Assignment',
+          'no_chassis_label': 'No Chassis',
+          'select_chassis_label': 'Select Chassis',
         },
       };
 }

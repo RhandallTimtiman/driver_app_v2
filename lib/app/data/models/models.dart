@@ -8,3 +8,4 @@ export 'driver.model.dart';
 export 'vehicle.model.dart';
 export 'status.model.dart';
 export 'report_issue.model.dart';
+export 'chassis.model.dart';

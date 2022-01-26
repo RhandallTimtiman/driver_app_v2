@@ -1,21 +1,23 @@
 class Vehicle {
-  String id;
-  int vehicleId;
-  String brand;
-  String model;
-  String plateNumber;
-  String imageUrl;
-  String type;
-  int year;
-  Vehicle(
-      {this.id = '',
-      this.vehicleId = 0,
-      this.brand = '',
-      this.model = '',
-      this.imageUrl = '',
-      this.plateNumber = '',
-      this.type = '',
-      this.year = 0});
+  final String? id;
+  final int? vehicleId;
+  final String brand;
+  final String model;
+  final String plateNumber;
+  final String imageUrl;
+  final String? type;
+  final int? year;
+
+  Vehicle({
+    this.id,
+    this.vehicleId,
+    this.brand = '',
+    this.model = '',
+    this.imageUrl = '',
+    this.plateNumber = '',
+    this.type = '',
+    this.year = 0,
+  });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) => Vehicle(
         id: json['id'],

@@ -8,27 +8,31 @@ class VehicleService extends IVehicle {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
 
   @override
-  Future getVehicleDetails({required int driverId}) async {
-    _dio.options.headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+  Future getVehicleDetails({required String driverId}) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
     };
 
     try {
       var queryParameters = {
-        'driverId': driverId.toString(),
+        'driverId': driverId,
       };
+
       String unencodedPath = '/oat/api/driver-app/VehicleInfo';
+
       var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
 
-      Response response = await _dio.postUri(uri);
+      Response response = await _dio.getUri(uri);
+
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
+
         if (parsedResponse.data != null) {
-          ///do something
+          return Vehicle.fromJson(parsedResponse.data);
         } else {
-          throw parsedResponse;
+          return Vehicle();
         }
       }
     } catch (e) {
@@ -37,25 +41,68 @@ class VehicleService extends IVehicle {
   }
 
   @override
-  Future getChassisDetails({required int driverId}) async {
-    _dio.options.headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+  Future getChassisDetails({required String driverId}) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
     };
 
     try {
       var queryParameters = {
-        'driverId': driverId.toString(),
+        'driverId': driverId,
       };
       String unencodedPath = '/oat/api/driver-app/ChassisInfo';
+
       var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
 
-      Response response = await _dio.postUri(uri);
+      Response response = await _dio.getUri(uri);
+
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
+
         if (parsedResponse.data != null) {
-          /// do  something
+          return Chassis.fromJson(parsedResponse.data);
+        } else {
+          return Chassis();
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future getChassisByCompany({
+    required String truckingCompanyId,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+
+    try {
+      var queryParameters = {
+        'truckingCompanyId': truckingCompanyId,
+      };
+
+      String unencodedPath = '/oat/api/driver-app/GetChassis';
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+
+      Response response = await _dio.getUri(uri);
+
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+
+        if (parsedResponse.data != null) {
+          List<Chassis> chassis = parsedResponse.data.map<Chassis>(
+            (dynamic item) {
+              return Chassis.fromJson(item);
+            },
+          ).toList();
+          return chassis;
         } else {
           throw parsedResponse;
         }

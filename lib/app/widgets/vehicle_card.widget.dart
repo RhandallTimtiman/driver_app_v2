@@ -4,23 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:shimmer/shimmer.dart';
 
-class DriverCard extends StatelessWidget {
-  final Driver driver;
+class VehicleCard extends StatelessWidget {
+  final Vehicle vehicle;
+  final bool isSelected;
 
-  const DriverCard({Key? key, required this.driver}) : super(key: key);
+  const VehicleCard({
+    Key? key,
+    required this.vehicle,
+    this.isSelected = false,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 500,
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 12),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
+        boxShadow: [
+          const BoxShadow(
             color: Colors.black26,
             spreadRadius: 1,
             blurRadius: 5,
@@ -30,7 +33,7 @@ class DriverCard extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -43,7 +46,7 @@ class DriverCard extends StatelessWidget {
                 height: 80,
                 width: 80,
                 child: CachedNetworkImage(
-                  imageUrl: driver.driverImage,
+                  imageUrl: vehicle.imageUrl,
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -65,45 +68,72 @@ class DriverCard extends StatelessWidget {
                     baseColor: Colors.grey.shade300,
                     enabled: true,
                     highlightColor: Colors.grey.shade100,
-                    period: const Duration(milliseconds: 1000),
+                    period: const Duration(
+                      milliseconds: 1000,
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                  ),
                 ),
               ),
             ),
           ),
           Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 16.0, left: 16.0, bottom: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Wrap(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'driver_card_name'.tr,
+                        'vehicle_card_brand'.tr,
                         style: const TextStyle(fontSize: 12),
                       ),
+                      Expanded(
+                        child: Text(
+                          vehicle.brand,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        '${driver.firstName} ${driver.lastName}',
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                        'vehicle_card_model'.tr,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      Expanded(
+                        child: Text(
+                          vehicle.model,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                          ),
+                          overflow: TextOverflow.clip,
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
                       Text(
-                        'driver_card_contact'.tr,
+                        'vehicle_card_plate'.tr,
                         style: const TextStyle(fontSize: 12),
                       ),
-                      Expanded(
-                        child: Text(
-                          '${driver.mobileNumberPrefix}${driver.mobileNumber}',
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        vehicle.plateNumber,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -111,7 +141,15 @@ class DriverCard extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          isSelected
+              ? const Image(
+                  image: AssetImage('assets/icons/check.png'),
+                  width: 25,
+                )
+              : const SizedBox(
+                  width: 25,
+                )
         ],
       ),
     );

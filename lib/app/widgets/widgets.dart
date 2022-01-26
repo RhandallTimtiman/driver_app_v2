@@ -19,3 +19,6 @@ export 'settings/change_pin_input.widget.dart';
 export 'emergency/remarks.widget.dart';
 export 'emergency/reason.widget.dart';
 export 'loader.widget.dart';
+export 'vehicle_card.widget.dart';
+export 'chassis_card.widget.dart';
+export 'raised_gradient_button.widget.dart';

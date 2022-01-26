@@ -1,4 +1,5 @@
 abstract class IVehicle {
-  Future getVehicleDetails({required int driverId});
-  Future getChassisDetails({required int driverId});
+  Future getVehicleDetails({required String driverId});
+  Future getChassisDetails({required String driverId});
+  Future getChassisByCompany({required String truckingCompanyId});
 }

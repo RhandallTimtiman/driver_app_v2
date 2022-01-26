@@ -58,15 +58,21 @@ class AppRoutes {
     GetPage(
       name: '/fleet-selection',
       page: () => FleetSelectionScreen(),
+      binding: VehicleBinding(),
     ),
     GetPage(
       name: '/profile',
       page: () => ProfileScreen(),
     ),
     GetPage(
-        name: '/emergency',
-        page: () => EmergencyScreen(),
-        binding: EmergencyBinding()),
+      name: '/emergency',
+      page: () => EmergencyScreen(),
+      binding: EmergencyBinding(),
+    ),
+    GetPage(
+      name: '/select-chassis',
+      page: () => ChassisSelectionScreen(),
+    ),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [

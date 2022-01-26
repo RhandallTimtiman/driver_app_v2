@@ -15,8 +15,6 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
 
   DriverController driverController = Get.find();
 
-  VehicleController vehicleController = Get.find();
-
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
@@ -71,20 +69,153 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                     ),
                     child: Obx(
                       () => Text(
-                        'Welcome ${driverController.getFullName()}!',
+                        'welcome_label'.trParams({
+                          'name': driverController.getFullName(),
+                        }),
                         style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   ),
-                  DriverCard(driver: driverController.driver.value),
+                  DriverCard(
+                    driver: driverController.driver.value,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'Vehicle Assignment',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                  Text(
+                    'vehicle_assignment_label'.tr,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
+                  GetBuilder<VehicleController>(
+                    init: VehicleController(),
+                    builder: (_) {
+                      if (_.vehicle.value.id != null) {
+                        return Hero(
+                          tag: 'vehicle-' + _.vehicle.value.id.toString(),
+                          child: Material(
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 500,
+                              ),
+                              child: VehicleCard(
+                                vehicle: _.vehicle.value,
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 500,
+                          ),
+                          margin: const EdgeInsets.only(top: 12, bottom: 24),
+                          child: Column(
+                            children: [
+                              Text(
+                                'no_vehicle_label'.tr,
+                                style: const TextStyle(
+                                  color: Colors.black38,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InkWell(
+                                child: Text(
+                                  'contact_admin_label'.tr,
+                                  style: const TextStyle(
+                                    color: Colors.black38,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'chassis_assignment_label'.tr,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  GetBuilder<VehicleController>(builder: (_) {
+                    if (_.chassis.value.id != null) {
+                      return GestureDetector(
+                        onTap: () {
+                          _.updateTemporaryChassis();
+                          Get.toNamed('/select-chassis');
+                        },
+                        child: Hero(
+                          tag: 'chassis-' + _.chassis.value.id.toString(),
+                          child: Material(
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 500,
+                              ),
+                              child: ChassisCard(
+                                chassis: _.chassis.value,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 12, bottom: 24),
+                        child: Column(
+                          children: [
+                            Text(
+                              'no_chassis_label'.tr,
+                              style: const TextStyle(
+                                color: Colors.black38,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 500,
+                              ),
+                              child: Hero(
+                                tag: 'select-chassis',
+                                child: RaisedGradientButton(
+                                  child: Text(
+                                    'select_chassis_label'.tr,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: <Color>[
+                                      Color.fromRGBO(0, 172, 235, 1),
+                                      Color.fromRGBO(0, 209, 255, 1),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Get.toNamed('/select-chassis');
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  })
                 ],
               ),
             ),
