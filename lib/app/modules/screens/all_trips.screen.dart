@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ class AllTripsScreen extends StatefulWidget {
 
 class _AllTripsScreenState extends State<AllTripsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final AllTripsController _allTripController = Get.find();
 
   openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
@@ -33,12 +36,28 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
         showOnlineButton: true,
       ),
       drawer: const MainDrawer(),
-      body: Container(
-        decoration: const BoxDecoration(color: Colors.white),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [],
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SearchField(
+                controller: _allTripController.allTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: () {
+                  _allTripController.allTripsSearchController.text = '';
+                },
+                onChangeEvent: (value) {},
+                searchValue: _allTripController.allTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

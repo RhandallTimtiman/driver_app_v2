@@ -7,3 +7,4 @@ export 'vehicle.controller.dart';
 export 'status.controller.dart';
 export 'change_pin.controller.dart';
 export 'reason.controller.dart';
+export 'all_trips.controller.dart';

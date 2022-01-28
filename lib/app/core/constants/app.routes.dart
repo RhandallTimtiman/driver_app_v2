@@ -38,6 +38,7 @@ class AppRoutes {
     GetPage(
       name: '/all-trips',
       page: () => AllTripsScreen(),
+      binding: AllTripBinding(),
     ),
     GetPage(
       name: '/today-trips',
