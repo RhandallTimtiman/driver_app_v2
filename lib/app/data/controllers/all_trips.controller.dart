@@ -21,9 +21,10 @@ class AllTripsController extends GetxController {
   void getTripList() {
     tripService
         .getTripByStatus(
-            driverId:
-                Get.find<DriverController>().driver.value.driverId.toString(),
-            status: 'All')
+          driverId:
+              Get.find<DriverController>().driver.value.driverId.toString(),
+          status: 'All',
+        )
         .then(
           (value) => setTripList(value),
         )

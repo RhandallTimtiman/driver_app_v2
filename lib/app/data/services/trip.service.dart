@@ -8,11 +8,6 @@ import 'package:driver_app/app/data/models/models.dart';
 
 class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
-  @override
-  Future getGoogleMapTrip() {
-    // TODO: implement getGoogleMapTrip
-    throw UnimplementedError();
-  }
 
   @override
   Future getTripByStatus(
@@ -36,10 +31,10 @@ class TripService extends ITrip {
         );
 
         if (parsedResponse.data != null) {
-          List<Trip> obj = parsedResponse.data
+          List<Trip> trips = parsedResponse.data
               .map<Trip>((item) => Trip.fromJson(item))
               .toList();
-          return obj;
+          return trips;
         } else {
           throw parsedResponse;
         }
