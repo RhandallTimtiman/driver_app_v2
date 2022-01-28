@@ -1,7 +1,7 @@
 class Company {
-  String id;
-  String name;
-  String address;
+  String? id;
+  String? name;
+  String? address;
   Company({
     this.id = '',
     this.name = '',
