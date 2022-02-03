@@ -22,3 +22,7 @@ export 'loader.widget.dart';
 export 'vehicle_card.widget.dart';
 export 'chassis_card.widget.dart';
 export 'raised_gradient_button.widget.dart';
+export 'trip_card.widget.dart';
+export 'row_divider.widget.dart';
+export 'dashlines.widget.dart';
+export 'origin_destination.widget.dart';

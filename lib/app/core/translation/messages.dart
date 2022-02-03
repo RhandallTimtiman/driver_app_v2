@@ -77,6 +77,9 @@ class Messages extends Translations {
           'chassis_assignment_label': 'Chassis Assignment',
           'no_chassis_label': 'No Chassis',
           'select_chassis_label': 'Select Chassis',
+          'shipper_label': 'Shipper',
+          'accept_label': 'Accept',
+          'delivery_date_label': 'Delivery Date'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -151,6 +154,7 @@ class Messages extends Translations {
           'chassis_assignment_label': 'Chassis Assignment',
           'no_chassis_label': 'No Chassis',
           'select_chassis_label': 'Select Chassis',
+          'shipper_label': 'Shipper'
         },
       };
 }

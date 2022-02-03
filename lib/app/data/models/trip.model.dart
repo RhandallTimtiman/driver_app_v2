@@ -76,7 +76,7 @@ class Trip {
       deliveryDate: DateTime.parse(json['scheduleStartDateTime']),
       origin: OriginDestination(
         address: json['originAddress'],
-        instruction: json['originRouteInstructions'],
+        instruction: json['originRouteInstructions'] ?? '',
         longitude: double.parse(json['originLng']),
         latitude: double.parse(json['originLat']),
       ),

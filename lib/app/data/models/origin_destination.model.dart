@@ -2,7 +2,7 @@ class OriginDestination {
   String address;
   double longitude;
   double latitude;
-  String instruction;
+  String? instruction;
   int status;
 
   OriginDestination({

@@ -47,6 +47,7 @@ class AppRoutes {
     GetPage(
       name: '/new-trips',
       page: () => NewTrips(),
+      binding: NewTripBinding(),
     ),
     GetPage(
       name: '/pending-trips',
