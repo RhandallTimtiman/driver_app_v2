@@ -21,6 +21,14 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  Future<void> pullRefresh() async {
+    debugPrint('Refreshed');
+    _allTripController.getTripList();
+    return Future.delayed(
+      const Duration(seconds: 2),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -58,33 +66,47 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
               ),
             ),
             Expanded(
-              child: GetX<AllTripsController>(
-                builder: (_) {
-                  if (_.tripList.isEmpty) {
-                    return const LoaderWidget();
-                  } else {
-                    return AnimatedList(
-                      key: _listKey,
-                      initialItemCount: _.tripList.length,
-                      itemBuilder: (context, index, animation) {
-                        Trip trip = _.tripList[index];
-                        return SlideTransition(
-                          position: CurvedAnimation(
-                                  curve: Curves.easeOut, parent: animation)
-                              .drive(
-                            Tween<Offset>(
-                              begin: const Offset(1, 0),
-                              end: const Offset(0, 0),
-                            ),
+              child: RefreshIndicator(
+                onRefresh: pullRefresh,
+                child: GetX<AllTripsController>(
+                  builder: (_) {
+                    if (_.loading.value) {
+                      return const LoaderWidget();
+                    } else {
+                      if (_.tripList.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'no_trips_label'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black26),
                           ),
-                          child: TripCard(trip: trip),
                         );
-                      },
-                    );
-                  }
-                },
+                      } else {
+                        return AnimatedList(
+                          key: _listKey,
+                          initialItemCount: _.tripList.length,
+                          itemBuilder: (context, index, animation) {
+                            Trip trip = _.tripList[index];
+                            return SlideTransition(
+                              position: CurvedAnimation(
+                                      curve: Curves.easeOut, parent: animation)
+                                  .drive(
+                                Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: const Offset(0, 0),
+                                ),
+                              ),
+                              child: TripCard(trip: trip),
+                            );
+                          },
+                        );
+                      }
+                    }
+                  },
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

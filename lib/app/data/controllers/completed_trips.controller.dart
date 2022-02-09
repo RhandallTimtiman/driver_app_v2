@@ -5,10 +5,11 @@ import 'package:driver_app/app/data/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AllTripsController extends GetxController {
-  TextEditingController allTripsSearchController = TextEditingController();
+class CompletedTripsController extends GetxController {
+  TextEditingController completedTripsSearchController =
+      TextEditingController();
 
-  final tripList = <Trip>[].obs;
+  final completedTripList = <Trip>[].obs;
 
   final ITrip tripService = TripService();
 
@@ -25,7 +26,7 @@ class AllTripsController extends GetxController {
         .getTripByStatus(
           driverId:
               Get.find<DriverController>().driver.value.driverId.toString(),
-          status: 'All',
+          status: 'COM',
         )
         .then(
           (value) => {
@@ -52,7 +53,7 @@ class AllTripsController extends GetxController {
   }
 
   void setTripList(List<Trip> value) {
-    tripList.value = value;
+    completedTripList.value = value;
     update();
   }
 

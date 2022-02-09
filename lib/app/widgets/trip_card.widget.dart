@@ -12,36 +12,28 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color statusColor;
-    String statusText;
 
     switch (trip.statusId) {
       case 'PEN':
         statusColor = Colors.black;
-        statusText = 'Pending';
         break;
       case 'ONG':
         statusColor = const Color.fromRGBO(169, 125, 0, 1);
-        statusText = 'On Going';
         break;
       case 'COM':
         statusColor = Colors.green;
-        statusText = 'Completed';
         break;
       case 'MIS':
         statusColor = Colors.red;
-        statusText = 'Missed trip';
         break;
       case 'REJ':
         statusColor = Colors.red;
-        statusText = 'Rejected';
         break;
       case 'REP':
         statusColor = Colors.red;
-        statusText = 'Reported';
         break;
       default:
         statusColor = Colors.black;
-        statusText = 'New';
     }
     return Card(
       shape: RoundedRectangleBorder(

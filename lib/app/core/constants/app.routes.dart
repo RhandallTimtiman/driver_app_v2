@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
+import 'package:driver_app/app/modules/bindings/today_trips.binding.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:get/get.dart';
 
@@ -43,6 +44,7 @@ class AppRoutes {
     GetPage(
       name: '/today-trips',
       page: () => TodayTrips(),
+      binding: TodayTripsBinding(),
     ),
     GetPage(
       name: '/new-trips',
@@ -52,10 +54,12 @@ class AppRoutes {
     GetPage(
       name: '/pending-trips',
       page: () => PendingTrips(),
+      binding: PendingTripsBinding(),
     ),
     GetPage(
       name: '/completed-trips',
       page: () => CompletedTrips(),
+      binding: CompletedTripsBinding(),
     ),
     GetPage(
       name: '/fleet-selection',

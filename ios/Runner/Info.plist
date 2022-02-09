@@ -22,6 +22,32 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Application does not need to access your apple music but an underlying api, just ignore if ask</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Application does not need to access your calendar but an underlying api, just ignore if ask</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Application needs to access your camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Application does not need to access your contacts but an underlying api, just ignore if ask</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Application needs to access your current location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Application needs to access your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Application needs to access your current location</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Application does not need to access your motion usage but an underlying api, just ignore if ask</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Application needs to access your photo library</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Application does not need to access your speech recogniation but an underlying api, just ignore if ask</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

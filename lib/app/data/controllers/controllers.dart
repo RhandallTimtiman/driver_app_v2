@@ -9,3 +9,7 @@ export 'change_pin.controller.dart';
 export 'reason.controller.dart';
 export 'all_trips.controller.dart';
 export 'new_trips.controller.dart';
+export 'location.controller.dart';
+export 'pending_trips.controller.dart';
+export 'completed_trips.controller.dart';
+export 'today_trips.controller.dart';

@@ -29,17 +29,19 @@ class TripService extends ITrip {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
-
+        inspect(parsedResponse);
         if (parsedResponse.data != null) {
           List<Trip> trips = parsedResponse.data
               .map<Trip>((item) => Trip.fromJson(item))
               .toList();
+          inspect(trips);
           return trips;
         } else {
           throw parsedResponse;
         }
       }
     } catch (e) {
+      inspect(e);
       rethrow;
     }
   }

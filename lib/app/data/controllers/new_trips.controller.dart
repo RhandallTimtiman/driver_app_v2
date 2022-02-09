@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NewTripsController extends GetxController {
-  final tripList = <Trip>[].obs;
+  final newTripList = <Trip>[].obs;
   TextEditingController newTripsSearchController = TextEditingController();
-
+  RxBool loading = false.obs;
   final ITrip tripService = TripService();
 
   @override
@@ -18,17 +18,17 @@ class NewTripsController extends GetxController {
   }
 
   void getTripList() {
+    setLoading();
     tripService
         .getTripByStatus(
           driverId:
               Get.find<DriverController>().driver.value.driverId.toString(),
           status: 'NEW',
         )
-        .then(
-          (value) => setTripList(value),
-        )
+        .then((value) => {setTripList(value), setLoading()})
         .catchError(
       (error) {
+        setLoading();
         Get.snackbar(
           'error_snackbar_title'.tr,
           error.toString(),
@@ -45,7 +45,11 @@ class NewTripsController extends GetxController {
   }
 
   void setTripList(List<Trip> value) {
-    tripList.value = value;
+    newTripList.value = value;
     update();
+  }
+
+  void setLoading() {
+    loading.toggle();
   }
 }

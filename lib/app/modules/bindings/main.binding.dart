@@ -17,5 +17,9 @@ class MainBinding extends Bindings {
     Get.put(
       StatusController(),
     );
+    Get.put(
+      LocationController(),
+      permanent: true,
+    );
   }
 }
