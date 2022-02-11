@@ -30,6 +30,14 @@ class _NewTripsState extends State<NewTrips> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _newTripController.getTripList();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -58,7 +66,7 @@ class _NewTripsState extends State<NewTrips> {
               clearEvent: () {
                 _newTripController.newTripsSearchController.text = '';
               },
-              onChangeEvent: (value) {},
+              onChangeEvent: _newTripController.searchTrips,
               searchValue: _newTripController.newTripsSearchController.text,
               prefixIcon: const Icon(
                 Icons.search,
@@ -84,22 +92,11 @@ class _NewTripsState extends State<NewTrips> {
                           ),
                         );
                       } else {
-                        return AnimatedList(
-                          key: _listKey,
-                          initialItemCount: _.newTripList.length,
-                          itemBuilder: (context, index, animation) {
+                        return ListView.builder(
+                          itemCount: _newTripController.newTripList.length,
+                          itemBuilder: (context, index) {
                             Trip trip = _.newTripList[index];
-                            return SlideTransition(
-                              position: CurvedAnimation(
-                                      curve: Curves.easeOut, parent: animation)
-                                  .drive(
-                                Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0, 0),
-                                ),
-                              ),
-                              child: TripCard(trip: trip),
-                            );
+                            return TripCard(trip: trip);
                           },
                         );
                       }

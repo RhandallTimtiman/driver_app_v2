@@ -22,11 +22,18 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
   }
 
   Future<void> pullRefresh() async {
-    debugPrint('Refreshed');
-    _allTripController.getTripList();
+    _allTripController.getTripList(isPulled: true);
     return Future.delayed(
       const Duration(seconds: 2),
     );
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _allTripController.getTripList();
+    });
+    super.initState();
   }
 
   @override
@@ -58,7 +65,7 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
               clearEvent: () {
                 _allTripController.allTripsSearchController.text = '';
               },
-              onChangeEvent: (value) {},
+              onChangeEvent: _allTripController.searchTrips,
               searchValue: _allTripController.allTripsSearchController.text,
               prefixIcon: const Icon(
                 Icons.search,
@@ -70,7 +77,7 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
                 onRefresh: pullRefresh,
                 child: GetX<AllTripsController>(
                   builder: (_) {
-                    if (_.loading.value) {
+                    if (_.isLoaded.value) {
                       return const LoaderWidget();
                     } else {
                       if (_.tripList.isEmpty) {
@@ -83,22 +90,11 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
                           ),
                         );
                       } else {
-                        return AnimatedList(
-                          key: _listKey,
-                          initialItemCount: _.tripList.length,
-                          itemBuilder: (context, index, animation) {
+                        return ListView.builder(
+                          itemCount: _allTripController.tripList.length,
+                          itemBuilder: (context, index) {
                             Trip trip = _.tripList[index];
-                            return SlideTransition(
-                              position: CurvedAnimation(
-                                      curve: Curves.easeOut, parent: animation)
-                                  .drive(
-                                Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0, 0),
-                                ),
-                              ),
-                              child: TripCard(trip: trip),
-                            );
+                            return TripCard(trip: trip);
                           },
                         );
                       }

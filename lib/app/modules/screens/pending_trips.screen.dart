@@ -29,6 +29,14 @@ class _PendingTripsState extends State<PendingTrips> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _pendingTripController.getTripList();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -83,22 +91,12 @@ class _PendingTripsState extends State<PendingTrips> {
                           ),
                         );
                       } else {
-                        return AnimatedList(
-                          key: _listKey,
-                          initialItemCount: _.pendingTripList.length,
-                          itemBuilder: (context, index, animation) {
+                        return ListView.builder(
+                          itemCount:
+                              _pendingTripController.pendingTripList.length,
+                          itemBuilder: (context, index) {
                             Trip trip = _.pendingTripList[index];
-                            return SlideTransition(
-                              position: CurvedAnimation(
-                                      curve: Curves.easeOut, parent: animation)
-                                  .drive(
-                                Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0, 0),
-                                ),
-                              ),
-                              child: TripCard(trip: trip),
-                            );
+                            return TripCard(trip: trip);
                           },
                         );
                       }

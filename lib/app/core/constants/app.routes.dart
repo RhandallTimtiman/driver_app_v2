@@ -86,6 +86,7 @@ class AppRoutes {
       routeName: 'Dashboard',
       icon: 'assets/icons/dashboard.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/dashboard');
       },
       width: 23,
@@ -94,6 +95,7 @@ class AppRoutes {
       routeName: 'Fleet Selection',
       icon: 'assets/icons/fleet.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/fleet-selection');
       },
       width: 23,
@@ -102,6 +104,7 @@ class AppRoutes {
       routeName: "Today's Trips",
       icon: 'assets/icons/alltrips.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/today-trips');
       },
       width: 23,
@@ -110,6 +113,7 @@ class AppRoutes {
       routeName: 'New Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/new-trips');
       },
       width: 23,
@@ -118,6 +122,7 @@ class AppRoutes {
       routeName: 'Pending Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/pending-trips');
       },
       width: 23,
@@ -126,6 +131,7 @@ class AppRoutes {
       routeName: 'Completed Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/completed-trips');
       },
       width: 23,
@@ -134,6 +140,7 @@ class AppRoutes {
       routeName: 'All Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/all-trips');
       },
       width: 23,
@@ -142,6 +149,7 @@ class AppRoutes {
       routeName: 'Settings',
       icon: 'assets/icons/settings.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/settings');
       },
       width: 23,
@@ -150,6 +158,7 @@ class AppRoutes {
       routeName: 'About',
       icon: 'assets/icons/about.png',
       onTap: () {
+        Get.back();
         Get.toNamed('/about');
       },
       width: 23,

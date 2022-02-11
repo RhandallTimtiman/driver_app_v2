@@ -7,28 +7,38 @@ import 'package:get/get.dart';
 
 class NewTripsController extends GetxController {
   final newTripList = <Trip>[].obs;
+
   TextEditingController newTripsSearchController = TextEditingController();
+
   RxBool loading = false.obs;
+
   final ITrip tripService = TripService();
+
+  RxList<Trip> tempTripList = <Trip>[].obs;
 
   @override
   void onInit() {
-    getTripList();
+    setLoading(true);
     super.onInit();
   }
 
-  void getTripList() {
-    setLoading();
+  void getTripList({isPulled = false}) {
+    setLoading(!isPulled);
     tripService
         .getTripByStatus(
           driverId:
               Get.find<DriverController>().driver.value.driverId.toString(),
           status: 'NEW',
         )
-        .then((value) => {setTripList(value), setLoading()})
+        .then(
+          (value) => {
+            setTripList(value),
+            setLoading(false),
+          },
+        )
         .catchError(
       (error) {
-        setLoading();
+        setLoading(false);
         Get.snackbar(
           'error_snackbar_title'.tr,
           error.toString(),
@@ -49,7 +59,34 @@ class NewTripsController extends GetxController {
     update();
   }
 
-  void setLoading() {
-    loading.toggle();
+  void setTempTripList(List<Trip> value) {
+    tempTripList.value = value;
+    update();
+  }
+
+  void setLoading(value) {
+    loading.value = value;
+    update();
+  }
+
+  void searchTrips(String value) {
+    debugPrint(newTripsSearchController.text);
+    if (value.isEmpty) {
+      // ignore: invalid_use_of_protected_member
+      newTripList.value = tempTripList.value;
+      update();
+    } else {
+      newTripList.value = tempTripList
+          .where((element) =>
+              element.tripId
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()) ||
+              element.jobOrderNo
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()))
+          .toList();
+
+      update();
+    }
   }
 }

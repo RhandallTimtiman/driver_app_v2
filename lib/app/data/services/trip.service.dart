@@ -5,6 +5,7 @@ import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
+import 'package:flutter/material.dart';
 
 class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
@@ -41,6 +42,7 @@ class TripService extends ITrip {
         }
       }
     } catch (e) {
+      debugPrint("Error Here! ===>");
       inspect(e);
       rethrow;
     }

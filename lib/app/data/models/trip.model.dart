@@ -73,18 +73,26 @@ class Trip {
         address: json['company'],
         name: json['shipperName'],
       ),
-      deliveryDate: DateTime.parse(json['scheduleStartDateTime']),
+      deliveryDate: DateTime.parse(json['scheduleStartDateTime'] + 'Z'),
       origin: OriginDestination(
         address: json['originAddress'],
         instruction: json['originRouteInstructions'] ?? '',
-        longitude: double.parse(json['originLng']),
-        latitude: double.parse(json['originLat']),
+        longitude: json['originLng'].toString().isEmpty
+            ? 0.0
+            : double.parse(json['originLng']),
+        latitude: json['originLat'].toString().isEmpty
+            ? 0.0
+            : double.parse(json['originLat']),
       ),
       destination: OriginDestination(
         address: json['destinationAddress'],
         instruction: json['destinationRouteInstructions'],
-        longitude: double.parse(json['destinationLng']),
-        latitude: double.parse(json['destinationLat']),
+        longitude: json['destinationLng'].toString().isEmpty
+            ? 0.0
+            : double.parse(json['destinationLng']),
+        latitude: json['destinationLat'].toString().isEmpty
+            ? 0.0
+            : double.parse(json['destinationLat']),
       ),
       statusId: json['tripStatusId'],
       statusDescription: json['tripStatusDesc'],

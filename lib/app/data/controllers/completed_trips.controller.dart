@@ -14,14 +14,17 @@ class CompletedTripsController extends GetxController {
   final ITrip tripService = TripService();
 
   RxBool loading = false.obs;
+
+  RxList<Trip> tempTripList = <Trip>[].obs;
+
   @override
   void onInit() {
-    getTripList();
+    setLoading(true);
     super.onInit();
   }
 
-  void getTripList() {
-    setLoading();
+  void getTripList({isPulled = false}) {
+    setLoading(!isPulled);
     tripService
         .getTripByStatus(
           driverId:
@@ -31,12 +34,12 @@ class CompletedTripsController extends GetxController {
         .then(
           (value) => {
             setTripList(value),
-            setLoading(),
+            setLoading(false),
           },
         )
         .catchError(
       (error) {
-        setLoading();
+        setLoading(false);
         Get.snackbar(
           'error_snackbar_title'.tr,
           error.toString(),
@@ -57,7 +60,34 @@ class CompletedTripsController extends GetxController {
     update();
   }
 
-  void setLoading() {
-    loading.toggle();
+  void setTempTripList(List<Trip> value) {
+    tempTripList.value = value;
+    update();
+  }
+
+  void setLoading(value) {
+    loading.value = value;
+    update();
+  }
+
+  void searchTrips(String value) {
+    debugPrint(completedTripsSearchController.text);
+    if (value.isEmpty) {
+      // ignore: invalid_use_of_protected_member
+      completedTripList.value = tempTripList.value;
+      update();
+    } else {
+      completedTripList.value = tempTripList
+          .where((element) =>
+              element.tripId
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()) ||
+              element.jobOrderNo
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()))
+          .toList();
+
+      update();
+    }
   }
 }

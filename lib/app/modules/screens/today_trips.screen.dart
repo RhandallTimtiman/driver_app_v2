@@ -27,6 +27,14 @@ class _TodayTripsState extends State<TodayTrips> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _todayTripController.getTripList();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -55,7 +63,7 @@ class _TodayTripsState extends State<TodayTrips> {
               clearEvent: () {
                 _todayTripController.todayTripsSearchController.text = '';
               },
-              onChangeEvent: (value) {},
+              onChangeEvent: _todayTripController.searchTrips,
               searchValue: _todayTripController.todayTripsSearchController.text,
               prefixIcon: const Icon(
                 Icons.search,
@@ -78,22 +86,11 @@ class _TodayTripsState extends State<TodayTrips> {
                         ),
                       );
                     } else {
-                      return AnimatedList(
-                        key: _listKey,
-                        initialItemCount: _.todayTripList.length,
-                        itemBuilder: (context, index, animation) {
+                      return ListView.builder(
+                        itemCount: _todayTripController.todayTripList.length,
+                        itemBuilder: (context, index) {
                           Trip trip = _.todayTripList[index];
-                          return SlideTransition(
-                            position: CurvedAnimation(
-                                    curve: Curves.easeOut, parent: animation)
-                                .drive(
-                              Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: const Offset(0, 0),
-                              ),
-                            ),
-                            child: TripCard(trip: trip),
-                          );
+                          return TripCard(trip: trip);
                         },
                       );
                     }

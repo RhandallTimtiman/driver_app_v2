@@ -8,19 +8,23 @@ import 'package:get/get.dart';
 class AllTripsController extends GetxController {
   TextEditingController allTripsSearchController = TextEditingController();
 
-  final tripList = <Trip>[].obs;
+  RxList<Trip> tripList = <Trip>[].obs;
 
   final ITrip tripService = TripService();
 
-  RxBool loading = false.obs;
+  RxBool isLoaded = false.obs;
+
+  RxList<Trip> tempTripList = <Trip>[].obs;
+
   @override
   void onInit() {
-    getTripList();
+    setLoading(true);
     super.onInit();
   }
 
-  void getTripList() {
-    setLoading();
+  void getTripList({isPulled = false}) {
+    setLoading(!isPulled);
+    setTripList([]);
     tripService
         .getTripByStatus(
           driverId:
@@ -29,13 +33,15 @@ class AllTripsController extends GetxController {
         )
         .then(
           (value) => {
+            debugPrint('I was called.'),
             setTripList(value),
-            setLoading(),
+            setTempTripList(value),
+            setLoading(false),
           },
         )
         .catchError(
       (error) {
-        setLoading();
+        setLoading(false);
         Get.snackbar(
           'error_snackbar_title'.tr,
           error.toString(),
@@ -56,7 +62,34 @@ class AllTripsController extends GetxController {
     update();
   }
 
-  void setLoading() {
-    loading.toggle();
+  void setTempTripList(List<Trip> value) {
+    tempTripList.value = value;
+    update();
+  }
+
+  void setLoading(bool value) {
+    isLoaded.value = value;
+    update();
+  }
+
+  void searchTrips(String value) {
+    debugPrint(allTripsSearchController.text);
+    if (value.isEmpty) {
+      // ignore: invalid_use_of_protected_member
+      tripList.value = tempTripList.value;
+      update();
+    } else {
+      tripList.value = tempTripList
+          .where((element) =>
+              element.tripId
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()) ||
+              element.jobOrderNo
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase()))
+          .toList();
+
+      update();
+    }
   }
 }

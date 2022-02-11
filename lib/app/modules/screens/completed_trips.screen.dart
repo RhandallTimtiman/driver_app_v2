@@ -29,6 +29,14 @@ class _CompletedTripsState extends State<CompletedTrips> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _completedTripController.getTripList();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -59,7 +67,7 @@ class _CompletedTripsState extends State<CompletedTrips> {
                 _completedTripController.completedTripsSearchController.text =
                     '';
               },
-              onChangeEvent: (value) {},
+              onChangeEvent: _completedTripController.searchTrips,
               searchValue:
                   _completedTripController.completedTripsSearchController.text,
               prefixIcon: const Icon(
@@ -80,27 +88,18 @@ class _CompletedTripsState extends State<CompletedTrips> {
                           child: Text(
                             'no_trips_label'.tr,
                             style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black26),
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black26,
+                            ),
                           ),
                         );
                       } else {
-                        return AnimatedList(
-                          key: _listKey,
-                          initialItemCount: _.completedTripList.length,
-                          itemBuilder: (context, index, animation) {
+                        return ListView.builder(
+                          itemCount:
+                              _completedTripController.completedTripList.length,
+                          itemBuilder: (context, index) {
                             Trip trip = _.completedTripList[index];
-                            return SlideTransition(
-                              position: CurvedAnimation(
-                                      curve: Curves.easeOut, parent: animation)
-                                  .drive(
-                                Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0, 0),
-                                ),
-                              ),
-                              child: TripCard(trip: trip),
-                            );
+                            return TripCard(trip: trip);
                           },
                         );
                       }
