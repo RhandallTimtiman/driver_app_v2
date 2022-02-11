@@ -4,6 +4,7 @@ import 'package:driver_app/app/modules/bindings/bindings.dart';
 import 'package:driver_app/app/modules/bindings/today_trips.binding.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -79,6 +80,14 @@ class AppRoutes {
       name: '/select-chassis',
       page: () => ChassisSelectionScreen(),
     ),
+    GetPage(
+      name: '/disclosure',
+      page: () => DisclosureScreen(),
+    ),
+    GetPage(
+      name: '/splash',
+      page: () => SplashScreen(),
+    )
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [
@@ -167,6 +176,7 @@ class AppRoutes {
       routeName: 'Logout',
       icon: 'assets/icons/logout.png',
       onTap: () {
+        GetStorage().remove('user');
         Get.offAllNamed('/login');
       },
       width: 23,

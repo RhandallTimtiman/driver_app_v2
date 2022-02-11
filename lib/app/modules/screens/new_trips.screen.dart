@@ -16,8 +16,6 @@ class _NewTripsState extends State<NewTrips> {
 
   final NewTripsController _newTripController = Get.find();
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
   openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }

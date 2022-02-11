@@ -16,7 +16,6 @@ class _PendingTripsState extends State<PendingTrips> {
 
   final PendingTripsController _pendingTripController = Get.find();
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }

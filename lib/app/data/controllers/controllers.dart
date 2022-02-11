@@ -13,3 +13,5 @@ export 'location.controller.dart';
 export 'pending_trips.controller.dart';
 export 'completed_trips.controller.dart';
 export 'today_trips.controller.dart';
+export 'session.controller.dart';
+export 'ongoing_trip.controller.dart';

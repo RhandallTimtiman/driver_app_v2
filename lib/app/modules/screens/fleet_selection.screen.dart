@@ -215,6 +215,54 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                         ),
                       );
                     }
+                  }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  GetBuilder<VehicleController>(builder: (_) {
+                    return Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        maxWidth: 500,
+                      ),
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 70),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'go_online_label'.tr,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        color: _.vehicle.value.id == null
+                            ? Colors.grey
+                            : const Color.fromRGBO(0, 174, 0, 1),
+                      ),
+                    );
+                  }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  GetBuilder<VehicleController>(builder: (_) {
+                    if (_.isLoading.value) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            value: null,
+                            strokeWidth: 7.0,
+                            backgroundColor: Color.fromRGBO(4, 164, 223, 1),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Image(
+                        width: 90,
+                        image: AssetImage('assets/images/powered-by.png'),
+                      );
+                    }
                   })
                 ],
               ),

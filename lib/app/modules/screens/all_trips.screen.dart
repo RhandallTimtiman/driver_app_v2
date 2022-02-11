@@ -16,7 +16,6 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
 
   final AllTripsController _allTripController = Get.find();
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
