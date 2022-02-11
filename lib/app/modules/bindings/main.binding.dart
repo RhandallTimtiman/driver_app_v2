@@ -5,6 +5,17 @@ class MainBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(
+      LocationController(),
+      permanent: true,
+    );
+    Get.put(
+      DriverController(),
+    );
+    Get.put(
+      SessionController(),
+      permanent: true,
+    );
+    Get.put(
       ThemeController(),
       permanent: true,
     );
@@ -12,14 +23,7 @@ class MainBinding extends Bindings {
       ConnectivityController(),
     );
     Get.put(
-      DriverController(),
-    );
-    Get.put(
       StatusController(),
-    );
-    Get.put(
-      LocationController(),
-      permanent: true,
     );
   }
 }
