@@ -1,6 +1,7 @@
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/data/services/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controllers.dart';
@@ -13,12 +14,26 @@ class VehicleController extends GetxController {
 
   final IVehicle _vehicleService = VehicleService();
 
+  RxBool isLoading = true.obs;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    getCurrentVehicle();
-    getCurrentChassis();
-    getChassisList();
+    try {
+      await getCurrentVehicle();
+      await getCurrentChassis();
+      await getChassisList();
+      Get.find<LocationController>().checkPermissions(isDisclosure: false);
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      toggleIsLoading();
+    }
+  }
+
+  void toggleIsLoading() {
+    isLoading.toggle();
+    update();
   }
 
   /// Set Current Vehicle Details

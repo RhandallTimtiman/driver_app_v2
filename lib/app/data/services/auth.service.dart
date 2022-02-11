@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/core/utils/database.helper.dart';
@@ -50,6 +52,50 @@ class AuthService extends IAuth {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<bool> refreshExpiredToken() async {
+    final tempDio = Dio();
+
+    tempDio.options.headers = <String, dynamic>{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    };
+
+    final result = await dbHelper.queryTokenTable();
+
+    try {
+      var uri = Uri.https(ApiPaths.proxy, '/api/auth/refresh-token');
+
+      Response response = await tempDio.postUri(
+        uri,
+        data: {
+          'accessToken': result.first['accessToken'],
+          'refreshToken': result.first['refreshToken'],
+        },
+      );
+
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+
+        Map<String, dynamic> row = {
+          'accessToken': parsedResponse.accessToken,
+          'refreshToken': parsedResponse.refreshToken
+        };
+
+        await dbHelper.upsertToken(row);
+
+        return true;
+      } else {
+        throw false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 }

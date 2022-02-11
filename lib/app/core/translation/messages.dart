@@ -61,6 +61,14 @@ class Messages extends Translations {
           'chassis_assignment_label': 'Chassis Assignment',
           'no_chassis_label': 'No Chassis',
           'select_chassis_label': 'Select Chassis',
+          'disclosure_use_location_label': 'Use Your Location',
+          'disclosure_use_location_spiel_label':
+              'The XLOG Driver App will collect your location data while a trip is ongoing to enable the monitoring feature for  customers and truck owners transacting in the XLOG Platform. Your location data will continue to run in the background until your trip has been completed.',
+          'something_went_wrong_label':
+              "Something went wrong, please contact your admin",
+          'go_online_label': "Go Online",
+          'turn_on_label': "Turn On",
+          'token_expired_label': "Token Expired! Please login again."
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -120,6 +128,14 @@ class Messages extends Translations {
           'chassis_assignment_label': 'Chassis Assignment',
           'no_chassis_label': 'No Chassis',
           'select_chassis_label': 'Select Chassis',
+          'disclosure_use_location_label': 'Use Your Location',
+          'disclosure_use_location_spiel_label':
+              'The XLOG Driver App will collect your location data while a trip is ongoing to enable the monitoring feature for  customers and truck owners transacting in the XLOG Platform. Your location data will continue to run in the background until your trip has been completed.',
+          'something_went_wrong_label':
+              'Something went wrong, please contact your admin',
+          'go_online_label': "Go Online",
+          'turn_on_label': "Turn On",
+          'token_expired_label': "Token Expired! Please login again."
         },
       };
 }

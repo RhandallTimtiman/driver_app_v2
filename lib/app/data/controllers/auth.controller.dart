@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/services/services.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
   RxBool obscureText = true.obs;
@@ -57,6 +60,7 @@ class AuthController extends GetxController {
           .signIn(username: userNameController.text, pin: pinController.text)
           .then((result) {
         Get.find<DriverController>().setDriver(result);
+        GetStorage().write('user', jsonEncode(result));
         Get.back();
         Get.snackbar(
           'success_snackbar_title'.tr,

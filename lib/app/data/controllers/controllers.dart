@@ -6,3 +6,5 @@ export 'driver.controller.dart';
 export 'vehicle.controller.dart';
 export 'status.controller.dart';
 export 'location.controller.dart';
+export 'session.controller.dart';
+export 'ongoing_trip.controller.dart';
