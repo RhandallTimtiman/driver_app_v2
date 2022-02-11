@@ -25,5 +25,8 @@ class MainBinding extends Bindings {
     Get.put(
       StatusController(),
     );
+    Get.put(
+      OngoingTripController(),
+    );
   }
 }

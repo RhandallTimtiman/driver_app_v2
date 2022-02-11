@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OngoingTripController extends GetxController {
@@ -6,4 +7,6 @@ class OngoingTripController extends GetxController {
   void setHasOnGoingTrip(bool value) {
     hasOnGoingTrip.value = value;
   }
+
+  void checkIfHasPendingTrip() {}
 }

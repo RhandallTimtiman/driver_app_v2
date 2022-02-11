@@ -11,11 +11,6 @@ class LocationController extends GetxController {
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   /// Initialize Location Service
   startLocationService() async {
     if (_permissionGranted == PermissionStatus.granted && _serviceEnabled) {
