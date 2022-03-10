@@ -13,7 +13,7 @@ class TripListModal extends StatelessWidget {
     Key? key,
     this.title = '',
     this.showAcceptAll = false,
-    this.status = 'PEN',
+    this.status = '',
   }) : super(key: key);
 
   @override
@@ -88,10 +88,9 @@ class TripListModal extends StatelessWidget {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height - 110,
-                  // child: ModalTripList(
-                  //   status: status,
-                  // ),
-                  child: const TripList(),
+                  child: TripList(
+                    status: status,
+                  ),
                 ),
               ],
             ),

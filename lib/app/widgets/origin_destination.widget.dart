@@ -5,9 +5,9 @@ class OriginDestinationWidget extends StatelessWidget {
   final String routeName;
   final String activeRoute;
   final String origin;
-  final String originInstruction;
+  final String? originInstruction;
   final String destination;
-  final String destinationInstruction;
+  final String? destinationInstruction;
   final Color color;
   final String arrival;
   final String end;
@@ -146,7 +146,7 @@ class OriginDestinationWidget extends StatelessWidget {
                               height: 2,
                             ),
                             Text(
-                              originInstruction,
+                              originInstruction ?? '',
                               overflow: TextOverflow.clip,
                               maxLines: 2,
                               style: TextStyle(
@@ -259,7 +259,7 @@ class OriginDestinationWidget extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                destinationInstruction,
+                                destinationInstruction ?? '',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: TextStyle(

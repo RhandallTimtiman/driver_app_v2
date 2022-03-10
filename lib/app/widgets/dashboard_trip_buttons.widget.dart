@@ -18,6 +18,7 @@ class DashboardTripButton extends StatelessWidget {
                   TripListModal(
                     title: 'trip_to_accept_label'.tr,
                     showAcceptAll: true,
+                    status: 'NEW',
                   ),
                   isScrollControlled: true,
                 );
@@ -46,6 +47,7 @@ class DashboardTripButton extends StatelessWidget {
                   TripListModal(
                     title: 'pending_trips_label'.tr,
                     showAcceptAll: true,
+                    status: 'PEN',
                   ),
                   isScrollControlled: true,
                 );

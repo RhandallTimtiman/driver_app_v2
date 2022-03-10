@@ -14,4 +14,5 @@ export 'pending_trips.screen.dart';
 export 'emergency.screen.dart';
 export 'chassis_selection.screen.dart';
 export 'disclosure.screen.dart';
+export 'trip.screen.dart';
 export 'splash.screen.dart';

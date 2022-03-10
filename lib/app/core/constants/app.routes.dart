@@ -30,7 +30,6 @@ class AppRoutes {
     ),
     GetPage(
       name: '/dashboard',
-      binding: TripBinding(),
       page: () => DashboardScreen(),
     ),
     GetPage(
@@ -87,6 +86,10 @@ class AppRoutes {
     GetPage(
       name: '/splash',
       page: () => SplashScreen(),
+    ),
+    GetPage(
+      name: '/trip',
+      page: () => TripScreen(),
     )
   ];
 
