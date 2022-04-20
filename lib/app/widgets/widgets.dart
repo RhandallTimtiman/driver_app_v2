@@ -17,3 +17,4 @@ export 'driver_card.widget.dart';
 export 'vehicle_card.widget.dart';
 export 'chassis_card.widget.dart';
 export 'raised_gradient_button.widget.dart';
+export 'has_ongoing_trip.widget.dart';

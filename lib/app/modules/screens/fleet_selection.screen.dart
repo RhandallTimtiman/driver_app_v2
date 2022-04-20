@@ -22,6 +22,9 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
   @override
   initState() {
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.find<OngoingTripController>().checkIfHasPendingTrip();
+    });
   }
 
   @override
