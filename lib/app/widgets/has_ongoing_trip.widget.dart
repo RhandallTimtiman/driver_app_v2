@@ -47,7 +47,9 @@ class HasOnGoingTrip extends StatelessWidget {
                   child: Text(
                     'go_to_current_trip_label'.tr,
                     style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

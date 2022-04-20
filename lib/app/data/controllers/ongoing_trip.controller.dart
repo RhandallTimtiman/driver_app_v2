@@ -20,7 +20,7 @@ class OngoingTripController extends GetxController {
         ),
         content: const HasOnGoingTrip(),
       ),
-      barrierDismissible: false,
+      barrierDismissible: true,
     );
   }
 }
