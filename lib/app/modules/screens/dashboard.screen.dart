@@ -29,6 +29,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+  void _openRequestModal() {
+    Get.dialog(
+      const Dialog(
+        backgroundColor: Colors.white,
+        child: NewTripRequest(),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -114,6 +124,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               closeAnimatedCircle: _closeAnimatedCircle,
               bottom: 35.0,
             ),
+            Positioned(
+              top: 29,
+              right: 19,
+              child: RawMaterialButton(
+                onPressed: _openRequestModal,
+                child: const Text('open new request'),
+              ),
+            )
           ],
         ),
       ),

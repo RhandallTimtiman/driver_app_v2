@@ -79,6 +79,7 @@ class Messages extends Translations {
           'select_chassis_label': 'Select Chassis',
           'shipper_label': 'Shipper',
           'accept_label': 'Accept',
+          'reject_label': 'Reject',
           'delivery_date_label': 'Delivery Date',
           'no_trips_label': 'No Trips Assigned.',
           'disclosure_use_location_label': 'Use Your Location',
@@ -93,6 +94,7 @@ class Messages extends Translations {
           "ongoing_trip_spiel_label":
               "You have an ongoing trip. Complete your current trip before starting a new one.",
           "go_to_current_trip_label": "Go To Current Trip",
+          "new_trip_request_label": "New Trip Request"
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -181,6 +183,7 @@ class Messages extends Translations {
           "ongoing_trip_spiel_label":
               "You have an ongoing trip. Complete your current trip before starting a new one.",
           "go_to_current_trip_label": "Go To Current Trip",
+          "new_trip_request_label": "New Trip Request"
         },
       };
 }
