@@ -88,7 +88,11 @@ class Messages extends Translations {
               "Something went wrong, please contact your admin",
           'go_online_label': "Go Online",
           'turn_on_label': "Turn On",
-          'token_expired_label': "Token Expired! Please login again."
+          'token_expired_label': "Token Expired! Please login again.",
+          'ongoing_trip_label': "You have an ongoing trip.",
+          "ongoing_trip_spiel_label":
+              "You have an ongoing trip. Complete your current trip before starting a new one.",
+          "go_to_current_trip_label": "Go To Current Trip",
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -172,7 +176,11 @@ class Messages extends Translations {
               'Something went wrong, please contact your admin',
           'go_online_label': "Go Online",
           'turn_on_label': "Turn On",
-          'token_expired_label': "Token Expired! Please login again."
+          'token_expired_label': "Token Expired! Please login again.",
+          'ongoing_trip_label': "You have an ongoing trip.",
+          "ongoing_trip_spiel_label":
+              "You have an ongoing trip. Complete your current trip before starting a new one.",
+          "go_to_current_trip_label": "Go To Current Trip",
         },
       };
 }
