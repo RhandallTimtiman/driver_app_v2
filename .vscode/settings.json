@@ -1,7 +1,6 @@
 {
-<<<<<<< HEAD
-    "dart.flutterSdkPath": "C:\\Users\\Jhon Cedrick Sestoso\\fvm\\versions\\2.8.1"
+  "dart.flutterSdkPaths": ["/Users/rhandalltimtiman/fvm/versions"],
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "dart.flutterSdkPath": "/Users/rhandalltimtiman/fvm/versions/stable"
 }
-=======
-}
->>>>>>> main

@@ -1,5 +1,4 @@
 import 'package:driver_app/app/data/controllers/controllers.dart';
-import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,0 +1,263 @@
+{
+  "project_info": {
+    "project_number": "713358032967",
+    "firebase_url": "https://optimus-realtime.firebaseio.com",
+    "project_id": "optimus-realtime",
+    "storage_bucket": "optimus-realtime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:35b23e3549163979caf162",
+        "android_client_info": {
+          "package_name": "com.demo.xlogdriverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:c64b85d831fe1e55caf162",
+        "android_client_info": {
+          "package_name": "com.example.driver_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:2952e0bd32ff83d1caf162",
+        "android_client_info": {
+          "package_name": "com.example.optimus_driver_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:6be7daaa65e88056caf162",
+        "android_client_info": {
+          "package_name": "com.optimus.xlogdriverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:aa6376aee811a2eacaf162",
+        "android_client_info": {
+          "package_name": "com.optimus.xlogdriverapp.dev2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:54f978830a696bddcaf162",
+        "android_client_info": {
+          "package_name": "com.ppa.xlogdriverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713358032967:android:69f494eefb9d81dfcaf162",
+        "android_client_info": {
+          "package_name": "uat.xlog.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8TG1Av5jeN64yVqv3_Lge61AwQ9Ce7OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713358032967-55togs46mpstjnviv466tb7bjrt1v00f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713358032967-1j39ntma6jf2thotq06dspn6hssn4pne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.xlog.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

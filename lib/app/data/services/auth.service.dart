@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/core/utils/database.helper.dart';

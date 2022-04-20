@@ -16,6 +16,7 @@ class AuthController extends GetxController {
   GlobalKey<FormState> authFormKey = GlobalKey<FormState>();
 
   final IAuth _authService = AuthService();
+  final IFcm _fcmService = FcmService();
 
   /// Toggles Visibility Of Field
   void toggle() async {
@@ -58,7 +59,7 @@ class AuthController extends GetxController {
 
       _authService
           .signIn(username: userNameController.text, pin: pinController.text)
-          .then((result) {
+          .then((result) async {
         Get.find<DriverController>().setDriver(result);
         GetStorage().write('user', jsonEncode(result));
         Get.back();
@@ -71,7 +72,18 @@ class AuthController extends GetxController {
             seconds: 2,
           ),
         );
-        Get.off(() => const FleetSelectionScreen());
+
+        var token = await Get.find<NotificationController>().getToken();
+
+        var res = await _fcmService.registerDevice(
+          guid: result.driverGuid,
+          token: token,
+        );
+
+        if (res) {
+          Get.find<NotificationController>().initializePushNotif();
+          Get.off(() => const FleetSelectionScreen());
+        }
       }).catchError((error) {
         Get.back();
         Get.snackbar(

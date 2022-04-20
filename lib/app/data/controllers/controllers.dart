@@ -15,3 +15,4 @@ export 'completed_trips.controller.dart';
 export 'today_trips.controller.dart';
 export 'session.controller.dart';
 export 'ongoing_trip.controller.dart';
+export 'notification_controller.dart';

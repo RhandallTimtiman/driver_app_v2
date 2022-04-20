@@ -5,6 +5,10 @@ class MainBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(
+      NotificationController(),
+      permanent: true,
+    );
+    Get.put(
       LocationController(),
       permanent: true,
     );
