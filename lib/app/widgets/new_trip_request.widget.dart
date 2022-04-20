@@ -126,7 +126,7 @@ class _NewTripRequestState extends State<NewTripRequest> {
                     onTap: () => Navigator.pop(context),
                     child: const Icon(
                       Icons.cancel,
-                      size: 30,
+                      size: 20,
                     ),
                   ),
                 ),
