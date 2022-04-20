@@ -124,14 +124,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               closeAnimatedCircle: _closeAnimatedCircle,
               bottom: 35.0,
             ),
-            Positioned(
-              top: 29,
-              right: 19,
-              child: RawMaterialButton(
-                onPressed: _openRequestModal,
-                child: const Text('open new request'),
-              ),
-            )
+            // Positioned(
+            //   top: 29,
+            //   right: 19,
+            //   child: RawMaterialButton(
+            //     onPressed: _openRequestModal,
+            //     child: const Text('open new request'),
+            //   ),
+            // )
           ],
         ),
       ),
