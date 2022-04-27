@@ -29,16 +29,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  void _openRequestModal() {
-    Get.dialog(
-      const Dialog(
-        backgroundColor: Colors.white,
-        child: NewTripRequest(),
-      ),
-      barrierDismissible: false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

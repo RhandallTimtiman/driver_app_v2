@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class TripList extends StatefulWidget {
   final String status;
-  const TripList({Key? key, this.status = 'NEW'}) : super(key: key);
+  const TripList({Key? key, required this.status}) : super(key: key);
 
   @override
   _TripListState createState() => _TripListState();
@@ -14,10 +14,12 @@ class TripList extends StatefulWidget {
 
 class _TripListState extends State<TripList> {
   final TripController _tripController = Get.find();
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _tripController.getTripList(type: widget.status);
+      _tripController.getTripList(
+          type: widget.status, filter: widget.status == 'NEW' ? 'today' : '');
     });
     super.initState();
   }
@@ -35,15 +37,20 @@ class _TripListState extends State<TripList> {
             controller: _tripController.searchController,
             hint: 'search_trip_input_label'.tr,
             clearEvent: () {
-              _tripController.searchController.text = '';
+              _tripController.clearSearchValue();
             },
-            onChangeEvent: (value) {},
-            searchValue: _tripController.searchController.text,
+            onChangeEvent: (value) {
+              _tripController.setSearchValue(value);
+            },
+            searchValue: _tripController.searchValue,
             prefixIcon: const Icon(
               Icons.search,
               size: 14,
             ),
           ),
+          widget.status == 'NEW'
+              ? const TripListFilter()
+              : const SizedBox.shrink(),
           Expanded(
             child: GetX<TripController>(
               builder: (_) {
@@ -62,9 +69,9 @@ class _TripListState extends State<TripList> {
                     );
                   } else {
                     return ListView.builder(
-                      itemCount: _tripController.tripList.length,
+                      itemCount: _tripController.filteredTripList.length,
                       itemBuilder: (context, index) {
-                        Trip trip = _.tripList[index];
+                        Trip trip = _.filteredTripList[index];
                         return TripCard(trip: trip);
                       },
                     );

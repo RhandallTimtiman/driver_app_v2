@@ -13,6 +13,8 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TripController _tripController = Get.find();
+
+    final CurrentTripController _currentTripController = Get.find();
     Color statusColor;
 
     switch (trip.statusId) {
@@ -45,7 +47,7 @@ class TripCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       elevation: 3,
       child: GestureDetector(
-        onTap: () => {_tripController.handleSelectedTrip(trip: trip)},
+        onTap: () => {_currentTripController.handleCurrentTrip(trip: trip)},
         child: Column(
           children: [
             Container(
@@ -96,8 +98,7 @@ class TripCard extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: MaterialButton(
                                   onPressed: () {
-                                    // Navigator.pop(context);
-                                    // showAlert(context);
+                                    _tripController.openAcceptModal(trip);
                                   },
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4.0),
@@ -136,8 +137,10 @@ class TripCard extends StatelessWidget {
                     onTap: () {},
                     child: Container(
                       decoration: const BoxDecoration(
-                          border:
-                              Border(left: BorderSide(color: Colors.black12))),
+                        border: Border(
+                          left: BorderSide(color: Colors.black12),
+                        ),
+                      ),
                       width: 50,
                       height: 50,
                       child: InkWell(

@@ -16,3 +16,4 @@ export 'today_trips.controller.dart';
 export 'session.controller.dart';
 export 'ongoing_trip.controller.dart';
 export 'notification_controller.dart';
+export 'current_trip.controller.dart';

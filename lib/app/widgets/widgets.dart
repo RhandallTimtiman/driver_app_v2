@@ -27,4 +27,7 @@ export 'row_divider.widget.dart';
 export 'dashlines.widget.dart';
 export 'origin_destination.widget.dart';
 export 'has_ongoing_trip.widget.dart';
-export 'new_trip_request.widget.dart';
+export 'new_accept_trip_request.widget.dart';
+export 'route_segment.widget.dart';
+export 'new_accept_trip_request.widget.dart';
+export 'dashboard/trip_list_filter.widget.dart';

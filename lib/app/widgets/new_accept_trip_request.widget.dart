@@ -1,17 +1,29 @@
 import 'dart:async';
+import 'package:driver_app/app/data/controllers/controllers.dart';
+import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
-class NewTripRequest extends StatefulWidget {
-  const NewTripRequest({Key? key}) : super(key: key);
+class NewAcceptTripRequest extends StatefulWidget {
+  final String title;
+  final bool isFromNotification;
+  final Trip trip;
+
+  const NewAcceptTripRequest({
+    Key? key,
+    required this.title,
+    this.isFromNotification = false,
+    required this.trip,
+  }) : super(key: key);
 
   @override
-  State<NewTripRequest> createState() => _NewTripRequestState();
+  State<NewAcceptTripRequest> createState() => _NewAcceptTripRequestState();
 }
 
-class _NewTripRequestState extends State<NewTripRequest> {
+class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
+  final TripController _tripController = Get.find();
   double _progress = 1;
 
   int _timeCount = 15;
@@ -51,9 +63,20 @@ class _NewTripRequestState extends State<NewTripRequest> {
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      startTimer();
+      if (widget.isFromNotification) {
+        startTimer();
+      }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (widget.isFromNotification) {
+      _timer.cancel();
+      _timer2.cancel();
+    }
+    super.dispose();
   }
 
   @override
@@ -75,31 +98,36 @@ class _NewTripRequestState extends State<NewTripRequest> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Row(
                   children: [
-                    Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Center(
-                                child: Text(_timeCount.toString()),
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(
-                            strokeWidth: 5.0,
-                            backgroundColor: Colors.grey[100],
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color.fromRGBO(3, 127, 170, 1)),
-                            value: _progress,
-                          ),
-                        ),
-                      ],
-                    ),
+                    widget.isFromNotification
+                        ? Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Text(_timeCount.toString()),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 5.0,
+                                  backgroundColor: Colors.grey[100],
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                    Color.fromRGBO(3, 127, 170, 1),
+                                  ),
+                                  value: _progress,
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox.shrink(),
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        'new_trip_request_label'.tr,
+                        widget.title,
                         style: const TextStyle(
                           color: Color.fromRGBO(3, 127, 170, 1),
                           fontWeight: FontWeight.w700,
@@ -218,9 +246,13 @@ class _NewTripRequestState extends State<NewTripRequest> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   fillColor: Colors.grey,
-                  onPressed: () => {},
+                  onPressed: () => {
+                    widget.isFromNotification ? null : Get.back(),
+                  },
                   child: Text(
-                    'reject_label'.tr,
+                    widget.isFromNotification
+                        ? 'reject_label'.tr
+                        : 'close_label'.tr,
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -240,7 +272,11 @@ class _NewTripRequestState extends State<NewTripRequest> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         fillColor: const Color.fromRGBO(0, 167, 229, 1),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          _tripController.acceptTrip(
+                            widget.trip.acquiredTruckingServiceId,
+                          ),
+                        },
                         child: Text(
                           'accept_label'.tr,
                           style: const TextStyle(

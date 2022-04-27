@@ -94,7 +94,9 @@ class Messages extends Translations {
           "ongoing_trip_spiel_label":
               "You have an ongoing trip. Complete your current trip before starting a new one.",
           "go_to_current_trip_label": "Go To Current Trip",
-          "new_trip_request_label": "New Trip Request"
+          "new_trip_request_label": "New Trip Request",
+          "close_label": "Close",
+          "start_trip_label": "Start Trip"
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -183,7 +185,9 @@ class Messages extends Translations {
           "ongoing_trip_spiel_label":
               "You have an ongoing trip. Complete your current trip before starting a new one.",
           "go_to_current_trip_label": "Go To Current Trip",
-          "new_trip_request_label": "New Trip Request"
+          "new_trip_request_label": "New Trip Request",
+          "close_label": "Close",
+          "start_trip_label": "Start Trip"
         },
       };
 }

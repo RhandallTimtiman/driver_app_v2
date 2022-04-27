@@ -9,6 +9,7 @@ class OriginDestinationWidget extends StatelessWidget {
   final String destination;
   final String? destinationInstruction;
   final Color color;
+  final Color routeColor;
   final String arrival;
   final String end;
   final bool isCompleted;
@@ -35,6 +36,7 @@ class OriginDestinationWidget extends StatelessWidget {
     this.bookingParty = '',
     this.deliveryDate = '',
     this.startTime = '',
+    this.routeColor = Colors.white,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -198,7 +200,7 @@ class OriginDestinationWidget extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  color: Colors.white,
+                  color: routeColor,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

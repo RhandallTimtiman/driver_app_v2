@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:get/get.dart';
 
-class TripListModal extends StatelessWidget {
+class TripListModal extends StatefulWidget {
   final String title;
 
   final bool showAcceptAll;
@@ -13,9 +13,14 @@ class TripListModal extends StatelessWidget {
     Key? key,
     this.title = '',
     this.showAcceptAll = false,
-    this.status = '',
+    required this.status,
   }) : super(key: key);
 
+  @override
+  State<TripListModal> createState() => _TripListModalState();
+}
+
+class _TripListModalState extends State<TripListModal> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -49,7 +54,7 @@ class TripListModal extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
                         child: Text(
-                          title,
+                          widget.title,
                           style: const TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w800,
@@ -57,7 +62,7 @@ class TripListModal extends StatelessWidget {
                         ),
                       ),
                     ),
-                    showAcceptAll
+                    widget.showAcceptAll
                         ? Positioned(
                             top: -8,
                             right: 10,
@@ -89,7 +94,7 @@ class TripListModal extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height - 110,
                   child: TripList(
-                    status: status,
+                    status: widget.status,
                   ),
                 ),
               ],
