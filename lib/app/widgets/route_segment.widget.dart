@@ -79,9 +79,9 @@ class RouteSegment extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
-                                              'Your Location',
-                                              style: TextStyle(
+                                            Text(
+                                              'your_location_label'.tr,
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.white),
                                             ),
@@ -110,9 +110,9 @@ class RouteSegment extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                const Text(
-                                                  'Start Trip:',
-                                                  style: TextStyle(
+                                                Text(
+                                                  'start_trip_label'.tr,
+                                                  style: const TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
@@ -161,9 +161,9 @@ class RouteSegment extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                const Text(
-                                                  'End Trip:',
-                                                  style: TextStyle(
+                                                Text(
+                                                  'end_trip_label'.tr,
+                                                  style: const TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,

@@ -176,7 +176,7 @@ class TripCard extends StatelessWidget {
                               )
                             ],
                             cancelButton: CupertinoActionSheetAction(
-                              child: const Text('Cancel'),
+                              child: Text('cancel_label'.tr),
                               onPressed: () {
                                 Get.back();
                               },
