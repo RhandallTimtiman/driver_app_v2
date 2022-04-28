@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -13,11 +11,9 @@ class TripController extends GetxController {
 
   List<Trip> tripList = [];
 
-  List<Trip> filteredTripList = [];
+  List<Trip> tempTripList = [];
 
   TextEditingController searchController = TextEditingController();
-
-  String searchValue = '';
 
   RxBool loading = false.obs;
 
@@ -27,22 +23,20 @@ class TripController extends GetxController {
     setLoading(true);
     tripService
         .getTripByStatus(
-          driverId:
-              Get.find<DriverController>().driver.value.driverId.toString(),
-          status: type,
-        )
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      status: type,
+    )
         .then(
-          (value) => {
-            if (filter != '')
-              {filterListByDate(filter, value)}
-            else
-              {
-                setTripList(value),
-              },
-            setLoading(false),
-          },
-        )
-        .catchError(
+      (value) {
+        if (filter != '') {
+          filterListByDate(filter, value);
+        } else {
+          setTempTripList(value);
+          setTripList(value);
+        }
+        setLoading(false);
+      },
+    ).catchError(
       (error) {
         setLoading(false);
         Get.snackbar(
@@ -132,7 +126,6 @@ class TripController extends GetxController {
   }
 
   void acceptTrip(int acquiredTruckingServiceId) {
-    debugPrint(Get.find<DriverController>().driver.value.driverId.toString());
     tripService
         .acceptTrip(
           driverId:
@@ -141,7 +134,9 @@ class TripController extends GetxController {
         )
         .then(
           (value) => {
-            getTripDetails(acquiredTruckingServiceId: acquiredTruckingServiceId)
+            getTripDetails(
+              acquiredTruckingServiceId: acquiredTruckingServiceId,
+            )
           },
         )
         .catchError(
@@ -198,43 +193,86 @@ class TripController extends GetxController {
           : -bdate.compareTo(adate);
     });
     setTripList(_listItemsRaw);
-    clearFilteredTripList();
-  }
-
-  void setSearchValue(value) {
-    searchValue = value;
-    // update();
-    // filterTripListBySearch();
+    clearTempTrip();
   }
 
   void clearSearchValue() {
-    searchValue = '';
     searchController.text = '';
-    setFilteredTripList(tripList);
+    setTripList(tempTripList);
     update();
   }
 
-  void filterTripListBySearch() {
-    debugPrint(searchValue);
-    List<Trip> filteredList = tripList.where((element) {
-      bool contains = element.tripId
-              .toLowerCase()
-              .contains(searchValue.toString().toLowerCase()) ||
-          element.jobOrderNo
-              .toLowerCase()
-              .contains(searchValue.toString().toLowerCase());
-      return contains;
-    }).toList();
-    setFilteredTripList(filteredList);
+  void filterTripListBySearch(String filter) {
+    List<Trip> filteredList = <Trip>[];
+    if (filter.isNotEmpty) {
+      filteredList = tempTripList.where((trip) {
+        bool contains = trip.tripId
+                .toLowerCase()
+                .contains(filter.toString().toLowerCase()) ||
+            trip.jobOrderNo
+                .toLowerCase()
+                .contains(filter.toString().toLowerCase());
+        return contains;
+      }).toList();
+    } else {
+      filteredList = tempTripList.map((e) => e).toList();
+    }
+    setTripList(filteredList);
   }
 
-  void setFilteredTripList(List<Trip> list) {
-    filteredTripList = list;
+  void setTempTripList(List<Trip> list) {
+    tempTripList = list;
     update();
   }
 
-  void clearFilteredTripList() {
-    filteredTripList = tripList;
+  void clearTempTrip() {
+    tempTripList = tripList.map((e) => e).toList();
     update();
+  }
+
+  void acceptAllTrip() {
+    List<Map<String, dynamic>> listOfacquiredTruckingServiceId = tripList
+        .where((trip) => trip.statusId == 'NEW')
+        .map((trip) => {
+              "acquiredTruckingServiceId":
+                  trip.acquiredTruckingServiceId.toString
+            })
+        .toList();
+    tripService
+        .acceptAllTrip(
+            trips: listOfacquiredTruckingServiceId,
+            driverId: Get.find<DriverController>().driver.value.driverId!)
+        .then(
+          (value) => {
+            Get.back(),
+            Get.snackbar(
+              'success_snackbar_title'.tr,
+              'All trips are accepted!',
+              colorText: Colors.white,
+              backgroundColor: Colors.green[500],
+              duration: const Duration(
+                seconds: 2,
+              ),
+              margin: const EdgeInsets.all(15),
+              snackPosition: SnackPosition.BOTTOM,
+            )
+          },
+        )
+        .catchError(
+      (error) {
+        setLoading(false);
+        Get.snackbar(
+          'error_snackbar_title'.tr,
+          error.toString(),
+          backgroundColor: Colors.red[400],
+          colorText: Colors.white,
+          duration: const Duration(
+            seconds: 4,
+          ),
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(15),
+        );
+      },
+    );
   }
 }

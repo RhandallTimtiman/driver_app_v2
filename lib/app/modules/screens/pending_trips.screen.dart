@@ -58,18 +58,17 @@ class _PendingTripsState extends State<PendingTrips> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SearchField(
-              controller: _pendingTripController.pendingTripsSearchController,
-              hint: 'search_trip_input_label'.tr,
-              clearEvent: () {
-                _pendingTripController.pendingTripsSearchController.text = '';
-              },
-              onChangeEvent: (value) {},
-              searchValue:
-                  _pendingTripController.pendingTripsSearchController.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 14,
+            GetBuilder<PendingTripsController>(
+              builder: (_) => SearchField(
+                controller: _.pendingTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: _.clearSearch,
+                onChangeEvent: _.searchTrips,
+                searchValue: _.pendingTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
               ),
             ),
             Expanded(

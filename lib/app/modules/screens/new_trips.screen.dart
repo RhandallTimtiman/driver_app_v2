@@ -58,17 +58,17 @@ class _NewTripsState extends State<NewTrips> {
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           children: [
-            SearchField(
-              controller: _newTripController.newTripsSearchController,
-              hint: 'search_trip_input_label'.tr,
-              clearEvent: () {
-                _newTripController.newTripsSearchController.text = '';
-              },
-              onChangeEvent: _newTripController.searchTrips,
-              searchValue: _newTripController.newTripsSearchController.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 14,
+            GetBuilder<NewTripsController>(
+              builder: (_) => SearchField(
+                controller: _.newTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: _.clearSearch,
+                onChangeEvent: _.searchTrips,
+                searchValue: _.newTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
               ),
             ),
             Expanded(

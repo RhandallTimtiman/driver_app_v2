@@ -1,24 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {
   final TextEditingController? controller;
-  final String? searchValue;
+  final String searchValue;
   final String? hint;
-  final Function? clearEvent;
-  final Function? onChangeEvent;
+  final VoidCallback clearEvent;
+  final Function onChangeEvent;
   final Icon? prefixIcon;
 
-  // ignore: use_key_in_widget_constructors
   const SearchField({
+    Key? key,
     this.controller,
     this.hint,
-    this.clearEvent,
+    required this.clearEvent,
     this.prefixIcon,
-    this.searchValue,
-    this.onChangeEvent,
-  });
+    required this.searchValue,
+    required this.onChangeEvent,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class SearchField extends StatelessWidget {
       child: TextField(
         controller: controller,
         onChanged: (value) {
-          onChangeEvent!(value);
+          onChangeEvent(value);
         },
         obscureText: false,
         style: const TextStyle(
@@ -48,7 +46,7 @@ class SearchField extends StatelessWidget {
           ),
           hintText: hint,
           border: InputBorder.none,
-          suffixIcon: searchValue != ''
+          suffixIcon: searchValue.isNotEmpty
               ? IconTheme(
                   data: IconThemeData(color: Theme.of(context).primaryColor),
                   child: IconButton(
@@ -57,7 +55,7 @@ class SearchField extends StatelessWidget {
                       color: Colors.red,
                       size: 12.0,
                     ),
-                    onPressed: clearEvent!(),
+                    onPressed: clearEvent,
                   ),
                 )
               : null,

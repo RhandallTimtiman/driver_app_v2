@@ -21,11 +21,20 @@ class TripService extends ITrip {
         'driverId': driverId.toString(),
         'status': status == 'All' ? [] : status.split(',')
       };
-      String unencodedPath = '/oat/api/driver-app/GetTripsPerDriver';
+      String unencodedPath = status == 'TODAY'
+          ? '/oat/api/driver-app/TodaysTrip'
+          : '/oat/api/driver-app/GetTripsPerDriver';
 
-      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+      Uri uri;
+      Response response;
+      if (status == 'TODAY') {
+        uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+        response = await _dio.getUri(uri);
+      } else {
+        uri = Uri.https(ApiPaths.proxy, unencodedPath);
+        response = await _dio.postUri(uri, data: queryParameters);
+      }
 
-      Response response = await _dio.postUri(uri, data: queryParameters);
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
@@ -105,6 +114,37 @@ class TripService extends ITrip {
           return trip;
         } else {
           throw parsedResponse;
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future acceptAllTrip(
+      {required List<Map<String, dynamic>> trips,
+      required int driverId}) async {
+    _dio.options.headers = <String, dynamic>{"requiresToken": true};
+
+    try {
+      String unencodedPath = '/oat/api/driver-app/TripDetails';
+      var queryParameters = {
+        'tripStatusId': "PEN",
+        'tripCollections': trips,
+        'driverId': driverId.toString()
+      };
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+      Response response = await _dio.postUri(uri, data: queryParameters);
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+        if (parsedResponse.data != null) {
+          return parsedResponse;
+        } else {
+          return parsedResponse;
         }
       }
     } catch (e) {

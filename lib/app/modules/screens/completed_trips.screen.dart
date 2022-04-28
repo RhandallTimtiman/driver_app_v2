@@ -58,20 +58,17 @@ class _CompletedTripsState extends State<CompletedTrips> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SearchField(
-              controller:
-                  _completedTripController.completedTripsSearchController,
-              hint: 'search_trip_input_label'.tr,
-              clearEvent: () {
-                _completedTripController.completedTripsSearchController.text =
-                    '';
-              },
-              onChangeEvent: _completedTripController.searchTrips,
-              searchValue:
-                  _completedTripController.completedTripsSearchController.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 14,
+            GetBuilder<CompletedTripsController>(
+              builder: (_) => SearchField(
+                controller: _.completedTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: _.clearSearch,
+                onChangeEvent: _.searchTrips,
+                searchValue: _.completedTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
               ),
             ),
             Expanded(

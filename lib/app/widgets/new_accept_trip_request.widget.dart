@@ -171,9 +171,9 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'JO-001/TN-0001',
-                  style: TextStyle(
+                Text(
+                  '${widget.trip.jobOrderNo}/${widget.trip.tripId}',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -188,7 +188,7 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
                       RowDivider(
                         label: 'Delivery Date',
                         value: DateFormat('MMMM dd, yyyy')
-                            .format(DateTime.now())
+                            .format(widget.trip.deliveryDate)
                             .toString(),
                         color: Colors.blue.shade900,
                         fontSize: 12,
@@ -198,7 +198,7 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
                       ),
                       RowDivider(
                         label: 'Shipper',
-                        value: 'Shipper Company',
+                        value: widget.trip.company.name!,
                         color: Colors.blue.shade900,
                         fontSize: 12,
                       ),
@@ -210,23 +210,13 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
                 ),
                 OriginDestinationWidget(
                   isCard: true,
-                  routeName: 'Route A',
-                  origin: 'Sample Address',
-                  destination: 'Sample Address',
-                  originInstruction: 'Sample Instruction',
-                  destinationInstruction: 'Sample Instruction',
+                  routeName: 'Route ${widget.trip.routeName}',
+                  origin: widget.trip.origin.address,
+                  originInstruction: widget.trip.origin.instruction,
+                  destination: widget.trip.destination.address,
+                  destinationInstruction: widget.trip.origin.instruction,
                   color: Colors.black54,
                   isCompleted: false,
-                  arrival: DateFormat('MMMM dd, yyyy hh:mm a')
-                      .format(
-                        DateTime.now(),
-                      )
-                      .toString(),
-                  end: DateFormat('MMMM dd, yyyy hh:mm a')
-                      .format(
-                        DateTime.now(),
-                      )
-                      .toString(),
                 )
               ],
             ),

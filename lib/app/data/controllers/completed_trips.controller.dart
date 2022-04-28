@@ -23,21 +23,26 @@ class CompletedTripsController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    completedTripsSearchController.text = '';
+    super.dispose();
+  }
+
   void getTripList({isPulled = false}) {
     setLoading(!isPulled);
     tripService
         .getTripByStatus(
-          driverId:
-              Get.find<DriverController>().driver.value.driverId.toString(),
-          status: 'COM',
-        )
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      status: 'COM',
+    )
         .then(
-          (value) => {
-            setTripList(value),
-            setLoading(false),
-          },
-        )
-        .catchError(
+      (value) {
+        setTempTripList(value);
+        setTripList(value);
+        setLoading(false);
+      },
+    ).catchError(
       (error) {
         setLoading(false);
         Get.snackbar(
@@ -71,23 +76,29 @@ class CompletedTripsController extends GetxController {
   }
 
   void searchTrips(String value) {
-    debugPrint(completedTripsSearchController.text);
     if (value.isEmpty) {
-      // ignore: invalid_use_of_protected_member
-      completedTripList.value = tempTripList.value;
+      completedTripList.value = tempTripList.map((element) => element).toList();
       update();
     } else {
       completedTripList.value = tempTripList
-          .where((element) =>
-              element.tripId
-                  .toLowerCase()
-                  .contains(value.toString().toLowerCase()) ||
-              element.jobOrderNo
-                  .toLowerCase()
-                  .contains(value.toString().toLowerCase()))
+          .where(
+            (element) =>
+                element.tripId.toLowerCase().contains(
+                      value.toString().toLowerCase(),
+                    ) ||
+                element.jobOrderNo.toLowerCase().contains(
+                      value.toString().toLowerCase(),
+                    ),
+          )
           .toList();
 
       update();
     }
+  }
+
+  void clearSearch() {
+    completedTripsSearchController.text = '';
+    setTripList(tempTripList);
+    update();
   }
 }

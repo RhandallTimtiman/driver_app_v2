@@ -22,6 +22,12 @@ class AllTripsController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    allTripsSearchController.text = '';
+    super.dispose();
+  }
+
   void getTripList({isPulled = false}) {
     setLoading(!isPulled);
     setTripList([]);
@@ -91,5 +97,11 @@ class AllTripsController extends GetxController {
 
       update();
     }
+  }
+
+  void clearSearch() {
+    allTripsSearchController.text = '';
+    setTripList(tempTripList);
+    update();
   }
 }

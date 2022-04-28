@@ -46,8 +46,8 @@ class DashboardTripButton extends StatelessWidget {
                 Get.bottomSheet(
                   TripListModal(
                     title: 'pending_trips_label'.tr,
-                    showAcceptAll: true,
-                    status: 'PEN',
+                    showAcceptAll: false,
+                    status: 'PEN,ONG',
                   ),
                   isScrollControlled: true,
                 );

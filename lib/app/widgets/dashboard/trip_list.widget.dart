@@ -19,9 +19,17 @@ class _TripListState extends State<TripList> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _tripController.getTripList(
-          type: widget.status, filter: widget.status == 'NEW' ? 'today' : '');
+        type: widget.status,
+        filter: widget.status == 'NEW' ? 'today' : '',
+      );
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tripController.searchController.text = '';
+    super.dispose();
   }
 
   @override
@@ -33,26 +41,24 @@ class _TripListState extends State<TripList> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SearchField(
-            controller: _tripController.searchController,
-            hint: 'search_trip_input_label'.tr,
-            clearEvent: () {
-              _tripController.clearSearchValue();
-            },
-            onChangeEvent: (value) {
-              _tripController.setSearchValue(value);
-            },
-            searchValue: _tripController.searchValue,
-            prefixIcon: const Icon(
-              Icons.search,
-              size: 14,
+          GetBuilder<TripController>(
+            builder: (_) => SearchField(
+              controller: _.searchController,
+              hint: 'search_trip_input_label'.tr,
+              clearEvent: _.clearSearchValue,
+              onChangeEvent: _.filterTripListBySearch,
+              searchValue: _.searchController.text,
+              prefixIcon: const Icon(
+                Icons.search,
+                size: 14,
+              ),
             ),
           ),
           widget.status == 'NEW'
               ? const TripListFilter()
               : const SizedBox.shrink(),
           Expanded(
-            child: GetX<TripController>(
+            child: GetBuilder<TripController>(
               builder: (_) {
                 if (_.loading.value) {
                   return const LoaderWidget();
@@ -69,9 +75,9 @@ class _TripListState extends State<TripList> {
                     );
                   } else {
                     return ListView.builder(
-                      itemCount: _tripController.filteredTripList.length,
+                      itemCount: _tripController.tripList.length,
                       itemBuilder: (context, index) {
-                        Trip trip = _.filteredTripList[index];
+                        Trip trip = _.tripList[index];
                         return TripCard(trip: trip);
                       },
                     );

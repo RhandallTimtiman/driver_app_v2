@@ -58,17 +58,17 @@ class _AllTripsScreenState extends State<AllTripsScreen> {
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           children: [
-            SearchField(
-              controller: _allTripController.allTripsSearchController,
-              hint: 'search_trip_input_label'.tr,
-              clearEvent: () {
-                _allTripController.allTripsSearchController.text = '';
-              },
-              onChangeEvent: _allTripController.searchTrips,
-              searchValue: _allTripController.allTripsSearchController.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 14,
+            GetBuilder<AllTripsController>(
+              builder: (_) => SearchField(
+                controller: _.allTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: _.clearSearch,
+                onChangeEvent: _.searchTrips,
+                searchValue: _.allTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
               ),
             ),
             Expanded(

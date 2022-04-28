@@ -42,7 +42,7 @@ class RouteSegment extends StatelessWidget {
                     toggleCollapse();
                   }),
                   child: Container(
-                    constraints: const BoxConstraints(minHeight: 120),
+                    constraints: const BoxConstraints(minHeight: 110),
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(0, 129, 174, 1),
                       boxShadow: [
@@ -70,31 +70,146 @@ class RouteSegment extends StatelessWidget {
                             const SizedBox(
                               width: 20,
                             ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Your Location',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    trip.origin.address,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  )
-                                ],
-                              ),
-                            ),
+                            GetX<CurrentTripController>(
+                              builder: (_) {
+                                return _.currentTrip.value.trip.statusId !=
+                                        'COM'
+                                    ? Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Your Location',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              trip.origin.address,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    : Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'Start Trip:',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10.0,
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    _.currentTrip.value.trip
+                                                                .actualStart !=
+                                                            null
+                                                        ? DateFormat(
+                                                                'MMMM dd, yyyy hh:mm a')
+                                                            .format(
+                                                              _
+                                                                  .currentTrip
+                                                                  .value
+                                                                  .trip
+                                                                  .actualStart!
+                                                                  .toLocal(),
+                                                            )
+                                                            .toString()
+                                                        : '-',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 5.0,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'End Trip:',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10.0,
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    _.currentTrip.value.trip
+                                                                .actualTimeArival !=
+                                                            null
+                                                        ? DateFormat(
+                                                                'MMMM dd, yyyy hh:mm a')
+                                                            .format(
+                                                              _
+                                                                  .currentTrip
+                                                                  .value
+                                                                  .trip
+                                                                  .actualTimeArival!
+                                                                  .toLocal(),
+                                                            )
+                                                            .toString()
+                                                        : '-',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                              },
+                            )
                           ],
                         ),
                         isCollapsed

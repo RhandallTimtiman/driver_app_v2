@@ -24,22 +24,26 @@ class PendingTripsController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    pendingTripsSearchController.text = '';
+    super.dispose();
+  }
+
   void getTripList({isPulled = false}) {
     setLoading(!isPulled);
     tripService
         .getTripByStatus(
-          driverId:
-              Get.find<DriverController>().driver.value.driverId.toString(),
-          status: 'PEN,ONG',
-        )
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      status: 'PEN,ONG',
+    )
         .then(
-          (value) => {
-            inspect(value),
-            setTripList(value),
-            setLoading(false),
-          },
-        )
-        .catchError(
+      (value) {
+        setTripList(value);
+        setTempTripList(value);
+        setLoading(false);
+      },
+    ).catchError(
       (error) {
         setLoading(false);
         Get.snackbar(
@@ -73,10 +77,8 @@ class PendingTripsController extends GetxController {
   }
 
   void searchTrips(String value) {
-    debugPrint(pendingTripsSearchController.text);
     if (value.isEmpty) {
-      // ignore: invalid_use_of_protected_member
-      pendingTripList.value = tempTripList.value;
+      pendingTripList.value = tempTripList.map((element) => element).toList();
       update();
     } else {
       pendingTripList.value = tempTripList
@@ -91,5 +93,10 @@ class PendingTripsController extends GetxController {
 
       update();
     }
+  }
+
+  void clearSearch() {
+    pendingTripsSearchController.text = '';
+    setTripList(tempTripList);
   }
 }

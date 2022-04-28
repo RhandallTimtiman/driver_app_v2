@@ -55,17 +55,17 @@ class _TodayTripsState extends State<TodayTrips> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SearchField(
-              controller: _todayTripController.todayTripsSearchController,
-              hint: 'search_trip_input_label'.tr,
-              clearEvent: () {
-                _todayTripController.todayTripsSearchController.text = '';
-              },
-              onChangeEvent: _todayTripController.searchTrips,
-              searchValue: _todayTripController.todayTripsSearchController.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 14,
+            GetBuilder<TodayTripsController>(
+              builder: (_) => SearchField(
+                controller: _.todayTripsSearchController,
+                hint: 'search_trip_input_label'.tr,
+                clearEvent: _.clearSearch,
+                onChangeEvent: _.searchTrips,
+                searchValue: _.todayTripsSearchController.text,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 14,
+                ),
               ),
             ),
             Expanded(

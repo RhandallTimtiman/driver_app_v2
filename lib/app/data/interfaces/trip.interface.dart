@@ -12,4 +12,7 @@ abstract class ITrip {
   Future<dynamic> getTripDetails({
     required int acquiredTruckingServiceId,
   });
+
+  Future<dynamic> acceptAllTrip(
+      {required List<Map<String, dynamic>> trips, required int driverId});
 }

@@ -1,6 +1,7 @@
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -133,30 +134,67 @@ class TripCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          left: BorderSide(color: Colors.black12),
-                        ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        left: BorderSide(color: Colors.black12),
                       ),
-                      width: 50,
-                      height: 50,
-                      child: InkWell(
-                        onTap: () {
-                          if (trip.statusDescription == 'NEW') {
-                            // _selectAction(context);
-                          }
-                          if (trip.statusId == 'COM') {
-                            // _simulateTrip(context);
-                          }
-                        },
-                        child: const Icon(
-                          FontAwesomeIcons.ellipsisV,
-                          size: 16,
-                          color: Colors.black54,
-                        ),
+                    ),
+                    width: 50,
+                    height: 50,
+                    child: InkWell(
+                      onTap: () {
+                        if (trip.statusDescription == 'NEW') {
+                          final act = CupertinoActionSheet(
+                            title: const Text('Select Action'),
+                            actions: <Widget>[
+                              CupertinoActionSheetAction(
+                                child: Text(
+                                  'accept_label'.tr,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Get.back();
+                                  _tripController.openAcceptModal(trip);
+                                },
+                              ),
+                              CupertinoActionSheetAction(
+                                child: Text(
+                                  'reject_label'.tr,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // setReason('Others');
+                                  // rejectTrip();
+                                },
+                              )
+                            ],
+                            cancelButton: CupertinoActionSheetAction(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                          );
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (BuildContext context) => act,
+                          );
+                        }
+                        if (trip.statusId == 'COM') {
+                          // _simulateTrip(context);
+                        }
+                      },
+                      child: const Icon(
+                        FontAwesomeIcons.ellipsisV,
+                        size: 16,
+                        color: Colors.black54,
                       ),
                     ),
                   ),

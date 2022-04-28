@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../data/controllers/controllers.dart';
+
 class TripListModal extends StatefulWidget {
   final String title;
 
@@ -70,7 +72,9 @@ class _TripListModalState extends State<TripListModal> {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.find<TripController>().acceptAllTrip();
+                                },
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
