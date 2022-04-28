@@ -99,6 +99,7 @@ class Messages extends Translations {
           "start_trip_label": "Start Trip:",
           "end_trip_label": "End Trip:",
           "your_location_label": "Your Location",
+          "new_trip_request": "New Trip Request",
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -192,6 +193,7 @@ class Messages extends Translations {
           "start_trip_label": "Start Trip:",
           "end_trip_label": "End Trip:",
           "your_location_label": "Your Location",
+          "new_trip_request": "New Trip Request",
         },
       };
 }

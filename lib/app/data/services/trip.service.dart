@@ -11,8 +11,10 @@ class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
 
   @override
-  Future getTripByStatus(
-      {required String driverId, required String status}) async {
+  Future getTripByStatus({
+    required String driverId,
+    required String status,
+  }) async {
     _dio.options.headers = <String, dynamic>{
       "requiresToken": true,
     };
@@ -58,9 +60,10 @@ class TripService extends ITrip {
   }
 
   @override
-  Future acceptTrip(
-      {required String driverId,
-      required int acquiredTruckingServiceId}) async {
+  Future acceptTrip({
+    required String driverId,
+    required int acquiredTruckingServiceId,
+  }) async {
     _dio.options.headers = <String, dynamic>{
       "requiresToken": true,
     };
@@ -91,7 +94,9 @@ class TripService extends ITrip {
   }
 
   @override
-  Future getTripDetails({required int acquiredTruckingServiceId}) async {
+  Future getTripDetails({
+    required int acquiredTruckingServiceId,
+  }) async {
     _dio.options.headers = <String, dynamic>{
       "requiresToken": true,
     };
@@ -122,9 +127,10 @@ class TripService extends ITrip {
   }
 
   @override
-  Future acceptAllTrip(
-      {required List<Map<String, dynamic>> trips,
-      required int driverId}) async {
+  Future acceptAllTrip({
+    required List<Map<String, dynamic>> trips,
+    required int driverId,
+  }) async {
     _dio.options.headers = <String, dynamic>{"requiresToken": true};
 
     try {
@@ -148,6 +154,47 @@ class TripService extends ITrip {
         }
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future getNewTrip({
+    required int driverId,
+    required int jobOrder,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+    try {
+      String unencodedPath = '/oat/api/driver-app/NewTripPopUp';
+
+      var queryParameters = {
+        'driverId': driverId.toString(),
+        'jobOrder': jobOrder.toString()
+      };
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+      Response response = await _dio.getUri(uri);
+
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+        inspect(parsedResponse);
+        if (parsedResponse.data != null) {
+          List<Trip> trips = parsedResponse.data
+              .map<Trip>((item) => Trip.fromJson(item))
+              .toList();
+          inspect(trips);
+          return trips;
+        } else {
+          throw parsedResponse;
+        }
+      }
+    } catch (e) {
+      debugPrint("Error Here! ===>");
+      inspect(e);
       rethrow;
     }
   }

@@ -51,7 +51,7 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
         () {
           if (_timeCount <= 0) {
             time.cancel();
-            // Navigator.pop(context);
+            Get.back(result: false);
           } else {
             _timeCount -= 1;
           }
@@ -262,10 +262,11 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         fillColor: const Color.fromRGBO(0, 167, 229, 1),
-                        onPressed: () => {
+                        onPressed: () {
+                          Get.back(result: true);
                           _tripController.acceptTrip(
                             widget.trip.acquiredTruckingServiceId,
-                          ),
+                          );
                         },
                         child: Text(
                           'accept_label'.tr,
