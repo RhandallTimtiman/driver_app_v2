@@ -128,18 +128,17 @@ class TripController extends GetxController {
   void acceptTrip(int acquiredTruckingServiceId) {
     tripService
         .acceptTrip(
-          driverId:
-              Get.find<DriverController>().driver.value.driverId.toString(),
-          acquiredTruckingServiceId: acquiredTruckingServiceId,
-        )
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      acquiredTruckingServiceId: acquiredTruckingServiceId,
+    )
         .then(
-          (value) => {
-            getTripDetails(
-              acquiredTruckingServiceId: acquiredTruckingServiceId,
-            )
-          },
-        )
-        .catchError(
+      (value) {
+        setLoading(false);
+        getTripDetails(
+          acquiredTruckingServiceId: acquiredTruckingServiceId,
+        );
+      },
+    ).catchError(
       (error) {
         setLoading(false);
         Get.snackbar(
