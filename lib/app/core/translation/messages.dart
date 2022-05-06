@@ -101,6 +101,7 @@ class Messages extends Translations {
           'your_location_label': 'Your Location',
           'new_trip_request': 'New Trip Request',
           'trip_summary_label': 'Trip Summary',
+          'attachment_label': 'Attachments'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -196,6 +197,7 @@ class Messages extends Translations {
           'your_location_label': 'Your Location',
           'new_trip_request': 'New Trip Request',
           'trip_summary_label': 'Trip Summary',
+          'attachment_label': 'Attachments'
         },
       };
 }

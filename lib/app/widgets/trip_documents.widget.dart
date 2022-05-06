@@ -2,6 +2,7 @@ import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import "package:collection/collection.dart";
+import 'package:get/get.dart';
 
 class TripAttachments extends StatelessWidget {
   final List<TripDocument> tripDocuments;
@@ -35,17 +36,17 @@ class TripAttachments extends StatelessWidget {
             width: size.width,
             padding: const EdgeInsets.all(16),
             child: Row(
-              children: const [
-                Image(
+              children: [
+                const Image(
                   image: AssetImage('assets/icons/attachment.png'),
                   width: 20,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  'Attachments',
-                  style: TextStyle(
+                  'attachment_label'.tr,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
