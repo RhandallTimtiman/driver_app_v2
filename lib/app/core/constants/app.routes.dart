@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
-import 'package:driver_app/app/modules/bindings/today_trips.binding.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
+import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -90,6 +90,10 @@ class AppRoutes {
     GetPage(
       name: '/trip',
       page: () => TripScreen(),
+    ),
+    GetPage(
+      name: '/trip-summary',
+      page: () => TripSummary(),
     )
   ];
 

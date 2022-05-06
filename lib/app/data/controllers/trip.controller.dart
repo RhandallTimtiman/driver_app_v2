@@ -237,6 +237,7 @@ class TripController extends GetxController {
                   trip.acquiredTruckingServiceId.toString
             })
         .toList();
+
     tripService
         .acceptAllTrip(
             trips: listOfacquiredTruckingServiceId,
@@ -272,6 +273,16 @@ class TripController extends GetxController {
           margin: const EdgeInsets.all(15),
         );
       },
+    );
+  }
+
+  void openAcceptAllModal() {
+    Get.dialog(
+      const Dialog(
+        backgroundColor: Colors.white,
+        child: AcceptAllTripModal(),
+      ),
+      barrierDismissible: false,
     );
   }
 }

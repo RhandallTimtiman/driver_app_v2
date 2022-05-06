@@ -1,9 +1,10 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AcceptAllTrip extends StatelessWidget {
-  const AcceptAllTrip({Key? key}) : super(key: key);
+class AcceptAllTripModal extends StatelessWidget {
+  const AcceptAllTripModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +135,9 @@ class AcceptAllTrip extends StatelessWidget {
                             Color.fromRGBO(0, 209, 255, 1),
                           ],
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.find<TripController>().acceptAllTrip();
+                        },
                       ),
                     ),
                   ],

@@ -6,4 +6,5 @@ class CurrentState {
   bool isOnTrip = false;
   // OnGoingTrip onGoingTrip = OnGoingTrip();
   int mapType = 1;
+  late TripSummaryModel tripSummary;
 }

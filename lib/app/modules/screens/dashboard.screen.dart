@@ -113,6 +113,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               openAnimatedCircle: _openAnimatedCircle,
               closeAnimatedCircle: _closeAnimatedCircle,
               bottom: 35.0,
+              screen: 'dashboard',
             ),
             // Positioned(
             //   top: 29,
