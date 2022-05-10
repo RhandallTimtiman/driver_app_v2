@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +15,9 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        title: const Text(
-          'Notifications',
-          style: TextStyle(
+        title: Text(
+          'notification_label'.tr,
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
             color: Colors.black87,
