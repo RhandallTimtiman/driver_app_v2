@@ -9,3 +9,4 @@ export 'new_trips.binding.dart';
 export 'pending_trips.binding.dart';
 export 'completed_trips.binding.dart';
 export 'today_trips.binding.dart';
+export 'notification.binding.dart';

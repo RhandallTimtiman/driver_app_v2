@@ -94,7 +94,12 @@ class AppRoutes {
     GetPage(
       name: '/trip-summary',
       page: () => TripSummary(),
-    )
+    ),
+    GetPage(
+      name: '/notification',
+      page: () => NotificationListScreen(),
+      binding: NotificationBinding(),
+    ),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [

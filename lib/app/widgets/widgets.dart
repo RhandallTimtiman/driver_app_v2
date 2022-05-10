@@ -38,3 +38,4 @@ export 'route_details.widget.dart';
 export 'trip_documents.widget.dart';
 export 'file_viewer.widget.dart';
 export 'document_grid.widget.dart';
+export 'notification_item.widget.dart';

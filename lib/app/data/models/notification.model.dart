@@ -1,4 +1,4 @@
-class NotificationData {
+class NotificationModel {
   int driverId;
   int driverNotificationsId;
   String notificationTypeId;
@@ -8,7 +8,7 @@ class NotificationData {
   bool isRead;
   dynamic createdDate;
 
-  NotificationData({
+  NotificationModel({
     required this.driverId,
     required this.driverNotificationsId,
     required this.createdDate,
@@ -19,8 +19,8 @@ class NotificationData {
     required this.serviceTicketId,
   });
 
-  factory NotificationData.fromJson(Map<String, dynamic> json) {
-    return NotificationData(
+  factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    return NotificationModel(
       driverId: json['driverId'],
       driverNotificationsId: json['driverNotificationsId'],
       createdDate: json['createdDate'],
