@@ -277,7 +277,35 @@ class RouteSegment extends StatelessWidget {
                                                 ),
                                               ),
                                             )
-                                          : const SizedBox.shrink()
+                                          : const SizedBox.shrink(),
+                                      _.currentTrip.value.trip.statusId == 'COM'
+                                          ? Container(
+                                              width: size.width,
+                                              constraints: const BoxConstraints(
+                                                maxWidth: 500,
+                                              ),
+                                              child: RawMaterialButton(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: const Color.fromRGBO(
+                                                  255,
+                                                  183,
+                                                  0,
+                                                  1,
+                                                ),
+                                                onPressed: () => {},
+                                                child: Text(
+                                                  'simulate_route_label'.tr,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox.shrink(),
                                     ],
                                   );
                                 },

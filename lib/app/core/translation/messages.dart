@@ -96,12 +96,13 @@ class Messages extends Translations {
           'go_to_current_trip_label': 'Go To Current Trip',
           'new_trip_request_label': 'New Trip Request',
           'close_label': 'Close',
-          'start_trip_label': 'Start Trip:',
+          'start_trip_label': 'Start Trip',
           'end_trip_label': 'End Trip:',
           'your_location_label': 'Your Location',
           'new_trip_request': 'New Trip Request',
           'trip_summary_label': 'Trip Summary',
-          'attachment_label': 'Attachments'
+          'attachment_label': 'Attachments',
+          'simulate_route_label': "Simulate Route"
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -192,12 +193,13 @@ class Messages extends Translations {
           'go_to_current_trip_label': 'Go To Current Trip',
           'new_trip_request_label': 'New Trip Request',
           'close_label': 'Close',
-          'start_trip_label': 'Start Trip:',
+          'start_trip_label': 'Start Trip',
           'end_trip_label': 'End Trip:',
           'your_location_label': 'Your Location',
           'new_trip_request': 'New Trip Request',
           'trip_summary_label': 'Trip Summary',
-          'attachment_label': 'Attachments'
+          'attachment_label': 'Attachments',
+          'simulate_route_label': "Simulate Route"
         },
       };
 }
