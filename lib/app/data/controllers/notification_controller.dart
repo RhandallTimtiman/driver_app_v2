@@ -39,6 +39,8 @@ class NotificationController extends GetxController {
           jobOrder: parsed['JobOrderId'],
         )
             .then((result) {
+          Get.back();
+
           bool isAccepted = false;
 
           List<dynamic> tempTrips = result;
@@ -59,6 +61,7 @@ class NotificationController extends GetxController {
                   ),
                 ),
                 barrierDismissible: false,
+                name: 'new-trip-record',
               );
 
               debugPrint('Was he Accepted? $isAccepted');

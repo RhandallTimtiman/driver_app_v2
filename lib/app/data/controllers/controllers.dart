@@ -18,3 +18,4 @@ export 'ongoing_trip.controller.dart';
 export 'notification_controller.dart';
 export 'current_trip.controller.dart';
 export 'dashboard_map_g.controller.dart';
+export 'notification_list.controller.dart';

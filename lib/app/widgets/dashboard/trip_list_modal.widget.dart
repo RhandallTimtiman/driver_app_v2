@@ -73,7 +73,8 @@ class _TripListModalState extends State<TripListModal> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: MaterialButton(
                                 onPressed: () {
-                                  Get.find<TripController>().acceptAllTrip();
+                                  Get.find<TripController>()
+                                      .openAcceptAllModal();
                                 },
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4.0),

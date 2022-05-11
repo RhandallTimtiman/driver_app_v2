@@ -16,3 +16,4 @@ export 'chassis_selection.screen.dart';
 export 'disclosure.screen.dart';
 export 'trip.screen.dart';
 export 'splash.screen.dart';
+export 'notification_list.screen.dart';

@@ -1,17 +1,20 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
+import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'circular_button.widget.dart';
 
 class FancyButton extends StatefulWidget {
   final double bottom;
   final Function? openAnimatedCircle;
   final Function? closeAnimatedCircle;
+  final String screen;
 
   const FancyButton({
     Key? key,
     this.openAnimatedCircle,
     this.closeAnimatedCircle,
     this.bottom = 0.0,
+    required this.screen,
   }) : super(key: key);
   @override
   _FancyButtonState createState() => _FancyButtonState();
@@ -29,6 +32,16 @@ class _FancyButtonState extends State<FancyButton>
   double getRadiansFromDegree(double degree) {
     double unitRadian = 57.295779513;
     return degree / unitRadian;
+  }
+
+  void showTripsModal(context, String status, String title) {
+    Get.bottomSheet(
+      TripListModal(
+        status: status,
+        title: title,
+      ),
+      isScrollControlled: true,
+    );
   }
 
   @override
@@ -171,6 +184,7 @@ class _FancyButtonState extends State<FancyButton>
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
+                    Get.toNamed('/notification');
                   },
                 ),
               ),
@@ -216,16 +230,18 @@ class _FancyButtonState extends State<FancyButton>
                   width: 60,
                   height: 60,
                   image: 'assets/icons/trip-history.png',
-                  // title: widget.trip != null ? 'Trip Summary' : 'Trip History',
-                  title: 'trip_history_label'.tr,
+                  title: widget.screen == 'dashboard'
+                      ? 'trip_history_label'.tr
+                      : 'trip_summary_label'.tr,
                   onClick: () {
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
-                    // if (widget.trip != null) {
-                    //   viewTripSummary();
-                    // } else {
-                    //   showTripsModal(context, 'COM', 'Trip History');
-                    // }
+                    if (widget.screen == 'dashboard') {
+                      showTripsModal(context, 'COM', 'Trip History');
+                      // viewTripSummary();
+                    } else {
+                      Get.find<CurrentTripController>().getTripSummary();
+                    }
                   },
                 ),
               ),
