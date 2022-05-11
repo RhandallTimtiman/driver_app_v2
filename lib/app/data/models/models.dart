@@ -11,3 +11,4 @@ export 'chassis.model.dart';
 export 'company.model.dart';
 export 'container.model.dart';
 export 'current_state.model.dart';
+export 'current_position.model.dart';
