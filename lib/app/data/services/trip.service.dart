@@ -126,13 +126,12 @@ class TripService extends ITrip {
     _dio.options.headers = <String, dynamic>{"requiresToken": true};
 
     try {
-      String unencodedPath = '/oat/api/driver-app/TripDetails';
+      String unencodedPath = '/oat/api/driver-app/BulkUpdateStatus';
       var queryParameters = {
         'tripStatusId': "PEN",
         'tripCollections': trips,
         'driverId': driverId.toString()
       };
-
       var uri = Uri.https(ApiPaths.proxy, unencodedPath);
       Response response = await _dio.postUri(uri, data: queryParameters);
       if (response.statusCode == 200) {

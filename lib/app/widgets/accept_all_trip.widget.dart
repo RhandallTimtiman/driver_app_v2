@@ -136,7 +136,7 @@ class AcceptAllTripModal extends StatelessWidget {
                           ],
                         ),
                         onPressed: () {
-                          Get.find<TripController>().acceptAllTrip();
+                          Get.find<TripController>().acceptAllTrip(context);
                         },
                       ),
                     ),
