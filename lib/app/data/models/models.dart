@@ -11,6 +11,7 @@ export 'chassis.model.dart';
 export 'company.model.dart';
 export 'container.model.dart';
 export 'current_state.model.dart';
+export 'current_position.model.dart';
 export 'trip_documents.model.dart';
 export 'container_info_list.model.dart';
 export 'trip_summary.model.dart';

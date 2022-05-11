@@ -31,6 +31,7 @@ class AppRoutes {
     GetPage(
       name: '/dashboard',
       page: () => DashboardScreen(),
+      binding: DashboardMapBinding(),
     ),
     GetPage(
       name: '/blackbox',
@@ -107,8 +108,7 @@ class AppRoutes {
       routeName: 'Dashboard',
       icon: 'assets/icons/dashboard.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/dashboard');
+        Get.offAllNamed('/dashboard');
       },
       width: 23,
     ),
@@ -116,8 +116,7 @@ class AppRoutes {
       routeName: 'Fleet Selection',
       icon: 'assets/icons/fleet.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/fleet-selection');
+        Get.offAllNamed('/fleet-selection');
       },
       width: 23,
     ),
@@ -125,8 +124,7 @@ class AppRoutes {
       routeName: "Today's Trips",
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/today-trips');
+        Get.offAllNamed('/today-trips');
       },
       width: 23,
     ),
@@ -134,8 +132,7 @@ class AppRoutes {
       routeName: 'New Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/new-trips');
+        Get.offAllNamed('/new-trips');
       },
       width: 23,
     ),
@@ -143,8 +140,7 @@ class AppRoutes {
       routeName: 'Pending Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/pending-trips');
+        Get.offAllNamed('/pending-trips');
       },
       width: 23,
     ),
@@ -152,8 +148,7 @@ class AppRoutes {
       routeName: 'Completed Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/completed-trips');
+        Get.offAllNamed('/completed-trips');
       },
       width: 23,
     ),
@@ -161,8 +156,7 @@ class AppRoutes {
       routeName: 'All Trips',
       icon: 'assets/icons/alltrips.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/all-trips');
+        Get.offAllNamed('/all-trips');
       },
       width: 23,
     ),
@@ -170,8 +164,7 @@ class AppRoutes {
       routeName: 'Settings',
       icon: 'assets/icons/settings.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/settings');
+        Get.offAllNamed('/settings');
       },
       width: 23,
     ),
@@ -179,8 +172,7 @@ class AppRoutes {
       routeName: 'About',
       icon: 'assets/icons/about.png',
       onTap: () {
-        Get.back();
-        Get.toNamed('/about');
+        Get.offAllNamed('/about');
       },
       width: 23,
     ),

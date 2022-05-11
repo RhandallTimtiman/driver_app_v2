@@ -20,10 +20,10 @@ class VehicleController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     try {
+      Get.find<LocationController>().checkPermissions(isDisclosure: false);
       await getCurrentVehicle();
       await getCurrentChassis();
       await getChassisList();
-      Get.find<LocationController>().checkPermissions(isDisclosure: false);
     } catch (e) {
       debugPrint(e.toString());
     } finally {

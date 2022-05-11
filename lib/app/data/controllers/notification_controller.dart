@@ -28,7 +28,6 @@ class NotificationController extends GetxController {
 
   initializePushNotif() {
     FirebaseMessaging.onMessage.listen((event) {
-      debugPrint('I receive a message hehe');
       final Map parsed = Platform.isIOS
           ? jsonDecode(event.data['info'])
           : jsonDecode(event.data['info']);
@@ -42,7 +41,7 @@ class NotificationController extends GetxController {
 
       if (parsed['NotificationType'] == 'newTrip') {
         debugPrint('I received notification');
-        inspect(parsed);
+
         _tripService
             .getNewTrip(
           driverId: parsed['DriverId'],
