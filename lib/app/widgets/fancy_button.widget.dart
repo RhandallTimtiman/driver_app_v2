@@ -155,14 +155,6 @@ class _FancyButtonState extends State<FancyButton>
                     widget.closeAnimatedCircle!();
                     animationController.reverse();
                     Get.toNamed('/emergency');
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => ReportScreen(
-                    //       trip: widget.trip,
-                    //     ),
-                    //   ),
-                    // );
                   },
                 ),
               ),

@@ -6,7 +6,7 @@ export 'driver.controller.dart';
 export 'vehicle.controller.dart';
 export 'status.controller.dart';
 export 'change_pin.controller.dart';
-export 'reason.controller.dart';
+export 'emergency.controller.dart';
 export 'all_trips.controller.dart';
 export 'new_trips.controller.dart';
 export 'location.controller.dart';

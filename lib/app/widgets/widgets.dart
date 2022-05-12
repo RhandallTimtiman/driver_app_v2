@@ -39,3 +39,4 @@ export 'trip_documents.widget.dart';
 export 'file_viewer.widget.dart';
 export 'document_grid.widget.dart';
 export 'notification_item.widget.dart';
+export 'background_loader.widget.dart';

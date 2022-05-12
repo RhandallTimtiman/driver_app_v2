@@ -16,11 +16,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       mapName: 'Google Map',
       imageAsset: 'assets/images/Gmap.png',
     ),
-    MapType(
-      id: 1,
-      mapName: 'Google Map',
-      imageAsset: 'assets/images/Gmap.png',
-    ),
+    // MapType(
+    //   id: 1,
+    //   mapName: 'Google Map',
+    //   imageAsset: 'assets/images/Gmap.png',
+    // ),
   ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -154,6 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             onTap: () => {},
                             child: Container(
                               height: 50,
+                              width: size.width,
                               padding: const EdgeInsets.symmetric(
                                 vertical: 10.0,
                                 horizontal: 10.0,
@@ -164,14 +165,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
-                                        mapList[index].mapName,
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
+                                      SizedBox(
+                                        width: 200,
+                                        child: Text(
+                                          mapList[index].mapName,
+                                          style: TextStyle(
+                                            color: Colors.grey[700],
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
+                                  const Icon(
+                                    Icons.check,
+                                    color: Colors.blue,
+                                  )
                                 ],
                               ),
                             ),

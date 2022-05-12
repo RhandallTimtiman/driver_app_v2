@@ -85,6 +85,13 @@ class _TripScreenState extends State<TripScreen> {
                                 color: Colors.white,
                               ),
                             ),
+                            // Text(
+                            //   '${_.currentTrip.value.trip.tripId} - ${_.currentTrip.value.trip.acquiredTruckingServiceId}',
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.w300,
+                            //     color: Colors.white,
+                            //   ),
+                            // ),
                           ],
                         );
                       },

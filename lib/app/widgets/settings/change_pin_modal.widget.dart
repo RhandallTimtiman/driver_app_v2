@@ -124,7 +124,7 @@ class _ChangePinModalState extends State<ChangePinModal> {
                       child: Material(
                         elevation: 5.0,
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Theme.of(context).primaryColor,
+                        color: const Color.fromRGBO(255, 185, 0, 1),
                         child: MaterialButton(
                           minWidth: MediaQuery.of(context).size.width - 100,
                           onPressed: () => {
@@ -135,7 +135,6 @@ class _ChangePinModalState extends State<ChangePinModal> {
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

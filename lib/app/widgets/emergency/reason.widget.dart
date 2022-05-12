@@ -90,7 +90,9 @@ class ReasonWidget extends StatelessWidget {
                       maxLines: 1,
                     ),
                   ),
-                  const Icon(Icons.arrow_drop_down)
+                  const Icon(
+                    Icons.arrow_drop_down,
+                  )
                 ],
               ),
             ),

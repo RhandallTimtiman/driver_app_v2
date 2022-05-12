@@ -35,7 +35,7 @@ class ChangePinController extends GetxController {
   void changeNewPin() {
     if (changePinFormKey.currentState!.validate()) {
       Get.dialog(
-        const LoaderWidget(),
+        const BackgroundLoader(),
         barrierDismissible: false,
       );
       _settingsService
