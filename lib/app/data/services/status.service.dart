@@ -4,31 +4,33 @@ import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
 
-class SettingsService extends ISettings {
+class StatusService extends IStatus {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
 
   @override
-  Future changePin({
+  Future updateDriverOnlineStatus({
     int? driverId,
-    required String oldPin,
-    required String newPin,
+    bool? onlineStatus,
+    double? latestLat = 0.0,
+    double? latestLng = 0.0,
   }) async {
     _dio.options.headers = <String, dynamic>{
       "requiresToken": true,
     };
 
     try {
-      String unencodedPath = '/oat/api/driver-app/UpdatePin';
-
-      var queryParameters = {
-        'driverId': driverId.toString(),
-        'OldPin': oldPin,
-        'NewPin': newPin,
+      var payload = {
+        'driverId': driverId,
+        'onlineStatus': onlineStatus,
+        'latestLat': latestLat,
+        'latestLng': latestLng,
       };
 
-      var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+      String unencodedPath = '/oat/api/driver-app/ChangeDriverOnlineStatus';
 
-      Response response = await _dio.postUri(uri);
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+
+      Response response = await _dio.postUri(uri, data: payload);
 
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(

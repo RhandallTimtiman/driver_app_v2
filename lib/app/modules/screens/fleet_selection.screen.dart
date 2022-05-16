@@ -234,7 +234,12 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.find<StatusController>()
+                              .toggleCurrentStatusFleetSelection(callback: () {
+                            Get.offAllNamed('/dashboard');
+                          });
+                        },
                         child: Text(
                           'go_online_label'.tr,
                           style: const TextStyle(color: Colors.white),
