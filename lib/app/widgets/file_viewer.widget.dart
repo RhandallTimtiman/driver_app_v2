@@ -27,8 +27,12 @@ class FileViewerScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     void openUrl(url) async {
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
+      Uri _url = Uri.parse(url);
+      if (await canLaunchUrl(_url)) {
+        await launchUrl(
+          _url,
+          mode: LaunchMode.inAppWebView,
+        );
       } else {
         throw 'Could not launch $url';
       }
@@ -119,9 +123,9 @@ class FileViewerScreen extends StatelessWidget {
                       height: 40,
                     ),
                     fileUploads.isNotEmpty
-                        ? const Text(
-                            'Attached File',
-                            style: TextStyle(
+                        ? Text(
+                            'attached_file'.tr,
+                            style: const TextStyle(
                               color: Colors.black87,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -140,7 +144,9 @@ class FileViewerScreen extends StatelessWidget {
                             itemBuilder: (BuildContext ctx, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  openUrl(fileUploads[index].link);
+                                  openUrl(
+                                    fileUploads[index].link,
+                                  );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -165,9 +171,9 @@ class FileViewerScreen extends StatelessWidget {
                       height: 20,
                     ),
                     imageUploads.isNotEmpty
-                        ? const Text(
-                            'Photos',
-                            style: TextStyle(
+                        ? Text(
+                            'photos_label'.tr,
+                            style: const TextStyle(
                               color: Colors.black87,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -204,7 +210,9 @@ class FileViewerScreen extends StatelessWidget {
                                                   const EdgeInsets.all(8.0),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  openUrl(imageUploads[i].link);
+                                                  openUrl(
+                                                    imageUploads[i].link,
+                                                  );
                                                 },
                                                 child: Card(
                                                   elevation: 2,

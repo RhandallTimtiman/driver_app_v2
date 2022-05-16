@@ -36,9 +36,5 @@ class MainBinding extends Bindings {
       TripController(),
       permanent: true,
     );
-    Get.put(
-      CurrentTripController(),
-      permanent: true,
-    );
   }
 }

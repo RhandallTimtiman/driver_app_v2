@@ -12,6 +12,8 @@ class TripScreen extends StatefulWidget {
 
 final CurrentTripController _currentTripController = Get.find();
 
+final TripScreenMapGoogleController _googleController = Get.find();
+
 class _TripScreenState extends State<TripScreen> {
   bool _isCollapsed = false;
 
@@ -41,6 +43,11 @@ class _TripScreenState extends State<TripScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          SizedBox(
+            child: GetBuilder<TripScreenMapGoogleController>(
+              builder: (_) => _.showMap(),
+            ),
+          ),
           Positioned(
             top: 0,
             left: 0,
@@ -52,7 +59,9 @@ class _TripScreenState extends State<TripScreen> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Get.back(),
+                    onPressed: () {
+                      Get.back();
+                    },
                   ),
                   Container(
                     padding:
@@ -105,7 +114,9 @@ class _TripScreenState extends State<TripScreen> {
             right: 10,
             bottom: 205,
             child: RawMaterialButton(
-              onPressed: () => {},
+              onPressed: () => {
+                _googleController.goToCurrentLocation(),
+              },
               elevation: 3,
               fillColor: Colors.white,
               shape: const CircleBorder(),

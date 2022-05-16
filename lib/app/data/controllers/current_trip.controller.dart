@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/data/services/services.dart';
@@ -11,7 +12,13 @@ class CurrentTripController extends GetxController {
 
   RxBool loading = false.obs;
 
-  final ITrip tripService = TripService();
+  final ICurrentTrip currentTripService = CurrentTripService();
+
+  @override
+  void onInit() {
+    setSelectedTrip(Get.find<TripController>().state.value.trip);
+    super.onInit();
+  }
 
   void handleCurrentTrip({trip}) {
     setSelectedTrip(trip);
@@ -25,7 +32,7 @@ class CurrentTripController extends GetxController {
 
   getTripSummary() {
     setLoading();
-    tripService
+    currentTripService
         .getTripSummary(
       acquiredTruckingServiceId:
           currentTrip.value.trip.acquiredTruckingServiceId,
