@@ -123,9 +123,9 @@ class FileViewerScreen extends StatelessWidget {
                       height: 40,
                     ),
                     fileUploads.isNotEmpty
-                        ? const Text(
-                            'Attached File',
-                            style: TextStyle(
+                        ? Text(
+                            'attached_file'.tr,
+                            style: const TextStyle(
                               color: Colors.black87,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -171,9 +171,9 @@ class FileViewerScreen extends StatelessWidget {
                       height: 20,
                     ),
                     imageUploads.isNotEmpty
-                        ? const Text(
-                            'Photos',
-                            style: TextStyle(
+                        ? Text(
+                            'photos_label'.tr,
+                            style: const TextStyle(
                               color: Colors.black87,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,

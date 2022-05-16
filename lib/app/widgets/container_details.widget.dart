@@ -1,5 +1,6 @@
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContainerDetailsWidget extends StatelessWidget {
   final ContainerInfoList container;
@@ -40,11 +41,11 @@ class ContainerDetailsWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(
+                    SizedBox(
                       width: 120,
                       child: Text(
-                        'Total Volume ',
-                        style: TextStyle(
+                        'total_volume'.tr,
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -69,11 +70,11 @@ class ContainerDetailsWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(
+                    SizedBox(
                       width: 120,
                       child: Text(
-                        'Special Condition ',
-                        style: TextStyle(
+                        'special_condition_label'.tr,
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -98,11 +99,11 @@ class ContainerDetailsWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(
+                    SizedBox(
                       width: 120,
                       child: Text(
-                        'Instructions / Others',
-                        style: TextStyle(
+                        'instruction_others'.tr,
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),
