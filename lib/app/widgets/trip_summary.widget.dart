@@ -133,6 +133,21 @@ class _TripSummaryState extends State<TripSummary> {
                               _.currentTrip.value.tripSummary.tripDocuments,
                         )
                       : const SizedBox.shrink(),
+                  _.currentTrip.value.tripSummary.containerInfoList.first
+                              .totalVolume !=
+                          null
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ContainerDetailsWidget(
+                              container: _.currentTrip.value.tripSummary
+                                  .containerInfoList.first,
+                            ),
+                            const ContainerRelease(),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             );

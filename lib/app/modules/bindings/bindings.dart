@@ -11,3 +11,4 @@ export 'completed_trips.binding.dart';
 export 'dashboard_map.binding.dart';
 export 'today_trips.binding.dart';
 export 'notification.binding.dart';
+export 'current_trip.binding.dart';

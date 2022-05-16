@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
@@ -12,93 +11,94 @@ class AppRoutes {
   static final routes = [
     GetPage(
       name: '/',
-      page: () => HomeScreen(),
+      page: () => const HomeScreen(),
     ),
     GetPage(
       name: '/login',
-      page: () => LoginScreen(),
+      page: () => const LoginScreen(),
       binding: AuthBinding(),
     ),
     GetPage(
       name: '/about',
-      page: () => AboutScreen(),
+      page: () => const AboutScreen(),
     ),
     GetPage(
       name: '/settings',
       binding: SettingsBinding(),
-      page: () => SettingsScreen(),
+      page: () => const SettingsScreen(),
     ),
     GetPage(
       name: '/dashboard',
-      page: () => DashboardScreen(),
+      page: () => const DashboardScreen(),
       binding: DashboardMapBinding(),
     ),
     GetPage(
       name: '/blackbox',
-      page: () => BlackboxScreen(),
+      page: () => const BlackboxScreen(),
     ),
     GetPage(
       name: '/all-trips',
-      page: () => AllTripsScreen(),
+      page: () => const AllTripsScreen(),
       binding: AllTripBinding(),
     ),
     GetPage(
       name: '/today-trips',
-      page: () => TodayTrips(),
+      page: () => const TodayTrips(),
       binding: TodayTripsBinding(),
     ),
     GetPage(
       name: '/new-trips',
-      page: () => NewTrips(),
+      page: () => const NewTrips(),
       binding: NewTripBinding(),
     ),
     GetPage(
       name: '/pending-trips',
-      page: () => PendingTrips(),
+      page: () => const PendingTrips(),
       binding: PendingTripsBinding(),
     ),
     GetPage(
       name: '/completed-trips',
-      page: () => CompletedTrips(),
+      page: () => const CompletedTrips(),
       binding: CompletedTripsBinding(),
     ),
     GetPage(
       name: '/fleet-selection',
-      page: () => FleetSelectionScreen(),
+      page: () => const FleetSelectionScreen(),
       binding: VehicleBinding(),
     ),
     GetPage(
       name: '/profile',
-      page: () => ProfileScreen(),
+      page: () => const ProfileScreen(),
     ),
     GetPage(
       name: '/emergency',
-      page: () => EmergencyScreen(),
+      page: () => const EmergencyScreen(),
       binding: EmergencyBinding(),
     ),
     GetPage(
       name: '/select-chassis',
-      page: () => ChassisSelectionScreen(),
+      page: () => const ChassisSelectionScreen(),
     ),
     GetPage(
       name: '/disclosure',
-      page: () => DisclosureScreen(),
+      page: () => const DisclosureScreen(),
     ),
     GetPage(
       name: '/splash',
-      page: () => SplashScreen(),
+      page: () => const SplashScreen(),
     ),
     GetPage(
       name: '/trip',
-      page: () => TripScreen(),
+      page: () => const TripScreen(),
+      binding: CurrentTripBinding(),
     ),
     GetPage(
       name: '/trip-summary',
-      page: () => TripSummary(),
+      page: () => const TripSummary(),
     ),
     GetPage(
       name: '/notification',
-      page: () => NotificationListScreen(),
+      page: () => const NotificationListScreen(),
       binding: NotificationBinding(),
     ),
   ];

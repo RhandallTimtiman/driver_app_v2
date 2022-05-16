@@ -62,12 +62,19 @@ class EmergencyController extends GetxController {
     int acquiredTruckingServiceId = 0,
     required bool isSos,
   }) {
+    bool test = Get.isRegistered<CurrentTripController>();
     if (isSos || reason.value.reportIssueTypeId != '') {
       setLoading(true);
       _emergencyService
           .reportIssue(
         reportIssueTypeId: isSos ? null : reason.value.reportIssueTypeId,
-        acquiredTruckingServiceId: acquiredTruckingServiceId,
+        acquiredTruckingServiceId: test
+            ? Get.find<CurrentTripController>()
+                .currentTrip
+                .value
+                .trip
+                .acquiredTruckingServiceId
+            : acquiredTruckingServiceId,
         remarks: isSos ? null : remarksController.text,
         driverId: Get.find<DriverController>().driver.value.driverId.toString(),
       )

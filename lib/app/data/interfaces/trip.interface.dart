@@ -27,9 +27,4 @@ abstract class ITrip {
     required int driverId,
     required int jobOrder,
   });
-
-  /// Get Trip Summary Information
-  Future<dynamic> getTripSummary({
-    required int acquiredTruckingServiceId,
-  });
 }

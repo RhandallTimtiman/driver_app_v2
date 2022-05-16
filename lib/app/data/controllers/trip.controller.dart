@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -16,6 +18,8 @@ class TripController extends GetxController {
   TextEditingController searchController = TextEditingController();
 
   RxBool loading = false.obs;
+
+  final state = CurrentState().obs;
 
   final ITrip tripService = TripService();
 
@@ -60,8 +64,8 @@ class TripController extends GetxController {
         .getTripDetails(acquiredTruckingServiceId: acquiredTruckingServiceId)
         .then(
           (value) => {
-            Get.find<CurrentTripController>().setSelectedTrip(value),
-            Get.toNamed('/trip')
+            setSelectedTrip(value),
+            Get.toNamed('/trip'),
           },
         )
         .catchError(
@@ -108,7 +112,7 @@ class TripController extends GetxController {
   }
 
   void setSelectedTrip(Trip trip) {
-    Get.find<CurrentTripController>().setSelectedTrip(trip);
+    state.value.trip = trip;
     update();
   }
 
@@ -302,5 +306,12 @@ class TripController extends GetxController {
       ),
       barrierDismissible: false,
     );
+  }
+
+  void handleCurrentTrip({required Trip trip}) {
+    setSelectedTrip(trip);
+    update();
+    inspect(trip);
+    Get.toNamed('/trip');
   }
 }

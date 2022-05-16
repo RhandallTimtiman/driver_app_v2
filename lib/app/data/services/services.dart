@@ -5,3 +5,4 @@ export 'settings.service.dart';
 export 'emergency.service.dart';
 export 'fcm.service.dart';
 export 'notification.service.dart';
+export 'current_trip.service.dart';

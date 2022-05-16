@@ -15,7 +15,6 @@ class TripCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final TripController _tripController = Get.find();
 
-    final CurrentTripController _currentTripController = Get.find();
     Color statusColor;
 
     switch (trip.statusId) {
@@ -48,7 +47,7 @@ class TripCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       elevation: 3,
       child: GestureDetector(
-        onTap: () => {_currentTripController.handleCurrentTrip(trip: trip)},
+        onTap: () => {_tripController.handleCurrentTrip(trip: trip)},
         child: Column(
           children: [
             Container(

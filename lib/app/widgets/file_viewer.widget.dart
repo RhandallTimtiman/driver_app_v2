@@ -27,8 +27,12 @@ class FileViewerScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     void openUrl(url) async {
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
+      Uri _url = Uri.parse(url);
+      if (await canLaunchUrl(_url)) {
+        await launchUrl(
+          _url,
+          mode: LaunchMode.inAppWebView,
+        );
       } else {
         throw 'Could not launch $url';
       }
@@ -140,7 +144,9 @@ class FileViewerScreen extends StatelessWidget {
                             itemBuilder: (BuildContext ctx, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  openUrl(fileUploads[index].link);
+                                  openUrl(
+                                    fileUploads[index].link,
+                                  );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -204,7 +210,9 @@ class FileViewerScreen extends StatelessWidget {
                                                   const EdgeInsets.all(8.0),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  openUrl(imageUploads[i].link);
+                                                  openUrl(
+                                                    imageUploads[i].link,
+                                                  );
                                                 },
                                                 child: Card(
                                                   elevation: 2,
