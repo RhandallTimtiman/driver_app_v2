@@ -17,3 +17,4 @@ export 'disclosure.screen.dart';
 export 'trip.screen.dart';
 export 'splash.screen.dart';
 export 'notification_list.screen.dart';
+export 'route_simulation.screen.dart';

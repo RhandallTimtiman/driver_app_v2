@@ -25,4 +25,15 @@ class ApiResponse {
       refreshToken: json['refreshToken'],
     );
   }
+
+  factory ApiResponse.fromJson2(Map<String, dynamic> json) {
+    return ApiResponse(
+      isSuccessful: json['success'],
+      statusCode: json['statusCode'],
+      data: json['data'],
+      message: json['message'],
+      accessToken: json['accessToken'],
+      refreshToken: json['refreshToken'],
+    );
+  }
 }

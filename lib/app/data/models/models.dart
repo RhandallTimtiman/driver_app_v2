@@ -18,3 +18,4 @@ export 'trip_summary.model.dart';
 export 'document_category.model.dart';
 export 'documents.model.dart';
 export 'notification.model.dart';
+export 'location_history.model.dart';

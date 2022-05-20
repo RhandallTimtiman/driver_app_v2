@@ -9,12 +9,14 @@ class RouteSegment extends StatelessWidget {
   final Trip trip;
   final Function toggleCollapse;
   final bool isCollapsed;
-  const RouteSegment(
-      {Key? key,
-      required this.trip,
-      required this.toggleCollapse,
-      required this.isCollapsed})
-      : super(key: key);
+  final bool inSimulate;
+  const RouteSegment({
+    Key? key,
+    required this.trip,
+    required this.toggleCollapse,
+    required this.isCollapsed,
+    this.inSimulate = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -213,102 +215,94 @@ class RouteSegment extends StatelessWidget {
                           ],
                         ),
                         isCollapsed
-                            ? GetX<CurrentTripController>(
-                                builder: (_) {
-                                  return Column(
-                                    children: [
-                                      OriginDestinationWidget(
-                                        isCard: true,
-                                        routeName: 'Route ${trip.routeName}',
-                                        origin: trip.origin.address,
-                                        destination: trip.destination.address,
-                                        originInstruction:
-                                            trip.origin.instruction,
-                                        destinationInstruction:
-                                            trip.destination.instruction,
-                                        color: Colors.white,
-                                        routeColor: const Color.fromRGBO(
-                                            0, 129, 174, 1),
-                                        isCompleted: trip.statusId == 'COM',
-                                        arrival:
-                                            trip.actualTimeDeparture != null
-                                                ? DateFormat(
-                                                        'MMMM dd, yyyy hh:mm a')
-                                                    .format(
-                                                      trip.actualTimeDeparture!
-                                                          .toLocal(),
-                                                    )
-                                                    .toString()
-                                                : '-',
-                                        end: trip.actualTimeArival != null
-                                            ? DateFormat(
-                                                    'MMMM dd, yyyy hh:mm a')
-                                                .format(
-                                                  trip.actualTimeArival!
-                                                      .toLocal(),
-                                                )
-                                                .toString()
-                                            : '-',
+                            ? Column(
+                                children: [
+                                  OriginDestinationWidget(
+                                    isCard: true,
+                                    routeName: 'Route ${trip.routeName}',
+                                    origin: trip.origin.address,
+                                    destination: trip.destination.address,
+                                    originInstruction: trip.origin.instruction,
+                                    destinationInstruction:
+                                        trip.destination.instruction,
+                                    color: Colors.white,
+                                    routeColor:
+                                        const Color.fromRGBO(0, 129, 174, 1),
+                                    isCompleted: trip.statusId == 'COM',
+                                    arrival: trip.actualTimeDeparture != null
+                                        ? DateFormat('MMMM dd, yyyy hh:mm a')
+                                            .format(
+                                              trip.actualTimeDeparture!
+                                                  .toLocal(),
+                                            )
+                                            .toString()
+                                        : '-',
+                                    end: trip.actualTimeArival != null
+                                        ? DateFormat('MMMM dd, yyyy hh:mm a')
+                                            .format(
+                                              trip.actualTimeArival!.toLocal(),
+                                            )
+                                            .toString()
+                                        : '-',
+                                  ),
+                                  if (!inSimulate && trip.statusId == 'PEN')
+                                    Container(
+                                      width: size.width,
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 500,
                                       ),
-                                      _.currentTrip.value.trip.statusId == 'PEN'
-                                          ? Container(
-                                              width: size.width,
-                                              constraints: const BoxConstraints(
-                                                maxWidth: 500,
-                                              ),
-                                              child: RawMaterialButton(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                fillColor: const Color.fromRGBO(
-                                                  255,
-                                                  183,
-                                                  0,
-                                                  1,
-                                                ),
-                                                onPressed: () => {},
-                                                child: Text(
-                                                  'start_trip_label'.tr,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          : const SizedBox.shrink(),
-                                      _.currentTrip.value.trip.statusId == 'COM'
-                                          ? Container(
-                                              width: size.width,
-                                              constraints: const BoxConstraints(
-                                                maxWidth: 500,
-                                              ),
-                                              child: RawMaterialButton(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                fillColor: const Color.fromRGBO(
-                                                  255,
-                                                  183,
-                                                  0,
-                                                  1,
-                                                ),
-                                                onPressed: () => {},
-                                                child: Text(
-                                                  'simulate_route_label'.tr,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          : const SizedBox.shrink(),
-                                    ],
-                                  );
-                                },
+                                      child: RawMaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10.0,
+                                          ),
+                                        ),
+                                        fillColor: const Color.fromRGBO(
+                                          255,
+                                          183,
+                                          0,
+                                          1,
+                                        ),
+                                        onPressed: () => {},
+                                        child: Text(
+                                          'start_trip_label'.tr,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  if (!inSimulate && trip.statusId == 'COM')
+                                    Container(
+                                      width: size.width,
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 500,
+                                      ),
+                                      child: RawMaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        fillColor: const Color.fromRGBO(
+                                          255,
+                                          183,
+                                          0,
+                                          1,
+                                        ),
+                                        onPressed: () => {
+                                          Get.toNamed(
+                                            '/route-simulation',
+                                          )
+                                        },
+                                        child: Text(
+                                          'simulate_route_label'.tr,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                ],
                               )
                             : const SizedBox(
                                 height: 5,

@@ -101,6 +101,11 @@ class AppRoutes {
       page: () => const NotificationListScreen(),
       binding: NotificationBinding(),
     ),
+    GetPage(
+      name: '/route-simulation',
+      page: () => const RouteSimulationScreen(),
+      binding: RouteSimulationBinding(),
+    ),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [

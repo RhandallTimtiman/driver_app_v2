@@ -32,7 +32,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             color: Colors.black87,
           ),
         ),
-        onMenuPress: () => openDrawer(),
+        onBackPress: () => Get.back(),
         showOnlineButton: true,
       ),
       drawer: const MainDrawer(),
