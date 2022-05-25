@@ -8,8 +8,15 @@ import 'dart:math' as math;
 
 import 'package:get/get.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
   const MainDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<MainDrawer> createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  bool errorImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +150,18 @@ class MainDrawer extends StatelessWidget {
                                             CachedNetworkImageProvider(
                                           controller.driver.value.driverImage,
                                         ),
+                                        onBackgroundImageError: errorImage
+                                            ? null
+                                            : (exception, stackTrace) {
+                                                setState(() {
+                                                  errorImage = true;
+                                                });
+                                              },
                                         radius: 53,
+                                        child: errorImage
+                                            ? Image.asset(
+                                                "assets/icons/error_user_image.png")
+                                            : const SizedBox.shrink(),
                                       ),
                                     ),
                                   ),
