@@ -185,4 +185,60 @@ class TripService extends ITrip {
       rethrow;
     }
   }
+
+  @override
+  Future rejectSelectedTrip({
+    required int acquiredTruckingServiceId,
+    required String remarks,
+    required String reasonOfRejectionId,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+    try {
+      var queryParameters = {
+        'acquiredTruckingServiceId': acquiredTruckingServiceId.toString(),
+        'remarks': remarks.isEmpty ? remarks : '',
+        'reasonOfRejectionId': reasonOfRejectionId
+      };
+      String unencodedPath = '/oat/api/driver-app/RejectTrip';
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+      Response response = await _dio.postUri(uri);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future getListOfReasonOfRejection() async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+    try {
+      String unencodedPath = '/oat/api/driver-app/GetReasonsOfRejection';
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+
+      Response response = await _dio.getUri(uri);
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+        if (parsedResponse.data != null) {
+          List<ReasonRejection> reasonList = parsedResponse.data
+              .map<ReasonRejection>((item) => ReasonRejection.fromJson(item))
+              .toList();
+          return reasonList;
+        } else {
+          throw parsedResponse;
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -169,8 +169,11 @@ class TripCard extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // setReason('Others');
-                                  // rejectTrip();
+                                  Get.back();
+                                  Get.bottomSheet(
+                                    RejectTrip(trip: trip),
+                                    isScrollControlled: true,
+                                  );
                                 },
                               )
                             ],

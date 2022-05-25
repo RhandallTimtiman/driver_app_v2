@@ -141,4 +141,59 @@ class StatusController extends GetxController {
       currentStatus.toggle();
     });
   }
+
+  /// Inverts Current Status from reject
+  void toggleOnlineButtonFromReject({
+    required VoidCallback callback,
+    required String messageStr,
+  }) {
+    currentStatus.value = false;
+
+    String message = messageStr;
+
+    Get.dialog(
+      const ModalLoader(),
+      barrierDismissible: false,
+    );
+
+    _statusService
+        .updateDriverOnlineStatus(
+      driverId: Get.find<DriverController>().driver.value.driverId,
+      onlineStatus: currentStatus.value,
+      latestLat: Get.find<LocationController>().currentLoc.value.latitude,
+      latestLng: Get.find<LocationController>().currentLoc.value.longitude,
+    )
+        .then((result) {
+      Get.back();
+
+      Widget widget = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (!currentStatus.value)
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.warning,
+                color: Colors.white,
+                size: 17,
+              ),
+            ),
+          Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ],
+      );
+
+      setOnlineStatus(
+        isOnline: currentStatus.value,
+        child: widget,
+      );
+
+      callback();
+    }).catchError((e) {
+      Get.back();
+      currentStatus.toggle();
+    });
+  }
 }

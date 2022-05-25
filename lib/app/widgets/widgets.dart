@@ -43,3 +43,4 @@ export 'background_loader.widget.dart';
 export 'modal_loader.widget.dart';
 export 'release_order.widget.dart';
 export 'container_details.widget.dart';
+export 'reject_trip.widget.dart';

@@ -43,7 +43,7 @@ class _FleetSelectionScreenState extends State<FleetSelectionScreen> {
           ),
         ),
         onMenuPress: () => openDrawer(),
-        showOnlineButton: true,
+        showOnlineButton: false,
       ),
       drawer: const MainDrawer(),
       body: Container(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -311,7 +309,6 @@ class TripController extends GetxController {
   void handleCurrentTrip({required Trip trip}) {
     setSelectedTrip(trip);
     update();
-    inspect(trip);
     Get.toNamed('/trip');
   }
 }

@@ -19,3 +19,4 @@ export 'document_category.model.dart';
 export 'documents.model.dart';
 export 'notification.model.dart';
 export 'location_history.model.dart';
+export 'reason_rejection.model.dart';
