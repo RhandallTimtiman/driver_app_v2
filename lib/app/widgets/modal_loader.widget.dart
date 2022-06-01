@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ModalLoader extends StatelessWidget {
-  const ModalLoader({Key? key}) : super(key: key);
+  final String message;
+  const ModalLoader({
+    Key? key,
+    this.message = "Please wait...",
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +18,17 @@ class ModalLoader extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                CircularProgressIndicator(
+              children: [
+                const CircularProgressIndicator(
                   strokeWidth: 7.0,
                   backgroundColor: Color.fromRGBO(244, 162, 64, 1),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Please wait...",
-                  style: TextStyle(color: Colors.white),
+                  message,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),

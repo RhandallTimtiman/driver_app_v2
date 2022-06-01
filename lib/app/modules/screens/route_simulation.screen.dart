@@ -21,12 +21,6 @@ class _RouteSimulationScreenState extends State<RouteSimulationScreen> {
   }
 
   @override
-  void dispose() {
-    _routeSimulationController.disposeMap();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(

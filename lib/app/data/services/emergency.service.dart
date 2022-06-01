@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
@@ -60,7 +58,6 @@ class EmergencyService extends IEmergency {
         'driverId': driverId,
       };
 
-      inspect(payload);
       String unencodedPath = '/oat/api/driver-app/ReportIssue';
 
       var uri = Uri.https(ApiPaths.proxy, unencodedPath);

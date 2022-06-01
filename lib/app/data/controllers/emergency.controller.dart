@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -80,7 +78,6 @@ class EmergencyController extends GetxController {
       )
           .then(
         (value) {
-          inspect(value);
           setLoading(false);
           Get.back();
           Get.snackbar(

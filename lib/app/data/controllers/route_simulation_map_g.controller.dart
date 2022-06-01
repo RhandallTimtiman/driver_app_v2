@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
@@ -41,11 +42,16 @@ class RouteSimulationMapGoogleController extends GetxController {
 
   List<LatLng> polylineCoordinates = [];
 
-  final String gmapApiKey = 'AIzaSyDnC23xX9YyLwYIbdx4nkegfRH6LTIrcP0';
   @override
   void onInit() {
     setMarkerIcon();
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    disposeMap();
+    super.dispose();
   }
 
   Widget showMap() {
@@ -250,7 +256,7 @@ class RouteSimulationMapGoogleController extends GetxController {
     };
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      gmapApiKey,
+      Strings.gmapKey,
       PointLatLng(originLat, originLng),
       PointLatLng(destLat, destLng),
       travelMode: TravelMode.driving,
