@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:file_picker/file_picker.dart';
@@ -24,7 +22,6 @@ class UploadButtons extends StatelessWidget {
   Future captureImage(context) async {
     final pickedFile =
         await picker.pickImage(source: ImageSource.camera, imageQuality: 20);
-    inspect(pickedFile);
     if (pickedFile != null) {
       await Get.dialog(
         LocationImage(

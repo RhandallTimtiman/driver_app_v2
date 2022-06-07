@@ -96,11 +96,11 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                               ),
                                             ),
                                           ),
-                                          const Center(
+                                          Center(
                                             child: Text(
-                                              'Route Completion',
+                                              'route_completion_label'.tr,
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.black87,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w700,
@@ -302,10 +302,22 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                               Expanded(
                                                 child: GestureDetector(
                                                   onTap: () {
-                                                    if (_routeCompletionController
-                                                            .containerInformation[i]
-                                                        [
-                                                        "hasContainerNumber"]) {
+                                                    if (_
+                                                                .currentTrip
+                                                                .value
+                                                                .trip
+                                                                .containerList[
+                                                                    i]
+                                                                .containerNumber !=
+                                                            null &&
+                                                        _
+                                                                .currentTrip
+                                                                .value
+                                                                .trip
+                                                                .containerList[
+                                                                    i]
+                                                                .containerNumber! !=
+                                                            '') {
                                                       var availableContainer =
                                                           _routeCompletionController
                                                               .containerInformation;
@@ -320,14 +332,19 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                                   availableContainer
                                                                       .length;
                                                               indexC++)
-                                                            availableContainer[indexC]
+                                                            availableContainer[
+                                                                                indexC]
                                                                             [
                                                                             "hasTaken"] !=
                                                                         true &&
                                                                     availableContainer[indexC]
                                                                             [
                                                                             "containerNumber"] !=
-                                                                        null
+                                                                        null &&
+                                                                    availableContainer[indexC]
+                                                                            [
+                                                                            "containerNumber"] !=
+                                                                        ''
                                                                 ? CupertinoActionSheetAction(
                                                                     child: Text(
                                                                       availableContainer[
@@ -350,10 +367,7 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                                         availableContainer,
                                                                         indexC,
                                                                       );
-                                                                      Navigator
-                                                                          .pop(
-                                                                        context,
-                                                                      );
+                                                                      Get.back();
                                                                     },
                                                                   )
                                                                 : const SizedBox
@@ -389,10 +403,26 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                     style: const TextStyle(
                                                       fontSize: 14,
                                                     ),
-                                                    enabled: !_routeCompletionController
-                                                            .containerInformation[
-                                                        i]["hasContainerNumber"],
+                                                    enabled: _
+                                                                .currentTrip
+                                                                .value
+                                                                .trip
+                                                                .containerList[
+                                                                    i]
+                                                                .containerNumber ==
+                                                            null ||
+                                                        _
+                                                                .currentTrip
+                                                                .value
+                                                                .trip
+                                                                .containerList[
+                                                                    i]
+                                                                .containerNumber ==
+                                                            '',
                                                     decoration: InputDecoration(
+                                                      errorText:
+                                                          _routeCompletionController
+                                                              .errorText(i),
                                                       suffixIcon: const Icon(
                                                         Icons
                                                             .arrow_drop_down_sharp,
@@ -543,9 +573,9 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                       );
                                                     },
                                                   ),
-                                                  const Text(
-                                                    'Scan',
-                                                    style: TextStyle(
+                                                  Text(
+                                                    'scan_label'.tr,
+                                                    style: const TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -633,9 +663,9 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                           padding: const EdgeInsets.all(20),
                                           child: RaisedGradientButton(
                                             width: 250,
-                                            child: const Text(
-                                              'Submit',
-                                              style: TextStyle(
+                                            child: Text(
+                                              'submit_label'.tr,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
                                               ),
@@ -661,7 +691,7 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                             onPressed: () {
                                               Get.find<
                                                       RouteCompletionController>()
-                                                  .submitDocuments();
+                                                  .validateSubmit();
                                             },
                                           ),
                                         ),

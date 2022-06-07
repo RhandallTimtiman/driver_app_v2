@@ -1,18 +1,24 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/data/services/services.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
+import 'package:uuid/uuid.dart';
 
 class RouteCompletionController extends GetxController {
   TextEditingController receivedByController = TextEditingController();
+
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
   TextEditingController contactNumberController = TextEditingController();
 
@@ -85,12 +91,19 @@ class RouteCompletionController extends GetxController {
           .containerList[i]
           .containerNumber,
       "hasContainerNumber": Get.find<CurrentTripController>()
-                  .currentTrip
-                  .value
-                  .trip
-                  .containerList[i]
-                  .containerNumber !=
-              null
+                      .currentTrip
+                      .value
+                      .trip
+                      .containerList[i]
+                      .containerNumber !=
+                  null ||
+              Get.find<CurrentTripController>()
+                      .currentTrip
+                      .value
+                      .trip
+                      .containerList[i]
+                      .containerNumber !=
+                  ''
           ? true
           : false,
       "hasTaken": false
@@ -159,7 +172,6 @@ class RouteCompletionController extends GetxController {
     setCallingCode(
       Get.find<DriverController>().driver.value.mobileNumberPrefix.toString(),
     );
-
     update();
   }
 
@@ -322,9 +334,11 @@ class RouteCompletionController extends GetxController {
     Get.back();
   }
 
-  submitDocuments() {
+  submitDocuments() async {
+    debugPrint('in submitdocs');
     String receivedBy = receivedByController.text;
     String contactNumber = maskFormatter.getUnmaskedText();
+    Trip currentTrip = Get.find<CurrentTripController>().currentTrip.value.trip;
 
     if (receivedBy.isEmpty) {
       showError('Please enter received by!');
@@ -335,6 +349,7 @@ class RouteCompletionController extends GetxController {
     } else {
       Get.dialog(
         const ModalLoader(message: 'Uploading documents...'),
+        barrierDismissible: false,
       );
     }
 
@@ -348,12 +363,115 @@ class RouteCompletionController extends GetxController {
     }
 
     List<DocumentModel> documentLists = <DocumentModel>[];
+    try {
+      await Future.forEach(
+        docGroup.value.documentList,
+        (DocumentStates documents) async {
+          if (documents.signatureData != null) {
+            String signatureFileName = 'signature-${const Uuid().v4()}.png';
+            final tempDir = await getTemporaryDirectory();
+
+            final file =
+                await File('${tempDir.path}/$signatureFileName').create();
+            file.writeAsBytesSync(documents.signatureData!.toList());
+
+            documentLists.add(DocumentModel(
+              filePath: '${tempDir.path}/$signatureFileName',
+              documentCategoryId:
+                  int.parse(documents.category!.documentCategoryId),
+              documentTypeId: 'S',
+              fileName: 'signature-${const Uuid().v4()}.png',
+              isOrigin: currentTrip.isOrigin,
+            ));
+          }
+
+          if (documents.attachedFile != null) {
+            documentLists.add(
+              DocumentModel(
+                filePath: documents.attachedFile!.path,
+                documentCategoryId:
+                    int.parse(documents.category!.documentCategoryId),
+                documentTypeId: 'A',
+                fileName: documents.attachedFile!.path.split("/").last,
+                isOrigin: currentTrip.isOrigin,
+              ),
+            );
+          }
+
+          await Future.forEach(
+            documents.imageList!.toList(),
+            (File image) {
+              documentLists.add(
+                DocumentModel(
+                  filePath: image.path,
+                  documentCategoryId:
+                      int.parse(documents.category!.documentCategoryId),
+                  documentTypeId: 'P',
+                  fileName: image.path.split("/").last,
+                  isOrigin: Get.find<CurrentTripController>()
+                      .currentTrip
+                      .value
+                      .trip
+                      .isOrigin,
+                ),
+              );
+            },
+          );
+        },
+      );
+    } catch (e) {
+      showError(e);
+    }
+
+    int etaInSeconds =
+        await Get.find<CurrentTripController>().getEstimatedDistance(
+      Coordinates(
+        lat: currentTrip.origin.latitude,
+        lng: currentTrip.origin.longitude,
+      ),
+      Coordinates(
+        lat: currentTrip.destination.latitude,
+        lng: currentTrip.destination.longitude,
+      ),
+    );
+
+    var today = DateTime.now();
+    DateTime etdDate = today.add(Duration(seconds: etaInSeconds));
+
+    currentTripService
+        .uploadRouteCompletionDocuments(
+      acquiredTruckingServiceId: currentTrip.acquiredTruckingServiceId,
+      receivedBy: receivedBy,
+      contactNo: '$callingCode$contactNumber',
+      documents: documentLists,
+      containerList: containerList,
+      isOrigin: currentTrip.isOrigin,
+      etd: etdDate,
+    )
+        .then((documents) {
+      // remove driver to the connected driver table
+      // if (!currentTrip.isOrigin) {
+      //   socketService.sendEvent(
+      //     'has ended trip',
+      //     json.encode(
+      //       {
+      //         'driverId': currentTrip.driverId,
+      //       },
+      //     ),
+      //   );
+      // }
+      submitArrival(documents.first.uploadedDate, currentTrip.isOrigin,
+          currentTrip.acquiredTruckingServiceId);
+    }).catchError((onError) {
+      Get.back();
+      showError(onError);
+    });
   }
 
   showError(error) {
     Get.snackbar(
       'error_snackbar_title'.tr,
-      error,
+      error.toString(),
       backgroundColor: Colors.red[400],
       colorText: Colors.white,
       duration: const Duration(
@@ -362,5 +480,107 @@ class RouteCompletionController extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
       margin: const EdgeInsets.all(15),
     );
+  }
+
+  submitArrival(
+      String dateUploaded, bool isOrigin, int acquiredTruckingServiceId) async {
+    var geo = await _geolocatorPlatform.getCurrentPosition().timeout(
+          const Duration(
+            seconds: 2,
+          ),
+        );
+    if (!isOrigin) {
+      try {
+        await currentTripService
+            .updateTrip(
+          acquiredTruckingServiceId: acquiredTruckingServiceId,
+          status: 'COM',
+          isOrigin: false,
+        )
+            .then((value) async {
+          var trip = await currentTripService.updateCurrentLatLng(
+            acquiredTruckingServiceId: acquiredTruckingServiceId.toString(),
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+            isOrigin: isOrigin,
+            dateUploaded: dateUploaded,
+          );
+          await currentTripService.addTrackingHistory(
+            acquiredTruckingServiceId: acquiredTruckingServiceId.toString(),
+            tripId: trip.tripId,
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          );
+          Get.back();
+          Get.find<CurrentTripController>().setSelectedTrip(trip);
+          Get.find<CurrentTripController>().clearOnGoingTrip();
+          Get.find<TripScreenMapGoogleController>().plotMarkers();
+          // Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
+          Get.back();
+          Get.find<CurrentTripController>().openCompletedTrip();
+        }).catchError(
+          (error) => showError(error),
+        );
+      } catch (error) {
+        showError(error);
+      }
+    } else {
+      try {
+        await currentTripService
+            .updateTrip(
+          acquiredTruckingServiceId: acquiredTruckingServiceId,
+          status: 'ONG',
+          isOrigin: false,
+        )
+            .then((value) async {
+          var trip = await currentTripService.updateCurrentLatLng(
+            acquiredTruckingServiceId: acquiredTruckingServiceId.toString(),
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+            isOrigin: true,
+            dateUploaded: dateUploaded,
+          );
+          Get.back();
+          Get.find<CurrentTripController>().setSelectedTrip(trip);
+          Get.find<CurrentTripController>().updateOnGoing(trip);
+          Get.find<CurrentTripController>().updateIsOnTripStatus(true);
+          debugPrint('in submit arrival');
+          Get.back();
+          Timer(
+            const Duration(milliseconds: 100),
+            () => Get.find<CurrentTripController>().openArrivedOrigin(),
+          );
+        }).catchError(
+          (error) => showError(error),
+        );
+      } catch (error) {
+        showError(error);
+      }
+    }
+  }
+
+  String? errorText(i) {
+    final text = containerControllers[i].value.text;
+    if (text.isNotEmpty && text.length < 11) {
+      return 'Container Number should be 11 characters.';
+    }
+    return null;
+  }
+
+  validateSubmit() {
+    if (currentTrip.isOrigin) {
+      var arr = [];
+      for (var i = 0; i < currentTrip.containerList.length; i++) {
+        if (containerControllers[i].value.text.isNotEmpty) {
+          arr.add(containerControllers[i].value.text.length);
+        }
+      }
+      inspect(arr.where((element) => element < 11));
+      if (arr.where((element) => element < 11).isEmpty) {
+        submitDocuments();
+      }
+    } else {
+      submitDocuments();
+    }
   }
 }

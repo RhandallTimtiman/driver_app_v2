@@ -1,3 +1,5 @@
+import 'package:driver_app/app/data/models/models.dart';
+
 abstract class ICurrentTrip {
   /// Get Trip Summary Information
   Future<dynamic> getTripSummary({
@@ -39,4 +41,43 @@ abstract class ICurrentTrip {
 
   ///Get List of Document Categories
   Future<dynamic> getDocumentCategories();
+
+  /// Upload Route Completion Documents
+  Future<dynamic> uploadRouteCompletionDocuments({
+    required int acquiredTruckingServiceId,
+    required String receivedBy,
+    required String contactNo,
+    required List<DocumentModel> documents,
+    required List<Map> containerList,
+    required bool isOrigin,
+    required DateTime etd,
+  });
+
+  /// Add Tracking History
+  Future<dynamic> addTrackingHistory({
+    required String acquiredTruckingServiceId,
+    required String tripId,
+    required double latitude,
+    required double longitude,
+  });
+
+  Future<dynamic> updateCurrentLatLng({
+    required String acquiredTruckingServiceId,
+    required double latitude,
+    required double longitude,
+    required bool isOrigin,
+    required String dateUploaded,
+  });
+
+  Future<dynamic> getNextTrip({
+    required int driverId,
+    required int jobOrderId,
+    required int sequenceNo,
+  });
+
+  Future<dynamic> getTripHistoryGoogle({
+    required String acquiredTruckingServiceId,
+    required String tripId,
+    required String companyId,
+  });
 }

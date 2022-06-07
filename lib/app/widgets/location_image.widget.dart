@@ -35,8 +35,6 @@ class _LocationImageState extends State<LocationImage> {
 
   late File modifiedImage;
 
-  final CurrentTripController currentTripController = Get.find();
-
   @override
   void initState() {
     super.initState();
@@ -88,13 +86,15 @@ class _LocationImageState extends State<LocationImage> {
 
   @override
   Widget build(BuildContext context) {
-    CurrentLocation location = currentTripController.currentTrip.value.location;
+    CurrentLocation location =
+        Get.find<CurrentTripController>().currentTrip.value.location!;
+    var size = MediaQuery.of(context).size;
     return RepaintBoundary(
       key: previewContainer,
       child: Scaffold(
         body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           color: Colors.black,
           child: Center(
             child: Stack(

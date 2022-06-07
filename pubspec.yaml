@@ -55,6 +55,9 @@ dependencies:
   signature: ^5.0.1
   geocoding: ^2.0.0
   dotted_border: ^2.0.0+2
+  uuid: ^3.0.6
+  http_parser: ^4.0.1
+  mime: ^1.0.2
   
 dev_dependencies:
   flutter_test:

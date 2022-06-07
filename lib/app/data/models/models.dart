@@ -23,3 +23,5 @@ export 'coordinates.model.dart';
 export 'calling_code.model.dart';
 export 'current_location.model.dart';
 export 'document.model.dart';
+export 'ongoing_trip.model.dart';
+export 'plotting_lines.model.dart';

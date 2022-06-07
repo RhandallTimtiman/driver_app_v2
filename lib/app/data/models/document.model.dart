@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class DocumentModel {
   int documentCategoryId;
   String documentTypeId;
@@ -9,12 +7,12 @@ class DocumentModel {
   String uploadedDate;
 
   DocumentModel({
-    required this.filePath,
+    this.filePath = '',
     required this.documentCategoryId,
     required this.documentTypeId,
     required this.fileName,
     required this.isOrigin,
-    required this.uploadedDate,
+    this.uploadedDate = '',
   });
 
   Map toJson() => {
@@ -27,7 +25,7 @@ class DocumentModel {
   factory DocumentModel.fromJson(Map<String, dynamic> json) => DocumentModel(
         documentCategoryId: int.parse(json['documentCategoryId']),
         documentTypeId: json['documentTypeId'],
-        fileName: json['driverId'],
+        fileName: json['fileName'],
         filePath: json['link'],
         uploadedDate: json['uploadedDate'],
         isOrigin: json['isOrigin'],

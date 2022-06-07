@@ -56,3 +56,5 @@ export 'attached_photo.widget.dart';
 export 'signature_image.widget.dart';
 export 'document_group.widget.dart';
 export 'document_grid_route_completion.widget.dart';
+export 'origin_completed.widget.dart';
+export 'trip_completed.widget.dart';

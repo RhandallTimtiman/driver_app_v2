@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'package:driver_app/app/core/constants/strings.dart';
+import 'package:driver_app/app/data/interfaces/interfaces.dart';
+import 'package:driver_app/app/data/models/models.dart';
+import 'package:driver_app/app/data/services/current_trip.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,16 +14,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class TripScreenMapGoogleController extends GetxController {
   final Completer<GoogleMapController> _controller = Completer();
 
+  final ICurrentTrip _currentTripService = CurrentTripService();
+
   late BitmapDescriptor _currentLocationIconMarker;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  CameraPosition kGooglePlex = const CameraPosition(
     target: LatLng(12.8797, 121.7740),
     zoom: 0,
   );
 
   RxSet<Marker> markers = <Marker>{}.obs;
 
-  late Marker _currentMarker;
+  late Marker? _currentMarker;
 
   late Marker _originMarker;
 
@@ -41,22 +47,43 @@ class TripScreenMapGoogleController extends GetxController {
 
   List<LatLng> polylineCoordinates = [];
 
+  StreamSubscription<Position>? positionStream;
+
+  double? _finalBearing;
+
   @override
   void onInit() {
+    var currentTrip = Get.find<CurrentTripController>().currentTrip.value;
     setMarkerIcon();
+    getRouteDetails(
+      originLat: currentTrip.trip.origin.latitude,
+      originLng: currentTrip.trip.origin.longitude,
+      destLat: currentTrip.trip.destination.latitude,
+      destLng: currentTrip.trip.destination.longitude,
+    );
+    if (currentTrip.trip.statusId == 'ONG') {
+      // startTrackAndTrace(currentTrip.mapType);
+    } else if (currentTrip.trip.statusId == 'COM') {
+      getTripListHistoryGoogle();
+    }
     super.onInit();
   }
 
   @override
   void dispose() {
+    debugPrint('indispose');
     disposeMap();
+    if (Get.find<CurrentTripController>().currentTrip.value.trip.statusId ==
+        'ONG') {
+      // endTrackAndTrace();
+    }
     super.dispose();
   }
 
   Widget showMap() {
     return GoogleMap(
       mapType: MapType.normal,
-      initialCameraPosition: _kGooglePlex,
+      initialCameraPosition: kGooglePlex,
       myLocationButtonEnabled: false,
       markers: markers,
       myLocationEnabled: false,
@@ -80,9 +107,8 @@ class TripScreenMapGoogleController extends GetxController {
     GoogleMapController controller = await _controller.future;
     var resultQuery =
         markers.where((Marker marker) => marker.markerId.value == '0');
-
     if (resultQuery.isNotEmpty) {
-      clearMarker(_currentMarker, '0');
+      clearMarker(_currentMarker!, '0');
     }
     var currentLat = Get.find<LocationController>().currentLoc.value.latitude;
     var currentLng = Get.find<LocationController>().currentLoc.value.longitude;
@@ -167,7 +193,7 @@ class TripScreenMapGoogleController extends GetxController {
       'latitude': destLat,
       'longitude': destLng,
     };
-
+    debugPrint('===> in routeDetails');
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       Strings.gmapKey,
       PointLatLng(originLat, originLng),
@@ -223,6 +249,7 @@ class TripScreenMapGoogleController extends GetxController {
 
     markers.add(_originMarker);
     markers.add(_destinationMarker);
+
     update();
   }
 
@@ -344,6 +371,7 @@ class TripScreenMapGoogleController extends GetxController {
   disposeMap() async {
     GoogleMapController controller = await _controller.future;
     controller.dispose();
+    // endTrackAndTrace();
   }
 
   getAddressFromLatLng() async {
@@ -352,14 +380,251 @@ class TripScreenMapGoogleController extends GetxController {
         Get.find<LocationController>().currentLoc.value.latitude!,
         Get.find<LocationController>().currentLoc.value.longitude!,
       );
-
       Placemark place = p[0];
       var _currentAddress =
           "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
-      // print(_currentAddress);
+      debugPrint(_currentAddress);
       Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
     } catch (e) {
       rethrow;
     }
+  }
+
+  plotMarkers() {
+    int mapType = Get.find<CurrentTripController>().currentTrip.value.mapType;
+    if (mapType == 1) {
+      getTripListHistoryGoogle();
+    }
+  }
+
+  startTrackAndTrace(mapType) {
+    int count = 0;
+    positionStream = Geolocator.getPositionStream(
+        locationSettings: const LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    )).listen((Position? position) {
+      if (mapType == 1) {
+        movePin(position, _finalBearing ?? 0.0);
+
+        if (count % 5 == 0) {
+          count = 0;
+          movePin(position, _finalBearing ?? 0.0);
+        }
+      }
+    });
+    count++;
+  }
+
+  movePin(
+    dynamic position,
+    double bearing,
+  ) async {
+    GoogleMapController controller = await _controller.future;
+
+    if (_currentMarker != null) {
+      clearMarker(_currentMarker!, '0');
+    }
+
+    _currentMarker = Marker(
+      markerId: const MarkerId('0'),
+      position: LatLng(position.latitude, position.longitude),
+      infoWindow: const InfoWindow(title: 'My Current Location'),
+      icon: _currentLocationIconMarker,
+    );
+
+    markers.add(_currentMarker!);
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          bearing: bearing,
+          target: LatLng(
+            position.latitude,
+            position.longitude,
+          ),
+          zoom: 19,
+          tilt: 60,
+        ),
+      ),
+    );
+    getAddressFromLatLng();
+  }
+
+  endTrackAndTrace() {
+    if (positionStream != null) {
+      positionStream!.cancel();
+    }
+  }
+
+  getTripListHistoryGoogle() {
+    List<LatLng> polyCoordinatesFixed = [];
+    List<LatLng> polyCoordinatesRouted = [];
+    Trip trip = Get.find<CurrentTripController>().currentTrip.value.trip;
+
+    _currentTripService
+        .getTripHistoryGoogle(
+      acquiredTruckingServiceId: trip.acquiredTruckingServiceId.toString(),
+      tripId: trip.tripId,
+      companyId: Get.find<DriverController>().driver.value.truckingCompanyId!,
+    )
+        .then((lines) async {
+      PlottingLines plotLines = lines;
+      await Future.forEach(plotLines.tripLines,
+          (dynamic tripLineCoordinate) async {
+        int i = 1;
+        polyCoordinatesFixed = [];
+        if (tripLineCoordinate.length != 0) {
+          await Future.forEach(tripLineCoordinate, (_) {
+            List<String> coordinates = _.toString().split(',');
+            polyCoordinatesFixed.add(
+              LatLng(
+                double.parse(coordinates[0]),
+                double.parse(coordinates[1]),
+              ),
+            );
+          });
+          addStraightPolyline(
+            polyLineId: 'fixed_$i',
+            isTraversed: true,
+            coordinates: polyCoordinatesFixed,
+          );
+          i++;
+        }
+      });
+      int i = 1;
+      await Future.forEach(lines.routeLines, (dynamic routeCoordinates) async {
+        polyCoordinatesRouted = [];
+        if (routeCoordinates.length != 0) {
+          await Future.forEach(routeCoordinates, (_) {
+            List<String> res = _.toString().split(',');
+            polyCoordinatesRouted.add(
+              LatLng(
+                double.parse(res[0]),
+                double.parse(res[1]),
+              ),
+            );
+          });
+          addPolyLine(
+            polyLineId: 'routed_$i',
+            isTraversed: false,
+            coordinates: polyCoordinatesRouted,
+            color: const Color.fromRGBO(0, 129, 174, 1),
+            isWaypoint: false,
+          );
+          i++;
+        }
+      });
+
+      addRouteMarker(
+        legend: 1,
+        latitude: double.parse(lines.start.split(',')[0]),
+        longitude: double.parse(lines.start.split(',')[1]),
+      );
+
+      if (trip.actualOriginLat != null) {
+        addRouteMarker(
+          legend: 2,
+          latitude: double.parse(trip.actualOriginLat!),
+          longitude: double.parse(trip.actualOriginLng!),
+        );
+      }
+
+      if (trip.statusId == 'COM') {
+        addRouteMarker(
+          legend: 3,
+          latitude: double.parse(lines.end.split(',')[0]),
+          longitude: double.parse(lines.end.split(',')[1]),
+        );
+      }
+      Map<String, dynamic> northeastCoordinates = {
+        'latitude': double.parse(lines.bounds.northEast.split(',')[0]),
+        'longitude': double.parse(lines.bounds.northEast.split(',')[1]),
+      };
+      Map<String, dynamic> southwestCoordinates = {
+        'latitude': double.parse(lines.bounds.southWest.split(',')[0]),
+        'longitude': double.parse(lines.bounds.southWest.split(',')[1]),
+      };
+
+      zoomToOriginDestinationRoute(
+        northeastCoordinates,
+        southwestCoordinates,
+      );
+    });
+  }
+
+  addStraightPolyline({
+    required String polyLineId,
+    bool isTraversed = false,
+    dynamic coordinates,
+    bool isWaypoint = false,
+  }) {
+    PolylineId id = PolylineId('polyline_id_$counter');
+    Polyline polyline = Polyline(
+      polylineId: id,
+      visible: true,
+      color: isTraversed ? const Color.fromRGBO(0, 129, 174, 1) : Colors.grey,
+      points: coordinates,
+      width: 3,
+      zIndex: isTraversed ? 6 : 5,
+    );
+    polylines[id] = polyline;
+    counter++;
+  }
+
+  addPolyline({
+    required String polyLineId,
+    bool isTraversed = false,
+    dynamic coordinates,
+    required Color color,
+    bool isWaypoint = false,
+  }) {
+    PolylineId id = PolylineId('polyline_id_$counter');
+    Polyline polyline = Polyline(
+      polylineId: id,
+      visible: true,
+      color: color,
+      points: coordinates,
+      width: 3,
+      zIndex: isTraversed ? 6 : 5,
+      patterns: !isTraversed
+          ? [
+              PatternItem.dash(8),
+              PatternItem.gap(15),
+            ]
+          : [],
+    );
+    polylines[id] = polyline;
+
+    counter++;
+  }
+
+  addRouteMarker({
+    required int legend,
+    required double latitude,
+    required double longitude,
+  }) {
+    late BitmapDescriptor iconMarker;
+    switch (legend) {
+      case 1:
+        iconMarker = _startIconMarker;
+        break;
+      case 2:
+        iconMarker = _arrivedIconMarker;
+        break;
+      case 3:
+        iconMarker = _endIconMarker;
+        break;
+      default:
+    }
+
+    markers.add(
+      Marker(
+        markerId: MarkerId(
+          legend.toString(),
+        ),
+        position: LatLng(latitude, longitude),
+        icon: iconMarker,
+      ),
+    );
   }
 }

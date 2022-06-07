@@ -23,7 +23,6 @@ class RouteSegment extends StatefulWidget {
 }
 
 class _RouteSegmentState extends State<RouteSegment> {
-  final CurrentTripController _currentTripController = Get.find();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -78,7 +77,7 @@ class _RouteSegmentState extends State<RouteSegment> {
                             const SizedBox(
                               width: 20,
                             ),
-                            GetX<CurrentTripController>(
+                            GetBuilder<CurrentTripController>(
                               builder: (_) {
                                 return _.currentTrip.value.trip.statusId !=
                                         'COM'
@@ -97,7 +96,11 @@ class _RouteSegmentState extends State<RouteSegment> {
                                               height: 5,
                                             ),
                                             Text(
-                                              widget.trip.origin.address,
+                                              _.currentTrip.value.location !=
+                                                      null
+                                                  ? _.currentTrip.value
+                                                      .location!.address
+                                                  : '-',
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.white,
@@ -281,10 +284,9 @@ class _RouteSegmentState extends State<RouteSegment> {
                                             0,
                                             1,
                                           ),
-                                          onPressed: () => {
-                                            _currentTripController
-                                                .getOnGoingTrip()
-                                          },
+                                          onPressed: () =>
+                                              Get.find<CurrentTripController>()
+                                                  .getOnGoingTrip(),
                                           child: Text(
                                             _.currentTrip.value.trip.statusId ==
                                                     'PEN'

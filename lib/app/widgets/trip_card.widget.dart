@@ -216,7 +216,7 @@ class TripCard extends StatelessWidget {
                   ),
                   RowDivider(
                     label: 'shipper_label'.tr,
-                    value: trip.company.name ?? '-',
+                    value: trip.company?.name ?? '',
                     color: Colors.black54,
                   ),
                   const SizedBox(

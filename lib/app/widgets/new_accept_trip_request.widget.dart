@@ -198,7 +198,7 @@ class _NewAcceptTripRequestState extends State<NewAcceptTripRequest> {
                       ),
                       RowDivider(
                         label: 'Shipper',
-                        value: widget.trip.company.name!,
+                        value: widget.trip.company?.name ?? '',
                         color: Colors.blue.shade900,
                         fontSize: 12,
                       ),
