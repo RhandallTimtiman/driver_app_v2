@@ -27,4 +27,14 @@ abstract class ITrip {
     required int driverId,
     required int jobOrder,
   });
+
+  /// Reject Selected Trip
+  Future rejectSelectedTrip({
+    required int acquiredTruckingServiceId,
+    required String remarks,
+    required String reasonOfRejectionId,
+  });
+
+  ///List of Reason of Rejection
+  Future getListOfReasonOfRejection();
 }

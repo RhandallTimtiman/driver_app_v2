@@ -23,3 +23,4 @@ export 'trip_screen_map.g.controller.dart';
 export 'route_simulation.controller.dart';
 export 'route_simulation_map_g.controller.dart';
 export 'route_completion.controller.dart';
+export 'reject_trip.controller.dart';

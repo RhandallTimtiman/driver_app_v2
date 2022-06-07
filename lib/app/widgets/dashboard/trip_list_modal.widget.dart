@@ -48,8 +48,10 @@ class _TripListModalState extends State<TripListModal> {
                       top: 5,
                       left: 10,
                       child: InkWell(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: const Icon(Icons.arrow_back),
+                        onTap: () => Get.back(),
+                        child: const Icon(
+                          Icons.arrow_back,
+                        ),
                       ),
                     ),
                     Padding(
