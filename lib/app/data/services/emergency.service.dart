@@ -38,4 +38,40 @@ class EmergencyService extends IEmergency {
       rethrow;
     }
   }
+
+  @override
+  Future reportIssue({
+    required String? reportIssueTypeId,
+    required int acquiredTruckingServiceId,
+    String? remarks,
+    required String driverId,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+
+    try {
+      var payload = {
+        'reportIssueTypeId': reportIssueTypeId,
+        'acquiredTruckingServiceId': acquiredTruckingServiceId.toString(),
+        'remarks': remarks,
+        'driverId': driverId,
+      };
+
+      String unencodedPath = '/oat/api/driver-app/ReportIssue';
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+
+      Response response = await _dio.postUri(uri, data: payload);
+
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+        return parsedResponse;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

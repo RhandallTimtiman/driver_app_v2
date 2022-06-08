@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class EmergencyBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ReasonController());
+    Get.lazyPut(() => EmergencyController());
   }
 }

@@ -19,17 +19,22 @@ class SettingsService extends ISettings {
 
     try {
       String unencodedPath = '/oat/api/driver-app/UpdatePin';
+
       var queryParameters = {
         'driverId': driverId.toString(),
         'OldPin': oldPin,
         'NewPin': newPin,
       };
+
       var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+
       Response response = await _dio.postUri(uri);
+
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
+
         if (parsedResponse.isSuccessful) {
           return parsedResponse;
         } else {

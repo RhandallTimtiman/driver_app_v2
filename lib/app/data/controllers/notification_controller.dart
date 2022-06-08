@@ -14,6 +14,8 @@ import 'package:get_storage/get_storage.dart';
 class NotificationController extends GetxController {
   final ITrip _tripService = TripService();
 
+  static int semaphore = 0;
+
   Future<String?> getToken() async {
     var result = await FirebaseMessaging.instance.getToken();
 
@@ -26,44 +28,41 @@ class NotificationController extends GetxController {
 
   initializePushNotif() {
     FirebaseMessaging.onMessage.listen((event) {
-      debugPrint('I receive a message hehe');
       final Map parsed = Platform.isIOS
           ? jsonDecode(event.data['info'])
           : jsonDecode(event.data['info']);
 
+      if (semaphore != 0) {
+        return;
+      }
+      semaphore = 1;
+      Future.delayed(const Duration(milliseconds: 500))
+          .then((_) => semaphore = 0);
+
       if (parsed['NotificationType'] == 'newTrip') {
-        inspect(parsed);
+        debugPrint('I received notification');
+
         _tripService
             .getNewTrip(
           driverId: parsed['DriverId'],
           jobOrder: parsed['JobOrderId'],
         )
-            .then((result) {
-          bool isAccepted = false;
-
+            .then((result) async {
           List<dynamic> tempTrips = result;
 
           List<Trip> trips = tempTrips.cast<Trip>();
 
-          inspect(trips);
-
-          Future.forEach(trips, (Trip trip) async {
-            if (isAccepted != true) {
-              isAccepted = await Get.dialog(
-                Dialog(
-                  backgroundColor: Colors.white,
-                  child: NewAcceptTripRequest(
-                    title: "new_trip_request".tr,
-                    trip: trip,
-                    isFromNotification: true,
-                  ),
-                ),
-                barrierDismissible: false,
-              );
-
-              debugPrint('Was he Accepted? $isAccepted');
-            }
-          });
+          Get.dialog(
+            Dialog(
+              backgroundColor: Colors.white,
+              child: NewAcceptTripRequest(
+                title: "new_trip_request".tr,
+                trip: trips[0],
+                isFromNotification: true,
+              ),
+            ),
+            barrierDismissible: false,
+          );
         }).catchError((onError) {
           inspect(onError);
         });

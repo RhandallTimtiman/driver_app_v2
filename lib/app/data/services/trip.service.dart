@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
-import 'package:flutter/material.dart';
 
 class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
@@ -41,20 +38,16 @@ class TripService extends ITrip {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
-        inspect(parsedResponse);
         if (parsedResponse.data != null) {
           List<Trip> trips = parsedResponse.data
               .map<Trip>((item) => Trip.fromJson(item))
               .toList();
-          inspect(trips);
           return trips;
         } else {
           throw parsedResponse;
         }
       }
     } catch (e) {
-      debugPrint("Error Here! ===>");
-      inspect(e);
       rethrow;
     }
   }
@@ -72,7 +65,6 @@ class TripService extends ITrip {
         'acquiredTruckingServiceId': acquiredTruckingServiceId.toString(),
         'driverId': driverId.toString()
       };
-      inspect(queryParameters);
       String unencodedPath = '/oat/api/driver-app/AcceptTrip';
 
       var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
@@ -134,13 +126,12 @@ class TripService extends ITrip {
     _dio.options.headers = <String, dynamic>{"requiresToken": true};
 
     try {
-      String unencodedPath = '/oat/api/driver-app/TripDetails';
+      String unencodedPath = '/oat/api/driver-app/BulkUpdateStatus';
       var queryParameters = {
         'tripStatusId': "PEN",
         'tripCollections': trips,
         'driverId': driverId.toString()
       };
-
       var uri = Uri.https(ApiPaths.proxy, unencodedPath);
       Response response = await _dio.postUri(uri, data: queryParameters);
       if (response.statusCode == 200) {
@@ -181,20 +172,72 @@ class TripService extends ITrip {
         ApiResponse parsedResponse = ApiResponse.fromJson(
           response.data,
         );
-        inspect(parsedResponse);
         if (parsedResponse.data != null) {
           List<Trip> trips = parsedResponse.data
               .map<Trip>((item) => Trip.fromJson(item))
               .toList();
-          inspect(trips);
           return trips;
         } else {
           throw parsedResponse;
         }
       }
     } catch (e) {
-      debugPrint("Error Here! ===>");
-      inspect(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future rejectSelectedTrip({
+    required int acquiredTruckingServiceId,
+    required String remarks,
+    required String reasonOfRejectionId,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+    try {
+      var queryParameters = {
+        'acquiredTruckingServiceId': acquiredTruckingServiceId.toString(),
+        'remarks': remarks.isEmpty ? remarks : '',
+        'reasonOfRejectionId': reasonOfRejectionId
+      };
+      String unencodedPath = '/oat/api/driver-app/RejectTrip';
+
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
+      Response response = await _dio.postUri(uri);
+
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future getListOfReasonOfRejection() async {
+    _dio.options.headers = <String, dynamic>{
+      "requiresToken": true,
+    };
+    try {
+      String unencodedPath = '/oat/api/driver-app/GetReasonsOfRejection';
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+
+      Response response = await _dio.getUri(uri);
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson(
+          response.data,
+        );
+        if (parsedResponse.data != null) {
+          List<ReasonRejection> reasonList = parsedResponse.data
+              .map<ReasonRejection>((item) => ReasonRejection.fromJson(item))
+              .toList();
+          return reasonList;
+        } else {
+          throw parsedResponse;
+        }
+      }
+    } catch (e) {
       rethrow;
     }
   }

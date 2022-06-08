@@ -21,11 +21,11 @@ class ProfileImage extends StatelessWidget {
             tag: tag,
             child: SizedBox(
               width: size.width,
-              child: Image(
-                image: CachedNetworkImageProvider(
-                  imgUrl,
+              child: CachedNetworkImage(
+                imageUrl: imgUrl,
+                errorWidget: (context, url, error) => Image.asset(
+                  "assets/icons/error_user_image.png",
                 ),
-                fit: BoxFit.cover,
               ),
             ),
           ),

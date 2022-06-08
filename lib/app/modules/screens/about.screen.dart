@@ -46,7 +46,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: const Center(
                   child: Image(
-                    image: AssetImage('assets/images/applogo.png'),
+                    image: AssetImage('assets/icons/applogo.png'),
                     width: double.infinity,
                     height: double.infinity,
                   ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -16,6 +17,8 @@ class TripController extends GetxController {
   TextEditingController searchController = TextEditingController();
 
   RxBool loading = false.obs;
+
+  final state = CurrentState().obs;
 
   final ITrip tripService = TripService();
 
@@ -60,8 +63,8 @@ class TripController extends GetxController {
         .getTripDetails(acquiredTruckingServiceId: acquiredTruckingServiceId)
         .then(
           (value) => {
-            Get.find<CurrentTripController>().setSelectedTrip(value),
-            Get.toNamed('/trip')
+            setSelectedTrip(value),
+            Get.toNamed('/trip'),
           },
         )
         .catchError(
@@ -108,7 +111,7 @@ class TripController extends GetxController {
   }
 
   void setSelectedTrip(Trip trip) {
-    Get.find<CurrentTripController>().setSelectedTrip(trip);
+    state.value.trip = trip;
     update();
   }
 
@@ -128,18 +131,17 @@ class TripController extends GetxController {
   void acceptTrip(int acquiredTruckingServiceId) {
     tripService
         .acceptTrip(
-          driverId:
-              Get.find<DriverController>().driver.value.driverId.toString(),
-          acquiredTruckingServiceId: acquiredTruckingServiceId,
-        )
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      acquiredTruckingServiceId: acquiredTruckingServiceId,
+    )
         .then(
-          (value) => {
-            getTripDetails(
-              acquiredTruckingServiceId: acquiredTruckingServiceId,
-            )
-          },
-        )
-        .catchError(
+      (value) {
+        setLoading(false);
+        getTripDetails(
+          acquiredTruckingServiceId: acquiredTruckingServiceId,
+        );
+      },
+    ).catchError(
       (error) {
         setLoading(false);
         Get.snackbar(
@@ -230,48 +232,88 @@ class TripController extends GetxController {
     update();
   }
 
-  void acceptAllTrip() {
+  void acceptAllTrip(context) {
     List<Map<String, dynamic>> listOfacquiredTruckingServiceId = tripList
         .where((trip) => trip.statusId == 'NEW')
-        .map((trip) => {
-              "acquiredTruckingServiceId":
-                  trip.acquiredTruckingServiceId.toString
-            })
-        .toList();
-    tripService
-        .acceptAllTrip(
-            trips: listOfacquiredTruckingServiceId,
-            driverId: Get.find<DriverController>().driver.value.driverId!)
-        .then(
-          (value) => {
-            Get.back(),
-            Get.snackbar(
-              'success_snackbar_title'.tr,
-              'All trips are accepted!',
-              colorText: Colors.white,
-              backgroundColor: Colors.green[500],
-              duration: const Duration(
-                seconds: 2,
-              ),
-              margin: const EdgeInsets.all(15),
-              snackPosition: SnackPosition.BOTTOM,
-            )
+        .map(
+          (trip) => {
+            "acquiredTruckingServiceId":
+                trip.acquiredTruckingServiceId.toString()
           },
         )
-        .catchError(
-      (error) {
-        setLoading(false);
-        Get.snackbar(
-          'error_snackbar_title'.tr,
-          error.toString(),
-          backgroundColor: Colors.red[400],
-          colorText: Colors.white,
-          duration: const Duration(
-            seconds: 4,
-          ),
-          snackPosition: SnackPosition.BOTTOM,
-          margin: const EdgeInsets.all(15),
-        );
+        .toList();
+    if (listOfacquiredTruckingServiceId.isNotEmpty) {
+      tripService
+          .acceptAllTrip(
+        trips: listOfacquiredTruckingServiceId,
+        driverId: Get.find<DriverController>().driver.value.driverId!,
+      )
+          .then(
+        (value) {
+          Get.back();
+          Get.snackbar(
+            'success_snackbar_title'.tr,
+            'All trips are accepted!',
+            colorText: Colors.white,
+            backgroundColor: Colors.green[500],
+            duration: const Duration(
+              seconds: 2,
+            ),
+            margin: const EdgeInsets.all(15),
+            snackPosition: SnackPosition.BOTTOM,
+          );
+          Navigator.pop(context);
+        },
+      ).catchError(
+        (error) {
+          setLoading(false);
+          Get.snackbar(
+            'error_snackbar_title'.tr,
+            error.toString(),
+            backgroundColor: Colors.red[400],
+            colorText: Colors.white,
+            duration: const Duration(
+              seconds: 4,
+            ),
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(15),
+          );
+        },
+      );
+    } else {
+      setLoading(false);
+      Get.back();
+      Get.snackbar(
+        'error_snackbar_title'.tr,
+        'There are no trips to accept.',
+        backgroundColor: Colors.red[400],
+        colorText: Colors.white,
+        duration: const Duration(
+          seconds: 2,
+        ),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(15),
+      );
+    }
+  }
+
+  void openAcceptAllModal() {
+    Get.dialog(
+      const Dialog(
+        backgroundColor: Colors.white,
+        child: AcceptAllTripModal(),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  void handleCurrentTrip({required Trip trip}) {
+    setSelectedTrip(trip);
+    update();
+    Timer(
+      const Duration(milliseconds: 500),
+      () {
+        Get.toNamed('/trip');
       },
     );
   }

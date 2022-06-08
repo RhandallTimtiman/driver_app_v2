@@ -16,10 +16,11 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  final ReasonController _reasonController = Get.find();
+  final EmergencyController _emergencyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(
@@ -31,7 +32,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             color: Colors.black87,
           ),
         ),
-        onMenuPress: () => openDrawer(),
+        onBackPress: () => Get.back(),
         showOnlineButton: true,
       ),
       drawer: const MainDrawer(),
@@ -48,7 +49,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
           ),
           child: SafeArea(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height - 100,
+              height: size.height - 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -62,7 +63,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GetX<ReasonController>(
+                            GetX<EmergencyController>(
                               builder: (_) {
                                 if (_.reasonList.isEmpty) {
                                   return Column(
@@ -105,8 +106,8 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                                 } else {
                                   return ReasonWidget(
                                     reasonList: _.reasonList,
-                                    reason: _reasonController.reason.value,
-                                    setReason: _reasonController.setReason,
+                                    reason: _emergencyController.reason.value,
+                                    setReason: _emergencyController.setReason,
                                   );
                                 }
                               },
@@ -114,7 +115,9 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                           ],
                         ),
                       ),
-                      const RemarksWidget(),
+                      RemarksWidget(
+                        controller: _emergencyController.remarksController,
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -126,8 +129,12 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.red,
                             child: MaterialButton(
-                              minWidth: MediaQuery.of(context).size.width - 100,
-                              onPressed: () {},
+                              minWidth: size.width - 100,
+                              onPressed: () {
+                                _emergencyController.reportIssue(
+                                  isSos: false,
+                                );
+                              },
                               child: Text(
                                 'report_issue_label'.tr,
                                 textAlign: TextAlign.center,
@@ -166,8 +173,12 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.red,
                             child: MaterialButton(
-                              minWidth: MediaQuery.of(context).size.width - 100,
-                              onPressed: () {},
+                              minWidth: size.width - 100,
+                              onPressed: () {
+                                _emergencyController.reportIssue(
+                                  isSos: true,
+                                );
+                              },
                               child: const Text(
                                 'SOS',
                                 textAlign: TextAlign.center,
@@ -180,7 +191,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width,
+                            width: size.width,
                             padding: const EdgeInsets.all(4.0),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,

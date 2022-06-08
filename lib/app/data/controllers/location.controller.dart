@@ -1,63 +1,96 @@
-import 'dart:io';
+import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:driver_app/app/data/models/models.dart';
+import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:location/location.dart';
 
 class LocationController extends GetxController {
-  Location location = Location();
+  var currentLoc = CurrentPosition().obs;
 
-  late bool _serviceEnabled;
-  late PermissionStatus _permissionGranted;
+  setCurrentLocation(var data) {
+    currentLoc.value = data;
+    update();
+  }
 
   /// Initialize Location Service
   startLocationService() async {
-    if (_permissionGranted == PermissionStatus.granted && _serviceEnabled) {
-      debugPrint('Location ====> Activated!');
+    late LocationSettings locationSettings;
 
-      var isEnabledBackground = await location.isBackgroundModeEnabled();
-
-      if (!isEnabledBackground) {
-        location.enableBackgroundMode(enable: true);
-      }
-
-      location.changeSettings(
-        distanceFilter: 20,
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      locationSettings = AndroidSettings(
+        accuracy: LocationAccuracy.high,
+        forceLocationManager: true,
+        foregroundNotificationConfig: const ForegroundNotificationConfig(
+          notificationText:
+              "Driver App will continue to receive your location even when you aren't using it",
+          notificationTitle: "Running in Background",
+          enableWakeLock: true,
+        ),
       );
-
-      if (Platform.isAndroid) {
-        location.changeNotificationOptions(
-          title: "Driver App Locator",
-          onTapBringToFront: true,
-          description: "Do not turn off GPS Service",
-          subtitle: "This Device is currently sending active location",
-          color: Colors.green[800],
-        );
-      }
-
-      location.onLocationChanged.listen((LocationData currentLocation) {
-        debugPrint('${currentLocation.latitude}, ${currentLocation.longitude}');
-      });
+    } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS) {
+      locationSettings = AppleSettings(
+        accuracy: LocationAccuracy.high,
+        activityType: ActivityType.fitness,
+        distanceFilter: 10,
+        pauseLocationUpdatesAutomatically: true,
+        // Only set to true if our app will be started up in the background.
+        showBackgroundLocationIndicator: true,
+      );
+    } else {
+      locationSettings = const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+      );
     }
+
+    Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+      (Position? position) {
+        debugPrint(
+          position == null
+              ? 'Unknown'
+              : '${position.latitude.toString()}, ${position.longitude.toString()}',
+        );
+
+        if (position != null) {
+          setCurrentLocation(
+            CurrentPosition(
+              latitude: position.latitude,
+              longitude: position.longitude,
+              accuracy: position.accuracy,
+              heading: position.heading,
+            ),
+          );
+        }
+      },
+    );
   }
 
   /// Checks Permission of Driver App
   checkPermissions({isDisclosure = true}) async {
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        checkPermissions(isDisclosure: isDisclosure);
+        return Future.error('Location permissions are denied');
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
 
     if (isDisclosure) {

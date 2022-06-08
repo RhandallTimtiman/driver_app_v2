@@ -48,8 +48,10 @@ class _TripListModalState extends State<TripListModal> {
                       top: 5,
                       left: 10,
                       child: InkWell(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: const Icon(Icons.arrow_back),
+                        onTap: () => Get.back(),
+                        child: const Icon(
+                          Icons.arrow_back,
+                        ),
                       ),
                     ),
                     Padding(
@@ -73,7 +75,8 @@ class _TripListModalState extends State<TripListModal> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: MaterialButton(
                                 onPressed: () {
-                                  Get.find<TripController>().acceptAllTrip();
+                                  Get.find<TripController>()
+                                      .openAcceptAllModal();
                                 },
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4.0),

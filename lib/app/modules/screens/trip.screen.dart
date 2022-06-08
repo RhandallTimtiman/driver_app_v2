@@ -10,14 +10,25 @@ class TripScreen extends StatefulWidget {
   _TripScreenState createState() => _TripScreenState();
 }
 
-final CurrentTripController _currentTripController = Get.find();
-
 class _TripScreenState extends State<TripScreen> {
   bool _isCollapsed = false;
 
+  double _width = 0.0;
   _toggleCollapse() {
     setState(() {
       _isCollapsed = !_isCollapsed;
+    });
+  }
+
+  void _closeAnimatedCircle() {
+    setState(() {
+      _width = 10;
+    });
+  }
+
+  void _openAnimatedCircle() {
+    setState(() {
+      _width = 420.0;
     });
   }
 
@@ -28,6 +39,11 @@ class _TripScreenState extends State<TripScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          SizedBox(
+            child: GetBuilder<TripScreenMapGoogleController>(
+              builder: (_) => _.showMap(),
+            ),
+          ),
           Positioned(
             top: 0,
             left: 0,
@@ -38,8 +54,13 @@ class _TripScreenState extends State<TripScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Get.back(),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                    ),
+                    onPressed: () {
+                      Get.find<TripScreenMapGoogleController>().disposeMap();
+                      Get.back();
+                    },
                   ),
                   Container(
                     padding:
@@ -72,6 +93,13 @@ class _TripScreenState extends State<TripScreen> {
                                 color: Colors.white,
                               ),
                             ),
+                            Text(
+                              '${_.currentTrip.value.trip.tripId} - ${_.currentTrip.value.trip.acquiredTruckingServiceId}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
                         );
                       },
@@ -82,14 +110,64 @@ class _TripScreenState extends State<TripScreen> {
             ),
           ),
           Positioned(
-            bottom: 0,
-            left: 0,
-            child: RouteSegment(
-              trip: _currentTripController.currentTrip.value.trip,
-              isCollapsed: _isCollapsed,
-              toggleCollapse: _toggleCollapse,
+            right: 10,
+            bottom: 205,
+            child: RawMaterialButton(
+              onPressed: () => {
+                Get.find<TripScreenMapGoogleController>().goToCurrentLocation(),
+              },
+              elevation: 3,
+              fillColor: Colors.white,
+              shape: const CircleBorder(),
+              child: const Image(
+                image: AssetImage('assets/icons/locator.png'),
+                width: 22,
+              ),
+              padding: const EdgeInsets.all(
+                20,
+              ),
             ),
           ),
+          Positioned(
+            right: -135,
+            bottom: -50,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.ease,
+              child: Container(
+                width: _width,
+                height: _width,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromRGBO(
+                    0,
+                    129,
+                    174,
+                    1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          FancyButton(
+            openAnimatedCircle: _openAnimatedCircle,
+            closeAnimatedCircle: _closeAnimatedCircle,
+            screen: 'trip',
+            bottom: 135.0,
+          ),
+          GetBuilder<CurrentTripController>(
+            builder: (_) {
+              return Positioned(
+                bottom: 0,
+                left: 0,
+                child: RouteSegment(
+                  trip: _.currentTrip.value.trip,
+                  isCollapsed: _isCollapsed,
+                  toggleCollapse: _toggleCollapse,
+                ),
+              );
+            },
+          )
         ],
       ),
     );

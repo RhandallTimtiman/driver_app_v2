@@ -15,7 +15,6 @@ class TripCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final TripController _tripController = Get.find();
 
-    final CurrentTripController _currentTripController = Get.find();
     Color statusColor;
 
     switch (trip.statusId) {
@@ -48,7 +47,7 @@ class TripCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       elevation: 3,
       child: GestureDetector(
-        onTap: () => {_currentTripController.handleCurrentTrip(trip: trip)},
+        onTap: () => {_tripController.handleCurrentTrip(trip: trip)},
         child: Column(
           children: [
             Container(
@@ -170,8 +169,11 @@ class TripCard extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // setReason('Others');
-                                  // rejectTrip();
+                                  Get.back();
+                                  Get.bottomSheet(
+                                    RejectTrip(trip: trip),
+                                    isScrollControlled: true,
+                                  );
                                 },
                               )
                             ],
@@ -217,7 +219,7 @@ class TripCard extends StatelessWidget {
                   ),
                   RowDivider(
                     label: 'shipper_label'.tr,
-                    value: trip.company.name ?? '-',
+                    value: trip.company?.name ?? '',
                     color: Colors.black54,
                   ),
                   const SizedBox(

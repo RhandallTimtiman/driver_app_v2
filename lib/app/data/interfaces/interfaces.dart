@@ -4,3 +4,7 @@ export 'vehicle.interface.dart';
 export 'settings.interface.dart';
 export 'emergency.interface.dart';
 export 'fcm.interface.dart';
+export 'notification.interface.dart';
+export 'status.interface.dart';
+export 'current_trip.interface.dart';
+export 'route_simulation.interface.dart';

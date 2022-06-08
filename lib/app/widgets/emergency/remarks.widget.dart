@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RemarksWidget extends StatelessWidget {
-  const RemarksWidget({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const RemarksWidget({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +39,13 @@ class RemarksWidget extends StatelessWidget {
               border: Border.all(color: Colors.black26, width: 1),
               color: Colors.grey[100],
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: controller,
                 maxLines: 5,
-                decoration:
-                    InputDecoration.collapsed(hintText: "Enter your text here"),
+                decoration: const InputDecoration.collapsed(
+                    hintText: "Enter your text here"),
               ),
             ),
           ),

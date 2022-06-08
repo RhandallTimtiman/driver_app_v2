@@ -52,7 +52,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         width: size.width,
         child: Stack(
           children: [
-            const DashboardTripButton(),
+            SizedBox(
+              child: GetBuilder<DashboardMapGoogleController>(
+                builder: (_) => _.showMap(),
+              ),
+            ),
             GetBuilder<StatusController>(
               builder: (_) => Positioned(
                 top: 55,
@@ -71,11 +75,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
+            const DashboardTripButton(),
             Positioned(
               right: 10,
               bottom: 110,
               child: RawMaterialButton(
-                onPressed: () => {},
+                onPressed: () async =>
+                    await Get.find<DashboardMapGoogleController>()
+                        .goToCurrentLocation(),
                 elevation: 3,
                 fillColor: Colors.white,
                 shape: const CircleBorder(),
@@ -113,6 +120,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               openAnimatedCircle: _openAnimatedCircle,
               closeAnimatedCircle: _closeAnimatedCircle,
               bottom: 35.0,
+              screen: 'dashboard',
             ),
             // Positioned(
             //   top: 29,

@@ -1,12 +1,11 @@
-import 'package:driver_app/app/data/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ReasonWidget extends StatelessWidget {
-  final List<ReportIssue> reasonList;
+  final dynamic reasonList;
 
-  final ReportIssue reason;
+  final dynamic reason;
 
   final Function setReason;
 
@@ -90,7 +89,9 @@ class ReasonWidget extends StatelessWidget {
                       maxLines: 1,
                     ),
                   ),
-                  const Icon(Icons.arrow_drop_down)
+                  const Icon(
+                    Icons.arrow_drop_down,
+                  )
                 ],
               ),
             ),

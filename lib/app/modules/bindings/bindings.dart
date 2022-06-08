@@ -8,3 +8,8 @@ export 'all_trips.binding.dart';
 export 'new_trips.binding.dart';
 export 'pending_trips.binding.dart';
 export 'completed_trips.binding.dart';
+export 'dashboard_map.binding.dart';
+export 'today_trips.binding.dart';
+export 'notification.binding.dart';
+export 'current_trip.binding.dart';
+export 'route_simulation.binding.dart';

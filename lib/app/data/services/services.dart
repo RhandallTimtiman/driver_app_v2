@@ -4,3 +4,7 @@ export 'vehicle.service.dart';
 export 'settings.service.dart';
 export 'emergency.service.dart';
 export 'fcm.service.dart';
+export 'notification.service.dart';
+export 'status.service.dart';
+export 'current_trip.service.dart';
+export 'route_simulation.service.dart';

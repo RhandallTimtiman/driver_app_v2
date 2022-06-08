@@ -58,7 +58,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                     return Center(
                       child: GestureDetector(
                         onTap: () {
-                          _.toggleCurrentStatus();
+                          _.toggleCurrentStatus(
+                            callback: () {},
+                          );
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 1000),
