@@ -146,6 +146,10 @@ class _MainDrawerState extends State<MainDrawer> {
                                     child: Hero(
                                       tag: 'profile-driver-image',
                                       child: CircleAvatar(
+                                        backgroundColor: errorImage
+                                            ? Colors.white
+                                            : const Color.fromRGBO(
+                                                4, 127, 169, 1),
                                         backgroundImage:
                                             CachedNetworkImageProvider(
                                           controller.driver.value.driverImage,
@@ -160,7 +164,8 @@ class _MainDrawerState extends State<MainDrawer> {
                                         radius: 53,
                                         child: errorImage
                                             ? Image.asset(
-                                                "assets/icons/error_user_image.png")
+                                                "assets/icons/error_user_image.png",
+                                              )
                                             : const SizedBox.shrink(),
                                       ),
                                     ),

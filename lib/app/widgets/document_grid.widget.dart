@@ -53,6 +53,7 @@ class DocumentGrid extends StatelessWidget {
       return file;
     }
 
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Get.bottomSheet(
@@ -120,7 +121,7 @@ class DocumentGrid extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(2),
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width,
+                                width: size.width,
                                 child: GridView.builder(
                                   scrollDirection: Axis.horizontal,
                                   gridDelegate:
@@ -158,7 +159,7 @@ class DocumentGrid extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(2),
                               child: Container(
-                                width: MediaQuery.of(context).size.width,
+                                width: size.width,
                                 color: Colors.white,
                                 child: Image(
                                   image: NetworkImage(signature.first.link!),

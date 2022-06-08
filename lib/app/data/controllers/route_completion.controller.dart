@@ -515,7 +515,7 @@ class RouteCompletionController extends GetxController {
           Get.find<CurrentTripController>().setSelectedTrip(trip);
           Get.find<CurrentTripController>().clearOnGoingTrip();
           Get.find<TripScreenMapGoogleController>().plotMarkers();
-          // Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
+          Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
           Get.back();
           Get.find<CurrentTripController>().openCompletedTrip();
         }).catchError(
