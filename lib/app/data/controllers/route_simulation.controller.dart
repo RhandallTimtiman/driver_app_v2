@@ -197,11 +197,6 @@ class RouteSimulationController extends GetxController {
     return 12742 * asin(sqrt(a));
   }
 
-  disposeMap() async {
-    _routeSimulationMapGoogleController.disposeMap();
-    timer.cancel();
-  }
-
   updateIndex(value) {
     index = value;
     update();

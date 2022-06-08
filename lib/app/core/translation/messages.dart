@@ -107,7 +107,10 @@ class Messages extends Translations {
           'photos_label': 'Photos',
           'total_volume': 'Total Volume ',
           'special_condition_label': 'Special Condition',
-          'instruction_others': 'Instructions / Others'
+          'instruction_others': 'Instructions / Others',
+          'route_completion_label': 'Route Completion',
+          'scan_label': 'Scan',
+          'proceed_to': 'Proceed to'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -209,7 +212,10 @@ class Messages extends Translations {
           'photos_label': 'Photos',
           'total_volume': 'Total Volume ',
           'special_condition_label': 'Special Condition',
-          'instruction_others': 'Instructions / Others'
+          'instruction_others': 'Instructions / Others',
+          'route_completion_label': 'Route Completion',
+          'scan_label': 'Scan',
+          'proceed_to': 'Proceed to'
         },
       };
 }

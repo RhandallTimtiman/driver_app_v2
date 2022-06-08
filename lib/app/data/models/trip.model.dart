@@ -8,7 +8,7 @@ class Trip {
   String jobOrderNo;
   int jobOrderId;
   DateTime deliveryDate;
-  Company company;
+  Company? company;
   String routeName;
   int sequenceNo;
   bool isOrigin;
@@ -35,7 +35,7 @@ class Trip {
     required this.tripId,
     required this.jobOrderNo,
     required this.jobOrderId,
-    required this.company,
+    this.company,
     required this.origin,
     required this.destination,
     required this.deliveryDate,
