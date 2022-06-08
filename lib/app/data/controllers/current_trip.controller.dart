@@ -251,7 +251,7 @@ class CurrentTripController extends GetxController {
         setSelectedTrip(trip);
         updateIsOnTripStatus(false);
         clearOnGoingTrip();
-        Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
+        // Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
       } catch (error) {
         Get.back();
         showError(error);

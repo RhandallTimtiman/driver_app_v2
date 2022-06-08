@@ -62,7 +62,7 @@ class TripScreenMapGoogleController extends GetxController {
       destLng: currentTrip.trip.destination.longitude,
     );
     if (currentTrip.trip.statusId == 'ONG') {
-      startTrackAndTrace(currentTrip.mapType);
+      // startTrackAndTrace(currentTrip.mapType);
     } else if (currentTrip.trip.statusId == 'COM') {
       getTripListHistoryGoogle();
     }
@@ -75,7 +75,7 @@ class TripScreenMapGoogleController extends GetxController {
     disposeMap();
     if (Get.find<CurrentTripController>().currentTrip.value.trip.statusId ==
         'ONG') {
-      endTrackAndTrace();
+      // endTrackAndTrace();
     }
     super.dispose();
   }
@@ -371,7 +371,7 @@ class TripScreenMapGoogleController extends GetxController {
   disposeMap() async {
     GoogleMapController controller = await _controller.future;
     controller.dispose();
-    endTrackAndTrace();
+    // endTrackAndTrace();
   }
 
   getAddressFromLatLng() async {
