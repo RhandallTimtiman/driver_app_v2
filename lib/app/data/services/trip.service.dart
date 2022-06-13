@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
+import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
+import 'package:flutter/material.dart';
 
 class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());
@@ -158,6 +160,7 @@ class TripService extends ITrip {
       "requiresToken": true,
     };
     try {
+      debugPrint('=====> in new trip');
       String unencodedPath = '/oat/api/driver-app/NewTripPopUp';
 
       var queryParameters = {
@@ -236,6 +239,46 @@ class TripService extends ITrip {
         } else {
           throw parsedResponse;
         }
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future addTrackingHistory({
+    required String acquiredTruckingServiceId,
+    required String tripId,
+    required double latitude,
+    required double longitude,
+  }) async {
+    _dio.options.headers = <String, dynamic>{
+      'requiresToken': true,
+    };
+
+    try {
+      var payload = {
+        'entityId': "Mobile",
+        'sourceId': "DriverApp",
+        'referenceNo': '$tripId-$acquiredTruckingServiceId',
+        'latitude': latitude,
+        'longitude': longitude
+      };
+
+      String unencodedPath = '/Prod/api/tracking/save';
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+      Response response = await _dio.postUri(
+        uri,
+        data: payload,
+        options: Options(
+          headers: {
+            'x-api-key': Strings.xKey,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson2(response.data);
+        return parsedResponse;
       }
     } catch (e) {
       rethrow;

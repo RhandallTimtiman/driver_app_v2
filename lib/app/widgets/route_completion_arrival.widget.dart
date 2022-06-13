@@ -554,6 +554,8 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                         const Duration(
                                                             milliseconds: 300),
                                                         () {
+                                                          Get.toNamed(
+                                                              'qr-reader');
                                                           // setState(() {
                                                           //   currentContainerIndex =
                                                           //       i;

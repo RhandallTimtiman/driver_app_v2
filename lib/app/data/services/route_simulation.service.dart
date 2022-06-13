@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
@@ -34,6 +36,7 @@ class RouteSimulationService implements IRouteSimulation {
         ),
       );
       if (response.statusCode == 200) {
+        inspect(response.data);
         ApiResponse parsedResponse = ApiResponse.fromJson2(
           response.data,
         );

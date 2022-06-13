@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:driver_app/app/data/controllers/controllers.dart';
@@ -110,6 +109,7 @@ class RouteCompletionController extends GetxController {
     };
   });
 
+  int qrCurrentIndex = 0;
   // ==== Document Setup ==== //
   final docs = DocumentStates().obs;
 
@@ -150,6 +150,11 @@ class RouteCompletionController extends GetxController {
 
   void setLoading() {
     loading.toggle();
+    update();
+  }
+
+  void setQrIndex(int index) {
+    qrCurrentIndex = index;
     update();
   }
 
@@ -335,7 +340,6 @@ class RouteCompletionController extends GetxController {
   }
 
   submitDocuments() async {
-    debugPrint('in submitdocs');
     String receivedBy = receivedByController.text;
     String contactNumber = maskFormatter.getUnmaskedText();
     Trip currentTrip = Get.find<CurrentTripController>().currentTrip.value.trip;
@@ -515,9 +519,10 @@ class RouteCompletionController extends GetxController {
           Get.find<CurrentTripController>().setSelectedTrip(trip);
           Get.find<CurrentTripController>().clearOnGoingTrip();
           Get.find<TripScreenMapGoogleController>().plotMarkers();
-          // Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
+          Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
           Get.back();
           Get.find<CurrentTripController>().openCompletedTrip();
+          Get.find<OngoingTripController>().setHasOnGoingTrip(false);
         }).catchError(
           (error) => showError(error),
         );
@@ -544,7 +549,7 @@ class RouteCompletionController extends GetxController {
           Get.find<CurrentTripController>().setSelectedTrip(trip);
           Get.find<CurrentTripController>().updateOnGoing(trip);
           Get.find<CurrentTripController>().updateIsOnTripStatus(true);
-          debugPrint('in submit arrival');
+          Get.find<TripScreenMapGoogleController>().plotMarkers();
           Get.back();
           Timer(
             const Duration(milliseconds: 100),
@@ -575,12 +580,39 @@ class RouteCompletionController extends GetxController {
           arr.add(containerControllers[i].value.text.length);
         }
       }
-      inspect(arr.where((element) => element < 11));
-      if (arr.where((element) => element < 11).isEmpty) {
+
+      if (arr.where((containerText) => containerText < 11).isEmpty) {
         submitDocuments();
       }
     } else {
       submitDocuments();
+    }
+  }
+
+  openQrModal(String value) {
+    Get.bottomSheet(
+      ScannerView(
+        value: value,
+        setContainerNumber: setContainerNumber,
+      ),
+      isScrollControlled: true,
+    );
+  }
+
+  setContainerNumber(value) {
+    int getActiveIndex = containerInformation.indexWhere((element) =>
+        element["containerNumber"] ==
+        containerControllers[qrCurrentIndex].text);
+    containerHasScanned[qrCurrentIndex] = {
+      "hasScanned": true,
+      "trackingDeviceId": value
+    };
+
+    trackingDeviceControllers[qrCurrentIndex].text = value;
+
+    if (getActiveIndex != -1) {
+      // print("Wiw active $getActiveIndex");
+      containerInformation[getActiveIndex]["hasTaken"] = false;
     }
   }
 }

@@ -110,7 +110,11 @@ class Messages extends Translations {
           'instruction_others': 'Instructions / Others',
           'route_completion_label': 'Route Completion',
           'scan_label': 'Scan',
-          'proceed_to': 'Proceed to'
+          'proceed_to': 'Proceed to',
+          'tracking_id': 'Tracking Device ID',
+          'scan_successful': 'SCAN SUCCESSFUL!',
+          'invalid_qr': 'Invalid QR Code',
+          'scan_again': 'Try a new one or Scan Again'
         },
         'de_DE': {
           'hello': 'Hallo Welt',
@@ -215,7 +219,11 @@ class Messages extends Translations {
           'instruction_others': 'Instructions / Others',
           'route_completion_label': 'Route Completion',
           'scan_label': 'Scan',
-          'proceed_to': 'Proceed to'
+          'proceed_to': 'Proceed to',
+          'tracking_id': 'Tracking Device ID',
+          'scan_successful': 'SCAN SUCCESSFUL!',
+          'invalid_qr': 'Invalid QR Code',
+          'scan_again': 'Try a new one or Scan Again'
         },
       };
 }
