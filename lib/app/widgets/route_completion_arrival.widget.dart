@@ -548,31 +548,7 @@ class _RouteCompletionArrivalState extends State<RouteCompletionArrival> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      FocusScope.of(context)
-                                                          .unfocus();
-                                                      Timer(
-                                                        const Duration(
-                                                            milliseconds: 300),
-                                                        () {
-                                                          Get.toNamed(
-                                                              'qr-reader');
-                                                          // setState(() {
-                                                          //   currentContainerIndex =
-                                                          //       i;
-                                                          //   Navigator.push(
-                                                          //     currentContext,
-                                                          //     MaterialPageRoute(
-                                                          //       builder:
-                                                          //           (nContext) =>
-                                                          //               QrReader(
-                                                          //         callBack:
-                                                          //             openQrCallbackModal,
-                                                          //       ),
-                                                          //     ),
-                                                          //   );
-                                                          // });
-                                                        },
-                                                      );
+                                                      Get.toNamed('qr-reader');
                                                     },
                                                   ),
                                                   Text(

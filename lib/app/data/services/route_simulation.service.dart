@@ -36,7 +36,6 @@ class RouteSimulationService implements IRouteSimulation {
         ),
       );
       if (response.statusCode == 200) {
-        inspect(response.data);
         ApiResponse parsedResponse = ApiResponse.fromJson2(
           response.data,
         );

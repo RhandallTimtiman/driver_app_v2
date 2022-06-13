@@ -75,7 +75,6 @@ class _MyAppState extends State<MyApp> {
           );
 
           if (res) {
-            inspect(res);
             Get.find<NotificationController>().initializePushNotif();
           }
         }

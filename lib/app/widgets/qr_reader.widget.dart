@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,15 +28,13 @@ class _QrReaderState extends State<QrReader> {
   void _onQRViewCreated(QRViewController qController) {
     controller = qController;
     controller.scannedDataStream.listen((scanData) {
-      Timer(const Duration(milliseconds: 300), () {
-        if (scanData.code != "" && scanData.code != "0") {
-          Get.back();
-          Get.find<RouteCompletionController>().openQrModal(scanData.code!);
-        } else {
-          Get.back();
-          Get.find<RouteCompletionController>().openQrModal(scanData.code!);
-        }
-      });
+      if (scanData.code != "" && scanData.code != "0") {
+        Get.back();
+        Get.find<RouteCompletionController>().openQrModal(scanData.code!);
+      } else {
+        Get.back();
+        Get.find<RouteCompletionController>().openQrModal("");
+      }
     });
   }
 

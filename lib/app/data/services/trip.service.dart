@@ -160,7 +160,6 @@ class TripService extends ITrip {
       "requiresToken": true,
     };
     try {
-      debugPrint('=====> in new trip');
       String unencodedPath = '/oat/api/driver-app/NewTripPopUp';
 
       var queryParameters = {

@@ -149,7 +149,9 @@ class ScannerView extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 15,
                                           ),
-                                          child: Text('confirm_label'.tr),
+                                          child: Text(
+                                            'confirm_label'.tr,
+                                          ),
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(

@@ -30,7 +30,6 @@ class FileViewerScreen extends StatelessWidget {
 
     void openUrl(url) async {
       Uri _url = Uri.parse(url);
-      inspect(_url);
       if (await canLaunchUrl(_url)) {
         await launchUrl(
           _url,

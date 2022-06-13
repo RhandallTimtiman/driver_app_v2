@@ -62,8 +62,6 @@ class TripScreenMapGoogleController extends GetxController {
       destLat: currentTrip.trip.destination.latitude,
       destLng: currentTrip.trip.destination.longitude,
     );
-    debugPrint('======> init trip amp');
-    inspect(currentTrip);
     if (currentTrip.trip.statusId == 'ONG') {
       startTrackAndTrace(currentTrip.mapType);
       getTripListHistoryGoogle();
@@ -76,7 +74,6 @@ class TripScreenMapGoogleController extends GetxController {
   @override
   void dispose() {
     disposeMap();
-    debugPrint('=====> in dispose map');
     super.dispose();
   }
 
@@ -404,16 +401,13 @@ class TripScreenMapGoogleController extends GetxController {
   }
 
   startTrackAndTrace(mapType) {
-    int count = 0;
-    debugPrint('====> Start Track And trace');
+    // int count = 0;
     positionStream = Geolocator.getPositionStream(
         locationSettings: const LocationSettings(
       accuracy: LocationAccuracy.high,
       distanceFilter: 5,
     )).listen((Position? position) {
       if (mapType == 1) {
-        debugPrint('in move pin');
-        debugPrint('move pin count = ${count.toString()}');
         _finalBearing = position?.heading;
         movePin(position, _finalBearing ?? 0.0);
         // if (count == 0) {
@@ -428,7 +422,7 @@ class TripScreenMapGoogleController extends GetxController {
         // }
       }
 
-      count++;
+      // count++;
     });
   }
 
@@ -437,7 +431,6 @@ class TripScreenMapGoogleController extends GetxController {
     double bearing,
   ) async {
     GoogleMapController controller = await _controller.future;
-    debugPrint('======> moved pin');
     if (_currentMarker != null) {
       clearMarker(_currentMarker!, '0');
     }

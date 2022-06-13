@@ -27,9 +27,7 @@ class NotificationController extends GetxController {
   }
 
   initializePushNotif() {
-    debugPrint('in push notif');
     FirebaseMessaging.onMessage.listen((event) {
-      inspect(event);
       final Map parsed = Platform.isIOS
           ? jsonDecode(event.data['info'])
           : jsonDecode(event.data['info']);
@@ -42,8 +40,6 @@ class NotificationController extends GetxController {
           .then((_) => semaphore = 0);
 
       if (parsed['NotificationType'] == 'newTrip') {
-        debugPrint('I received notification');
-
         _tripService
             .getNewTrip(
           driverId: parsed['DriverId'],
@@ -53,7 +49,6 @@ class NotificationController extends GetxController {
           List<dynamic> tempTrips = result;
 
           List<Trip> trips = tempTrips.cast<Trip>();
-          inspect(result);
 
           Get.dialog(
             Dialog(

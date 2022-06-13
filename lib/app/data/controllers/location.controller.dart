@@ -69,12 +69,9 @@ class LocationController extends GetxController {
               heading: position.heading,
             ),
           );
-          debugPrint(
-              'in going trip ==== ${Get.find<OngoingTripController>().hasOnGoingTrip.value}');
           bool hasOnGoingTrip =
               Get.find<OngoingTripController>().hasOnGoingTrip.value;
           if (count % 20 == 0) {
-            debugPrint('=====> call location');
             if (hasOnGoingTrip) {
               OnGoingTrip onGoingTrip =
                   Get.find<OngoingTripController>().onGoingTrip;
@@ -88,7 +85,6 @@ class LocationController extends GetxController {
             }
             Driver driver = Get.find<DriverController>().driver.value;
             if (driver.driverId != null && driver.truckingCompanyId != null) {
-              debugPrint('====> send driver location');
               driverService.sendDriverLatestLocation(
                 driverId: driver.driverId.toString(),
                 truckingCompanyId: driver.truckingCompanyId.toString(),
@@ -102,7 +98,6 @@ class LocationController extends GetxController {
           if (sendDriverLocCount % duration == 0) {
             Driver driver = Get.find<DriverController>().driver.value;
             if (driver.driverId != null && driver.truckingCompanyId != null) {
-              debugPrint('====> send driver location');
               driverService.sendDriverLatestLocation(
                 driverId: driver.driverId.toString(),
                 truckingCompanyId: driver.truckingCompanyId.toString(),
