@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';

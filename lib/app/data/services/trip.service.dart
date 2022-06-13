@@ -4,7 +4,6 @@ import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
-import 'package:flutter/material.dart';
 
 class TripService extends ITrip {
   final _dio = Dio()..interceptors.add(ApiInterceptor());

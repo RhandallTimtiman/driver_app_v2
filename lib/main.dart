@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:driver_app/app/core/constants/app.routes.dart';
 import 'package:driver_app/app/core/translation/messages.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';

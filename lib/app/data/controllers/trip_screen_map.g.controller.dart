@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';

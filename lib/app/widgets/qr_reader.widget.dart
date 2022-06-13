@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
