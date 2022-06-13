@@ -40,8 +40,6 @@ class NotificationController extends GetxController {
           .then((_) => semaphore = 0);
 
       if (parsed['NotificationType'] == 'newTrip') {
-        debugPrint('I received notification');
-
         _tripService
             .getNewTrip(
           driverId: parsed['DriverId'],
