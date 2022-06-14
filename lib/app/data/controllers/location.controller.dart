@@ -21,7 +21,6 @@ class LocationController extends GetxController {
     if (defaultTargetPlatform == TargetPlatform.android) {
       locationSettings = AndroidSettings(
         accuracy: LocationAccuracy.high,
-        forceLocationManager: true,
         foregroundNotificationConfig: const ForegroundNotificationConfig(
           notificationText:
               "Driver App will continue to receive your location even when you aren't using it",
