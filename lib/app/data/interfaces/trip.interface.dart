@@ -37,4 +37,12 @@ abstract class ITrip {
 
   ///List of Reason of Rejection
   Future getListOfReasonOfRejection();
+
+  /// Save Current Location
+  Future addTrackingHistory({
+    required String acquiredTruckingServiceId,
+    required String tripId,
+    required double latitude,
+    required double longitude,
+  });
 }

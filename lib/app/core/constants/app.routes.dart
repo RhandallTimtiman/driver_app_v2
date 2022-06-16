@@ -106,6 +106,10 @@ class AppRoutes {
       page: () => const RouteSimulationScreen(),
       binding: RouteSimulationBinding(),
     ),
+    GetPage(
+      name: '/qr-reader',
+      page: () => const QrReader(),
+    ),
   ];
 
   static final List<DrawerItemModel> drawerRoutes = [

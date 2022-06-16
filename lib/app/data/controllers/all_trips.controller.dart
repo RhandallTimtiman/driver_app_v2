@@ -39,7 +39,6 @@ class AllTripsController extends GetxController {
         )
         .then(
           (value) => {
-            debugPrint('I was called.'),
             setTripList(value),
             setTempTripList(value),
             setLoading(false),
@@ -79,7 +78,6 @@ class AllTripsController extends GetxController {
   }
 
   void searchTrips(String value) {
-    debugPrint(allTripsSearchController.text);
     if (value.isEmpty) {
       // ignore: invalid_use_of_protected_member
       tripList.value = tempTripList.value;

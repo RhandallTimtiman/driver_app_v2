@@ -90,6 +90,11 @@ class TripController extends GetxController {
     Get.toNamed('/trip');
   }
 
+  updateCurrentAddress(String address) {
+    state.value.location?.address = address;
+    update();
+  }
+
   void setTripList(List<Trip> list) {
     tripList = list;
     update();

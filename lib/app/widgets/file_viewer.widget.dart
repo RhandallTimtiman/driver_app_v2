@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +28,6 @@ class FileViewerScreen extends StatelessWidget {
 
     void openUrl(url) async {
       Uri _url = Uri.parse(url);
-      inspect(_url);
       if (await canLaunchUrl(_url)) {
         await launchUrl(
           _url,

@@ -8,3 +8,4 @@ export 'notification.service.dart';
 export 'status.service.dart';
 export 'current_trip.service.dart';
 export 'route_simulation.service.dart';
+export 'driver.service.dart';
