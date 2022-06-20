@@ -405,10 +405,26 @@ class TripScreenMapGoogleController extends GetxController {
   }
 
   startTrackAndTrace(mapType) {
+    // int count = 0;
     positionStream = Get.find<LocationController>()
         .currentLoc
         .listen((CurrentPosition? position) {
-      movePin(position, _finalBearing ?? 0.0);
+      if (mapType == 1) {
+        _finalBearing = position?.heading;
+        movePin(position, _finalBearing ?? 0.0);
+        // if (count == 0) {
+        //   _finalBearing = position?.heading;
+        //   movePin(position, _finalBearing ?? 0.0);
+        // }
+        // if (count % 3 == 0) {
+        //   count = 0;
+        //   debugPrint('in count = 5');
+        //   _finalBearing = position?.heading;
+        //   movePin(position, _finalBearing ?? 0.0);
+        // }
+      }
+
+      // count++;
     });
   }
 
