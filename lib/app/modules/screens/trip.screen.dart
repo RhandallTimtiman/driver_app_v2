@@ -72,7 +72,7 @@ class _TripScreenState extends State<TripScreen> {
                         bottomLeft: Radius.circular(20),
                       ),
                     ),
-                    child: GetX<CurrentTripController>(
+                    child: GetBuilder<CurrentTripController>(
                       builder: (_) {
                         return Column(
                           mainAxisSize: MainAxisSize.min,

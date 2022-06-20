@@ -45,4 +45,9 @@ abstract class ITrip {
     required double latitude,
     required double longitude,
   });
+
+  /// Bulk Save Current Location
+  Future bulkAddTrackingHistory({
+    required List<dynamic> listOfLocation,
+  });
 }
