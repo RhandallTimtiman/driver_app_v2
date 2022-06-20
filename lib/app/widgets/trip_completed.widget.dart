@@ -28,7 +28,7 @@ class TripCompleted extends StatelessWidget {
                 top: -3,
                 right: -3,
                 child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Get.back(),
                   child: const Icon(
                     Icons.cancel,
                     size: 35,
@@ -108,8 +108,9 @@ class TripCompleted extends StatelessWidget {
                               child: const Text(
                                 'No',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               gradient: const LinearGradient(
                                 begin: Alignment.topCenter,
@@ -131,8 +132,9 @@ class TripCompleted extends StatelessWidget {
                               child: const Text(
                                 'Yes',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               gradient: const LinearGradient(
                                 begin: Alignment.topCenter,
@@ -143,23 +145,8 @@ class TripCompleted extends StatelessWidget {
                                 ],
                               ),
                               onPressed: () async {
-                                //   _showLoading(context);
-                                //   try {
-                                //     bool isSuccess = await tripService.acceptTrip(
-                                //       nextTrip.acquiredTruckingServiceId,
-                                //       nextTrip.driverId,
-                                //     );
-
-                                //     if (isSuccess) {
-                                //       _setSelectedTrip(context, nextTrip);
-                                //     } else {
-                                //       Navigator.pop(context);
-                                //     }
-                                //   } catch (error) {
-                                //     Navigator.pop(context);
-                                //     Helpers.showAlertMessage(
-                                //         context, 'Failed', error, false);
-                                //   }
+                                Get.find<CurrentTripController>()
+                                    .acceptNextTrip(nextTrip!);
                               },
                             ),
                           ),

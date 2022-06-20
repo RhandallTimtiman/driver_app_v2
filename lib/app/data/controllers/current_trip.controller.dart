@@ -18,6 +18,8 @@ class CurrentTripController extends GetxController {
 
   final ICurrentTrip currentTripService = CurrentTripService();
 
+  final ITrip tripService = TripService();
+
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
   @override
@@ -390,7 +392,7 @@ class CurrentTripController extends GetxController {
           ),
           content: TripCompleted(nextTrip: nextTrip),
         ),
-        barrierDismissible: true,
+        barrierDismissible: false,
       );
     } catch (error) {
       showError(error);
@@ -408,6 +410,49 @@ class CurrentTripController extends GetxController {
         content: const OriginCompleted(),
       ),
       barrierDismissible: true,
+    );
+  }
+
+  acceptNextTrip(Trip trip) {
+    Get.dialog(
+      const ModalLoader(message: 'Please wait...'),
+      barrierDismissible: false,
+    );
+
+    tripService
+        .acceptTrip(
+      driverId: Get.find<DriverController>().driver.value.driverId.toString(),
+      acquiredTruckingServiceId: trip.acquiredTruckingServiceId,
+    )
+        .then((value) {
+      getTripDetails(acquiredTruckingServiceId: trip.acquiredTruckingServiceId);
+    });
+  }
+
+  void getTripDetails({acquiredTruckingServiceId}) {
+    tripService
+        .getTripDetails(acquiredTruckingServiceId: acquiredTruckingServiceId)
+        .then(
+      (value) {
+        Get.back();
+        setSelectedTrip(value);
+        Get.find<TripScreenMapGoogleController>().updateGmapController();
+        Get.back();
+      },
+    ).catchError(
+      (error) {
+        Get.snackbar(
+          'error_snackbar_title'.tr,
+          error.toString(),
+          backgroundColor: Colors.red[400],
+          colorText: Colors.white,
+          duration: const Duration(
+            seconds: 4,
+          ),
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(15),
+        );
+      },
     );
   }
 }

@@ -627,4 +627,17 @@ class TripScreenMapGoogleController extends GetxController {
       ),
     );
   }
+
+  updateGmapController() {
+    var currentTrip = Get.find<CurrentTripController>().currentTrip.value;
+    getRouteDetails(
+      originLat: currentTrip.trip.origin.latitude,
+      originLng: currentTrip.trip.origin.longitude,
+      destLat: currentTrip.trip.destination.latitude,
+      destLng: currentTrip.trip.destination.longitude,
+    );
+    markers.clear();
+    polylines.clear();
+    update();
+  }
 }
