@@ -13,6 +13,7 @@ class OngoingTripController extends GetxController {
 
   void setHasOnGoingTrip(bool value) {
     hasOnGoingTrip.value = value;
+    update();
   }
 
   void checkIfHasPendingTrip() {

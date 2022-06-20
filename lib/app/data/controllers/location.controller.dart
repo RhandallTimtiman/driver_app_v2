@@ -11,13 +11,15 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LocationController extends GetxController {
-  var currentLoc = CurrentPosition().obs;
+  final Rx<CurrentPosition> currentLoc = CurrentPosition().obs;
 
   final ITrip tripService = TripService();
 
   final IDriver driverService = DriverService();
 
   List<dynamic> coordinates = [];
+
+  StreamSubscription<Position>? positionStream;
 
   setCurrentLocation(var data) {
     currentLoc.value = data;
@@ -56,13 +58,9 @@ class LocationController extends GetxController {
     }
     int count = 0;
     int sendDriverLocCount = 0;
-    Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+    positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
       (Position? position) async {
-        debugPrint(
-          position == null
-              ? 'Unknown'
-              : '${position.latitude.toString()}, ${position.longitude.toString()}',
-        );
         if (position != null) {
           setCurrentLocation(
             CurrentPosition(
@@ -74,7 +72,6 @@ class LocationController extends GetxController {
           );
 
           var locations = GetStorage().read('locations');
-          debugPrint('=====> offline location ===> $count');
           if (locations != null) {
             sendBulkLocation(json.decode(locations));
             inspect(json.decode(locations));
@@ -82,7 +79,6 @@ class LocationController extends GetxController {
 
           bool hasOnGoingTrip =
               Get.find<OngoingTripController>().hasOnGoingTrip.value;
-
           if (count % 20 == 0) {
             if (hasOnGoingTrip) {
               OnGoingTrip onGoingTrip =
@@ -110,6 +106,7 @@ class LocationController extends GetxController {
           int duration = hasOnGoingTrip ? 5 : 20;
           if (sendDriverLocCount % duration == 0) {
             Driver driver = Get.find<DriverController>().driver.value;
+            inspect(driver);
             if (driver.driverId != null && driver.truckingCompanyId != null) {
               driverService.sendDriverLatestLocation(
                 driverId: driver.driverId.toString(),
@@ -175,8 +172,6 @@ class LocationController extends GetxController {
       'referenceNo': '$tripId-$acquiredTruckingServiceId',
     });
     var location = json.encode(coordinates);
-    debugPrint('===> inspect coordinates');
-    inspect(coordinates);
     GetStorage().write('locations', location);
   }
 
@@ -194,5 +189,9 @@ class LocationController extends GetxController {
         .bulkAddTrackingHistory(listOfLocation: locations)
         .then((value) => removeLocations())
         .catchError((error) {});
+  }
+
+  disposeListener() {
+    positionStream!.cancel();
   }
 }

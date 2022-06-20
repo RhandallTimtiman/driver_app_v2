@@ -1,3 +1,4 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/models/models.dart';
 import 'package:driver_app/app/modules/bindings/bindings.dart';
 import 'package:driver_app/app/modules/screens/screens.dart';
@@ -189,6 +190,9 @@ class AppRoutes {
       routeName: 'Logout',
       icon: 'assets/icons/logout.png',
       onTap: () {
+        Get.find<OngoingTripController>().setHasOnGoingTrip(false);
+        Get.find<DriverController>().clearDriver();
+        Get.find<LocationController>().disposeListener();
         GetStorage().remove('user');
         Get.offAllNamed('/login');
       },

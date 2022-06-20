@@ -14,4 +14,9 @@ class DriverController extends GetxController {
   String getFullName() {
     return '${driver.value.firstName.toString()} ${driver.value.lastName.toString()}';
   }
+
+  clearDriver() {
+    driver.value = Driver();
+    update();
+  }
 }
