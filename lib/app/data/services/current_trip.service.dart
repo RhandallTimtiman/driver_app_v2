@@ -7,7 +7,6 @@ import 'package:driver_app/app/core/utils/database.helper.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
@@ -117,7 +116,6 @@ class CurrentTripService implements ICurrentTrip {
 
       var uri = Uri.https(ApiPaths.proxy, unencodedPath, queryParameters);
       Response response = await _dio.postUri(uri);
-      debugPrint(response.data['message']);
       if (response.statusCode == 200) {
         if (response.data['data'] != null) {
           ApiResponse parsedResponse = ApiResponse.fromJson(
@@ -372,7 +370,6 @@ class CurrentTripService implements ICurrentTrip {
         ),
       );
       if (response.statusCode == 200) {
-        debugPrint('in add tracking history');
         ApiResponse parsedResponse = ApiResponse.fromJson2(response.data);
         return parsedResponse;
       }
@@ -403,13 +400,11 @@ class CurrentTripService implements ICurrentTrip {
         'isOrigin': isOrigin.toString(),
         'documentUploadedDate': dateUploaded
       };
-      debugPrint('===> in actual latlng');
       var uri = Uri.https(ApiPaths.proxy, unencodedPath);
       Response response = await _dio.postUri(uri, data: payload);
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson(response.data);
         if (parsedResponse.data != null) {
-          debugPrint('in update actual lat lang');
           Trip trip = Trip.fromJson(parsedResponse.data);
           return trip;
         }

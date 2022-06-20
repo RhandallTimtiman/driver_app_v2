@@ -1,8 +1,14 @@
+import 'package:driver_app/app/data/controllers/controllers.dart';
+import 'package:driver_app/app/data/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HasOnGoingTrip extends StatelessWidget {
-  const HasOnGoingTrip({Key? key}) : super(key: key);
+  final Trip trip;
+  const HasOnGoingTrip({
+    Key? key,
+    required this.trip,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +72,10 @@ class HasOnGoingTrip extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                    Get.find<TripController>().handleCurrentTrip(trip: trip);
+                  },
                 ),
               ),
             ],

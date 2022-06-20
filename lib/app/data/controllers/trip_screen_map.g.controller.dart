@@ -62,7 +62,8 @@ class TripScreenMapGoogleController extends GetxController {
       destLng: currentTrip.trip.destination.longitude,
     );
     if (currentTrip.trip.statusId == 'ONG') {
-      // startTrackAndTrace(currentTrip.mapType);
+      startTrackAndTrace(currentTrip.mapType);
+      getTripListHistoryGoogle();
     } else if (currentTrip.trip.statusId == 'COM') {
       getTripListHistoryGoogle();
     }
@@ -71,12 +72,7 @@ class TripScreenMapGoogleController extends GetxController {
 
   @override
   void dispose() {
-    debugPrint('indispose');
     disposeMap();
-    if (Get.find<CurrentTripController>().currentTrip.value.trip.statusId ==
-        'ONG') {
-      // endTrackAndTrace();
-    }
     super.dispose();
   }
 
@@ -193,7 +189,6 @@ class TripScreenMapGoogleController extends GetxController {
       'latitude': destLat,
       'longitude': destLng,
     };
-    debugPrint('===> in routeDetails');
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       Strings.gmapKey,
       PointLatLng(originLat, originLng),
@@ -370,8 +365,11 @@ class TripScreenMapGoogleController extends GetxController {
 
   disposeMap() async {
     GoogleMapController controller = await _controller.future;
+    if (Get.find<CurrentTripController>().currentTrip.value.trip.statusId ==
+        'ONG') {
+      endTrackAndTrace();
+    }
     controller.dispose();
-    // endTrackAndTrace();
   }
 
   getAddressFromLatLng() async {
@@ -383,10 +381,14 @@ class TripScreenMapGoogleController extends GetxController {
       Placemark place = p[0];
       var _currentAddress =
           "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
-      debugPrint(_currentAddress);
-      Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
+
+      if (Get.find<CurrentTripController>().initialized) {
+        Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
+      } else {
+        Get.find<TripController>().updateCurrentAddress(_currentAddress);
+      }
     } catch (e) {
-      rethrow;
+      endTrackAndTrace();
     }
   }
 
@@ -398,22 +400,29 @@ class TripScreenMapGoogleController extends GetxController {
   }
 
   startTrackAndTrace(mapType) {
-    int count = 0;
+    // int count = 0;
     positionStream = Geolocator.getPositionStream(
         locationSettings: const LocationSettings(
       accuracy: LocationAccuracy.high,
-      distanceFilter: 100,
+      distanceFilter: 5,
     )).listen((Position? position) {
       if (mapType == 1) {
+        _finalBearing = position?.heading;
         movePin(position, _finalBearing ?? 0.0);
-
-        if (count % 5 == 0) {
-          count = 0;
-          movePin(position, _finalBearing ?? 0.0);
-        }
+        // if (count == 0) {
+        //   _finalBearing = position?.heading;
+        //   movePin(position, _finalBearing ?? 0.0);
+        // }
+        // if (count % 3 == 0) {
+        //   count = 0;
+        //   debugPrint('in count = 5');
+        //   _finalBearing = position?.heading;
+        //   movePin(position, _finalBearing ?? 0.0);
+        // }
       }
+
+      // count++;
     });
-    count++;
   }
 
   movePin(
@@ -421,7 +430,6 @@ class TripScreenMapGoogleController extends GetxController {
     double bearing,
   ) async {
     GoogleMapController controller = await _controller.future;
-
     if (_currentMarker != null) {
       clearMarker(_currentMarker!, '0');
     }
@@ -448,6 +456,7 @@ class TripScreenMapGoogleController extends GetxController {
       ),
     );
     getAddressFromLatLng();
+    update();
   }
 
   endTrackAndTrace() {
@@ -550,6 +559,7 @@ class TripScreenMapGoogleController extends GetxController {
         southwestCoordinates,
       );
     });
+    update();
   }
 
   addStraightPolyline({

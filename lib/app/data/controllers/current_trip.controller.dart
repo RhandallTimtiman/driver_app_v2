@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -97,36 +96,41 @@ class CurrentTripController extends GetxController {
   }
 
   getOnGoingTrip() {
-    if (currentTrip.value.trip.statusId == 'PEN') {
-      currentTripService
-          .getTripByStatus(
-        driverId: Get.find<DriverController>().driver.value.driverId!,
-        status: 'ONG',
-      )
-          .then(
-        (value) {
-          if (value.length > 0) {
-            setLoading();
-            Get.find<OngoingTripController>().checkIfHasPendingTrip();
-          } else {
-            _showConfirmStartTrip();
-          }
-        },
-      ).catchError(
-        (error) {
-          showError(error);
-        },
-      );
-    } else {
-      if (currentTrip.value.trip.isOrigin) {
-        _showConfirmArrival(
-          currentTrip.value.trip.acquiredTruckingServiceId,
+    switch (currentTrip.value.trip.statusId) {
+      case 'PEN':
+        currentTripService
+            .getTripByStatus(
+          driverId: Get.find<DriverController>().driver.value.driverId!,
+          status: 'ONG',
+        )
+            .then(
+          (value) {
+            if (value.length > 0) {
+              setLoading();
+              List<Trip> tripList = value;
+              Trip trip =
+                  tripList.where((element) => element.statusId == 'ONG').first;
+              Get.find<OngoingTripController>().openHasOngoingTrip(trip);
+            } else {
+              _showConfirmStartTrip();
+            }
+          },
+        ).catchError(
+          (error) {
+            showError(error);
+          },
         );
-      } else {
-        showConfirmEndTrip(
-          currentTrip.value.trip.acquiredTruckingServiceId,
-        );
-      }
+        break;
+      default:
+        if (currentTrip.value.trip.isOrigin) {
+          _showConfirmArrival(
+            currentTrip.value.trip.acquiredTruckingServiceId,
+          );
+        } else {
+          showConfirmEndTrip(
+            currentTrip.value.trip.acquiredTruckingServiceId,
+          );
+        }
     }
   }
 
@@ -229,7 +233,15 @@ class CurrentTripController extends GetxController {
         setSelectedTrip(trip);
         updateIsOnTripStatus(true);
         updateOnGoing(trip);
-        // Get.find<TripScreenMapGoogleController>().startTrackAndTrace(trip);
+        Get.find<OngoingTripController>().setHasOnGoingTrip(true);
+        Get.find<OngoingTripController>().setOnGoingTrip(trip);
+        Get.find<TripScreenMapGoogleController>().startTrackAndTrace(
+            Get.find<CurrentTripController>().currentTrip.value.mapType);
+        Get.find<TripScreenMapGoogleController>().addRouteMarker(
+          legend: 1,
+          latitude: geo.latitude,
+          longitude: geo.longitude,
+        );
 
         await currentTripService.addTrackingHistory(
           acquiredTruckingServiceId: acquiredTruckingServiceId.toString(),
@@ -241,21 +253,6 @@ class CurrentTripController extends GetxController {
       } catch (error) {
         Get.back();
         setLoading();
-        showError(error);
-      }
-    } else if (status == 'COM') {
-      try {
-        Trip trip = await currentTripService.updateTrip(
-          acquiredTruckingServiceId: acquiredTruckingServiceId,
-          status: status,
-          isOrigin: isOrigin,
-        );
-        setSelectedTrip(trip);
-        updateIsOnTripStatus(false);
-        clearOnGoingTrip();
-        // Get.find<TripScreenMapGoogleController>().endTrackAndTrace();
-      } catch (error) {
-        Get.back();
         showError(error);
       }
     }
@@ -274,7 +271,6 @@ class CurrentTripController extends GetxController {
       destinationLongitude: destinationGeoCoordinates.lng,
     )
         .then((result) {
-      inspect(result);
       completer.complete(result);
     }).catchError((err) {
       completer.complete(0);

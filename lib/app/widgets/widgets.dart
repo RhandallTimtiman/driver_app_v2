@@ -59,3 +59,5 @@ export 'document_grid_route_completion.widget.dart';
 export 'origin_completed.widget.dart';
 export 'trip_completed.widget.dart';
 export 'reject_trip.widget.dart';
+export 'qr_reader.widget.dart';
+export 'scanner_view.widget.dart';
