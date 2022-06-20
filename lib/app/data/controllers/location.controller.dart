@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -14,6 +16,8 @@ class LocationController extends GetxController {
   final ITrip tripService = TripService();
 
   final IDriver driverService = DriverService();
+
+  List<dynamic> coordinates = [];
 
   setCurrentLocation(var data) {
     currentLoc.value = data;
@@ -68,28 +72,38 @@ class LocationController extends GetxController {
               heading: position.heading,
             ),
           );
+
+          var locations = GetStorage().read('locations');
+          debugPrint('=====> offline location ===> $count');
+          if (locations != null) {
+            sendBulkLocation(json.decode(locations));
+            inspect(json.decode(locations));
+          }
+
           bool hasOnGoingTrip =
               Get.find<OngoingTripController>().hasOnGoingTrip.value;
+
           if (count % 20 == 0) {
             if (hasOnGoingTrip) {
               OnGoingTrip onGoingTrip =
                   Get.find<OngoingTripController>().onGoingTrip;
-              tripService.addTrackingHistory(
+              await tripService
+                  .addTrackingHistory(
                 acquiredTruckingServiceId:
                     onGoingTrip.acquiredTruckingServiceId.toString(),
                 tripId: onGoingTrip.tripId.toString(),
                 latitude: position.latitude,
                 longitude: position.longitude,
-              );
-            }
-            Driver driver = Get.find<DriverController>().driver.value;
-            if (driver.driverId != null && driver.truckingCompanyId != null) {
-              driverService.sendDriverLatestLocation(
-                driverId: driver.driverId.toString(),
-                truckingCompanyId: driver.truckingCompanyId.toString(),
-                latitude: position.latitude,
-                longitude: position.longitude,
-              );
+              )
+                  .catchError((onError) {
+                addLocation(
+                  acquiredTruckingServiceId:
+                      onGoingTrip.acquiredTruckingServiceId.toString(),
+                  tripId: onGoingTrip.tripId.toString(),
+                  latitude: position.latitude,
+                  longitude: position.longitude,
+                );
+              });
             }
             count = 0;
           }
@@ -144,5 +158,41 @@ class LocationController extends GetxController {
     }
 
     startLocationService();
+  }
+
+  addLocation({
+    required double latitude,
+    required double longitude,
+    required String tripId,
+    required String acquiredTruckingServiceId,
+  }) async {
+    coordinates.add({
+      'entityId': "Mobile",
+      'sourceId': "DriverApp",
+      'date': DateTime.now().toUtc().toIso8601String(),
+      'latitude': latitude,
+      'longitude': longitude,
+      'referenceNo': '$tripId-$acquiredTruckingServiceId',
+    });
+    var location = json.encode(coordinates);
+    debugPrint('===> inspect coordinates');
+    inspect(coordinates);
+    GetStorage().write('locations', location);
+  }
+
+  removeLocations() async {
+    List<dynamic> locations = json.decode(
+      GetStorage().read('locations'),
+    );
+    coordinates.clear();
+    locations.clear();
+    GetStorage().write('locations', null);
+  }
+
+  sendBulkLocation(List<dynamic> locations) {
+    tripService
+        .bulkAddTrackingHistory(listOfLocation: locations)
+        .then((value) => removeLocations())
+        .catchError((error) {});
   }
 }

@@ -282,4 +282,31 @@ class TripService extends ITrip {
       rethrow;
     }
   }
+
+  @override
+  Future bulkAddTrackingHistory({required List listOfLocation}) async {
+    _dio.options.headers = <String, dynamic>{
+      'requiresToken': true,
+    };
+
+    try {
+      String unencodedPath = '/Prod/api/tracking/bulk-save';
+      var uri = Uri.https(ApiPaths.proxy, unencodedPath);
+      Response response = await _dio.postUri(
+        uri,
+        data: listOfLocation,
+        options: Options(
+          headers: {
+            'x-api-key': Strings.xKey,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        ApiResponse parsedResponse = ApiResponse.fromJson2(response.data);
+        return parsedResponse;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

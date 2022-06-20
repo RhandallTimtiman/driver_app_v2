@@ -233,15 +233,20 @@ class CurrentTripController extends GetxController {
         setSelectedTrip(trip);
         updateIsOnTripStatus(true);
         updateOnGoing(trip);
-        Get.find<OngoingTripController>().setHasOnGoingTrip(true);
-        Get.find<OngoingTripController>().setOnGoingTrip(trip);
-        Get.find<TripScreenMapGoogleController>().startTrackAndTrace(
-            Get.find<CurrentTripController>().currentTrip.value.mapType);
-        Get.find<TripScreenMapGoogleController>().addRouteMarker(
-          legend: 1,
-          latitude: geo.latitude,
-          longitude: geo.longitude,
-        );
+
+        Get.find<OngoingTripController>()
+          ..setHasOnGoingTrip(true)
+          ..setOnGoingTrip(trip);
+
+        Get.find<TripScreenMapGoogleController>()
+          ..startTrackAndTrace(
+            Get.find<CurrentTripController>().currentTrip.value.mapType,
+          )
+          ..addRouteMarker(
+            legend: 1,
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          );
 
         await currentTripService.addTrackingHistory(
           acquiredTruckingServiceId: acquiredTruckingServiceId.toString(),
