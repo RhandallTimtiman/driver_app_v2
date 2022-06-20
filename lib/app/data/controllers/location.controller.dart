@@ -74,7 +74,7 @@ class LocationController extends GetxController {
           );
 
           var locations = GetStorage().read('locations');
-          debugPrint('=====> offline location ===> $count');
+
           if (locations != null) {
             sendBulkLocation(json.decode(locations));
             inspect(json.decode(locations));

@@ -47,7 +47,7 @@ class TripScreenMapGoogleController extends GetxController {
 
   List<LatLng> polylineCoordinates = [];
 
-  StreamSubscription<Position>? positionStream;
+  StreamSubscription<CurrentPosition>? positionStream;
 
   double? _finalBearing;
 
@@ -401,11 +401,9 @@ class TripScreenMapGoogleController extends GetxController {
 
   startTrackAndTrace(mapType) {
     // int count = 0;
-    positionStream = Geolocator.getPositionStream(
-        locationSettings: const LocationSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 5,
-    )).listen((Position? position) {
+    positionStream = Get.find<LocationController>()
+        .currentLoc
+        .listen((CurrentPosition? position) {
       if (mapType == 1) {
         _finalBearing = position?.heading;
         movePin(position, _finalBearing ?? 0.0);
