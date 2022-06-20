@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -6,7 +7,6 @@ import 'package:driver_app/app/data/services/current_trip.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:driver_app/app/data/controllers/controllers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,7 +25,7 @@ class TripScreenMapGoogleController extends GetxController {
 
   RxSet<Marker> markers = <Marker>{}.obs;
 
-  late Marker? _currentMarker;
+  Marker? _currentMarker;
 
   late Marker _originMarker;
 
@@ -54,6 +54,7 @@ class TripScreenMapGoogleController extends GetxController {
   @override
   void onInit() {
     var currentTrip = Get.find<CurrentTripController>().currentTrip.value;
+    inspect(currentTrip);
     setMarkerIcon();
     getRouteDetails(
       originLat: currentTrip.trip.origin.latitude,
@@ -62,7 +63,7 @@ class TripScreenMapGoogleController extends GetxController {
       destLng: currentTrip.trip.destination.longitude,
     );
     if (currentTrip.trip.statusId == 'ONG') {
-      startTrackAndTrace(currentTrip.mapType);
+      startTrackAndTrace(1);
       getTripListHistoryGoogle();
     } else if (currentTrip.trip.statusId == 'COM') {
       getTripListHistoryGoogle();
@@ -189,22 +190,26 @@ class TripScreenMapGoogleController extends GetxController {
       'latitude': destLat,
       'longitude': destLng,
     };
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      Strings.gmapKey,
-      PointLatLng(originLat, originLng),
-      PointLatLng(destLat, destLng),
-      travelMode: TravelMode.driving,
-    );
+    try {
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        Strings.gmapKey,
+        PointLatLng(originLat, originLng),
+        PointLatLng(destLat, destLng),
+        travelMode: TravelMode.driving,
+      );
 
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(
-          LatLng(
-            point.latitude,
-            point.longitude,
-          ),
-        );
+      if (result.points.isNotEmpty) {
+        for (var point in result.points) {
+          polylineCoordinates.add(
+            LatLng(
+              point.latitude,
+              point.longitude,
+            ),
+          );
+        }
       }
+    } catch (e) {
+      inspect(e);
     }
     if (originRoute['latitude'] <= destinationRoute['latitude']) {
       southwestCoordinates = originRoute;
@@ -381,7 +386,7 @@ class TripScreenMapGoogleController extends GetxController {
       Placemark place = p[0];
       var _currentAddress =
           "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
-
+      inspect(place);
       if (Get.find<CurrentTripController>().initialized) {
         Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
       } else {
@@ -428,6 +433,7 @@ class TripScreenMapGoogleController extends GetxController {
     double bearing,
   ) async {
     GoogleMapController controller = await _controller.future;
+    inspect(_currentMarker);
     if (_currentMarker != null) {
       clearMarker(_currentMarker!, '0');
     }
