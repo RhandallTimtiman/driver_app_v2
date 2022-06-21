@@ -73,8 +73,8 @@ class LocationController extends GetxController {
 
           var locations = GetStorage().read('locations');
           if (locations != null) {
+            debugPrint('====> call bulk location');
             sendBulkLocation(json.decode(locations));
-            inspect(json.decode(locations));
           }
 
           bool hasOnGoingTrip =
@@ -83,7 +83,7 @@ class LocationController extends GetxController {
             if (hasOnGoingTrip) {
               OnGoingTrip onGoingTrip =
                   Get.find<OngoingTripController>().onGoingTrip;
-              await tripService
+              tripService
                   .addTrackingHistory(
                 acquiredTruckingServiceId:
                     onGoingTrip.acquiredTruckingServiceId.toString(),
@@ -106,14 +106,17 @@ class LocationController extends GetxController {
           int duration = hasOnGoingTrip ? 5 : 20;
           if (sendDriverLocCount % duration == 0) {
             Driver driver = Get.find<DriverController>().driver.value;
-            inspect(driver);
             if (driver.driverId != null && driver.truckingCompanyId != null) {
-              driverService.sendDriverLatestLocation(
-                driverId: driver.driverId.toString(),
-                truckingCompanyId: driver.truckingCompanyId.toString(),
-                latitude: position.latitude,
-                longitude: position.longitude,
-              );
+              try {
+                await driverService.sendDriverLatestLocation(
+                  driverId: driver.driverId.toString(),
+                  truckingCompanyId: driver.truckingCompanyId.toString(),
+                  latitude: position.latitude,
+                  longitude: position.longitude,
+                );
+              } catch (e) {
+                inspect(e);
+              }
             }
             sendDriverLocCount = 0;
           }
@@ -185,10 +188,10 @@ class LocationController extends GetxController {
   }
 
   sendBulkLocation(List<dynamic> locations) {
-    tripService
-        .bulkAddTrackingHistory(listOfLocation: locations)
-        .then((value) => removeLocations())
-        .catchError((error) {});
+    tripService.bulkAddTrackingHistory(listOfLocation: locations).then((value) {
+      Get.find<TripScreenMapGoogleController>().startTrackAndTrace(1);
+      removeLocations();
+    }).catchError((error) {});
   }
 
   disposeListener() {

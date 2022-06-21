@@ -54,7 +54,6 @@ class TripScreenMapGoogleController extends GetxController {
   @override
   void onInit() {
     var currentTrip = Get.find<CurrentTripController>().currentTrip.value;
-    inspect(currentTrip);
     setMarkerIcon();
     getRouteDetails(
       originLat: currentTrip.trip.origin.latitude,
@@ -180,7 +179,6 @@ class TripScreenMapGoogleController extends GetxController {
   }) async {
     Map<String, dynamic> northeastCoordinates;
     Map<String, dynamic> southwestCoordinates;
-
     var originRoute = {
       'latitude': originLat,
       'longitude': originLng,
@@ -386,14 +384,14 @@ class TripScreenMapGoogleController extends GetxController {
       Placemark place = p[0];
       var _currentAddress =
           "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
-      inspect(place);
+
       if (Get.find<CurrentTripController>().initialized) {
         Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
       } else {
         Get.find<TripController>().updateCurrentAddress(_currentAddress);
       }
     } catch (e) {
-      endTrackAndTrace();
+      inspect(e);
     }
   }
 
@@ -405,26 +403,13 @@ class TripScreenMapGoogleController extends GetxController {
   }
 
   startTrackAndTrace(mapType) {
-    // int count = 0;
     positionStream = Get.find<LocationController>()
         .currentLoc
         .listen((CurrentPosition? position) {
       if (mapType == 1) {
         _finalBearing = position?.heading;
         movePin(position, _finalBearing ?? 0.0);
-        // if (count == 0) {
-        //   _finalBearing = position?.heading;
-        //   movePin(position, _finalBearing ?? 0.0);
-        // }
-        // if (count % 3 == 0) {
-        //   count = 0;
-        //   debugPrint('in count = 5');
-        //   _finalBearing = position?.heading;
-        //   movePin(position, _finalBearing ?? 0.0);
-        // }
       }
-
-      // count++;
     });
   }
 
@@ -433,7 +418,6 @@ class TripScreenMapGoogleController extends GetxController {
     double bearing,
   ) async {
     GoogleMapController controller = await _controller.future;
-    inspect(_currentMarker);
     if (_currentMarker != null) {
       clearMarker(_currentMarker!, '0');
     }

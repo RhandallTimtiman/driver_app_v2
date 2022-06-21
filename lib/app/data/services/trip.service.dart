@@ -277,6 +277,8 @@ class TripService extends ITrip {
       if (response.statusCode == 200) {
         ApiResponse parsedResponse = ApiResponse.fromJson2(response.data);
         return parsedResponse;
+      } else {
+        return;
       }
     } catch (e) {
       rethrow;
