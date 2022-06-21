@@ -83,7 +83,7 @@ class LocationController extends GetxController {
             if (hasOnGoingTrip) {
               OnGoingTrip onGoingTrip =
                   Get.find<OngoingTripController>().onGoingTrip;
-              await tripService
+              tripService
                   .addTrackingHistory(
                 acquiredTruckingServiceId:
                     onGoingTrip.acquiredTruckingServiceId.toString(),
@@ -105,17 +105,20 @@ class LocationController extends GetxController {
           }
           int duration = hasOnGoingTrip ? 5 : 20;
           if (sendDriverLocCount % duration == 0) {
-            Driver driver = Get.find<DriverController>().driver.value;
-            inspect(driver);
-            if (driver.driverId != null && driver.truckingCompanyId != null) {
-              driverService.sendDriverLatestLocation(
-                driverId: driver.driverId.toString(),
-                truckingCompanyId: driver.truckingCompanyId.toString(),
-                latitude: position.latitude,
-                longitude: position.longitude,
-              );
-            }
             sendDriverLocCount = 0;
+            Driver driver = Get.find<DriverController>().driver.value;
+            if (driver.driverId != null && driver.truckingCompanyId != null) {
+              try {
+                await driverService.sendDriverLatestLocation(
+                  driverId: driver.driverId.toString(),
+                  truckingCompanyId: driver.truckingCompanyId.toString(),
+                  latitude: position.latitude,
+                  longitude: position.longitude,
+                );
+              } catch (e) {
+                inspect(e);
+              }
+            }
           }
         }
         sendDriverLocCount++;
@@ -189,6 +192,8 @@ class LocationController extends GetxController {
         .bulkAddTrackingHistory(listOfLocation: locations)
         .then((value) => removeLocations())
         .catchError((error) {});
+    inspect(Get.find<TripScreenMapGoogleController>().positionStream);
+    Get.find<TripScreenMapGoogleController>().startTrackAndTrace(1);
   }
 
   disposeListener() {

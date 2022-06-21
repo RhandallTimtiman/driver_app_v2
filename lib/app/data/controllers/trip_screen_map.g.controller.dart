@@ -180,7 +180,6 @@ class TripScreenMapGoogleController extends GetxController {
   }) async {
     Map<String, dynamic> northeastCoordinates;
     Map<String, dynamic> southwestCoordinates;
-
     var originRoute = {
       'latitude': originLat,
       'longitude': originLng,
@@ -405,26 +404,13 @@ class TripScreenMapGoogleController extends GetxController {
   }
 
   startTrackAndTrace(mapType) {
-    // int count = 0;
     positionStream = Get.find<LocationController>()
         .currentLoc
         .listen((CurrentPosition? position) {
       if (mapType == 1) {
         _finalBearing = position?.heading;
         movePin(position, _finalBearing ?? 0.0);
-        // if (count == 0) {
-        //   _finalBearing = position?.heading;
-        //   movePin(position, _finalBearing ?? 0.0);
-        // }
-        // if (count % 3 == 0) {
-        //   count = 0;
-        //   debugPrint('in count = 5');
-        //   _finalBearing = position?.heading;
-        //   movePin(position, _finalBearing ?? 0.0);
-        // }
       }
-
-      // count++;
     });
   }
 
@@ -433,7 +419,6 @@ class TripScreenMapGoogleController extends GetxController {
     double bearing,
   ) async {
     GoogleMapController controller = await _controller.future;
-    inspect(_currentMarker);
     if (_currentMarker != null) {
       clearMarker(_currentMarker!, '0');
     }
