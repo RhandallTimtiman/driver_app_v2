@@ -54,7 +54,6 @@ class TripScreenMapGoogleController extends GetxController {
   @override
   void onInit() {
     var currentTrip = Get.find<CurrentTripController>().currentTrip.value;
-    inspect(currentTrip);
     setMarkerIcon();
     getRouteDetails(
       originLat: currentTrip.trip.origin.latitude,
@@ -385,14 +384,14 @@ class TripScreenMapGoogleController extends GetxController {
       Placemark place = p[0];
       var _currentAddress =
           "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
-      inspect(place);
+
       if (Get.find<CurrentTripController>().initialized) {
         Get.find<CurrentTripController>().updateCurrentAddress(_currentAddress);
       } else {
         Get.find<TripController>().updateCurrentAddress(_currentAddress);
       }
     } catch (e) {
-      endTrackAndTrace();
+      inspect(e);
     }
   }
 

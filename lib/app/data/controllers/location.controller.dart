@@ -73,8 +73,8 @@ class LocationController extends GetxController {
 
           var locations = GetStorage().read('locations');
           if (locations != null) {
+            debugPrint('====> call bulk location');
             sendBulkLocation(json.decode(locations));
-            inspect(json.decode(locations));
           }
 
           bool hasOnGoingTrip =
@@ -105,7 +105,6 @@ class LocationController extends GetxController {
           }
           int duration = hasOnGoingTrip ? 5 : 20;
           if (sendDriverLocCount % duration == 0) {
-            sendDriverLocCount = 0;
             Driver driver = Get.find<DriverController>().driver.value;
             if (driver.driverId != null && driver.truckingCompanyId != null) {
               try {
@@ -119,6 +118,7 @@ class LocationController extends GetxController {
                 inspect(e);
               }
             }
+            sendDriverLocCount = 0;
           }
         }
         sendDriverLocCount++;
@@ -188,12 +188,10 @@ class LocationController extends GetxController {
   }
 
   sendBulkLocation(List<dynamic> locations) {
-    tripService
-        .bulkAddTrackingHistory(listOfLocation: locations)
-        .then((value) => removeLocations())
-        .catchError((error) {});
-    inspect(Get.find<TripScreenMapGoogleController>().positionStream);
-    Get.find<TripScreenMapGoogleController>().startTrackAndTrace(1);
+    tripService.bulkAddTrackingHistory(listOfLocation: locations).then((value) {
+      Get.find<TripScreenMapGoogleController>().startTrackAndTrace(1);
+      removeLocations();
+    }).catchError((error) {});
   }
 
   disposeListener() {
