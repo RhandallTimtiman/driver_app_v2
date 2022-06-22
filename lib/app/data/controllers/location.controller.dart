@@ -32,7 +32,7 @@ class LocationController extends GetxController {
 
     if (defaultTargetPlatform == TargetPlatform.android) {
       locationSettings = AndroidSettings(
-        // forceLocationManager: true,
+        forceLocationManager: true,
         accuracy: LocationAccuracy.high,
         foregroundNotificationConfig: const ForegroundNotificationConfig(
           notificationText:

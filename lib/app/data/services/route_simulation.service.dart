@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:driver_app/app/core/constants/api_paths.dart';
+import 'package:driver_app/app/core/constants/strings.dart';
 import 'package:driver_app/app/data/interceptors/api.interceptor.dart';
 import 'package:driver_app/app/data/interfaces/interfaces.dart';
 import 'package:driver_app/app/data/models/models.dart';
@@ -20,7 +21,6 @@ class RouteSimulationService implements IRouteSimulation {
       var queryParams = {
         'key': companyId,
       };
-      String xkey = 'pkLta08Qv63teG4LV7ATj3ar7D4gvn7p3QdNix7k';
       String unencodedPath =
           '/Prod/api/tracking/referenceNo/$tripId-$acquiredTruckingServiceId/snapToRoad/lines/combined';
 
@@ -29,7 +29,7 @@ class RouteSimulationService implements IRouteSimulation {
         uri,
         options: Options(
           headers: {
-            'x-api-key': xkey,
+            'x-api-key': Strings.xKey,
           },
         ),
       );

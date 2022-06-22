@@ -1,3 +1,3 @@
 class ApiPaths {
-  static String proxy = 'optimus-driverapp-middleware.dev.xlog.asia';
+  static String proxy = 'optimus-driverapp-middleware.devqa.xlog.asia';
 }
